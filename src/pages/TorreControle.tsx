@@ -4,6 +4,7 @@ import { DashboardGeral } from "@/components/views/DashboardGeral";
 import { DashboardComprador } from "@/components/views/DashboardComprador";
 import { PerformanceView } from "@/components/views/PerformanceView";
 import { LiberacoesView } from "@/components/views/LiberacoesView";
+import { MetasView } from "@/components/views/MetasView";
 import { AgenteView } from "@/components/views/AgenteView";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Building2, Menu } from "lucide-react";
@@ -24,6 +25,8 @@ const TorreControle = () => {
         return <PerformanceView />;
       case 'liberacoes':
         return <LiberacoesView />;
+      case 'metas':
+        return <MetasView />;
       case 'agente':
         return <AgenteView />;
       default:
