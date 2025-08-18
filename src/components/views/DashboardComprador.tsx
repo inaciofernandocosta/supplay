@@ -124,7 +124,7 @@ export const DashboardComprador = () => {
       </div>
 
       {/* Metrics Row */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <MetricCard
           title="Orçamento Utilizado"
           value={formatCurrency(comprador.utilizado)}
@@ -159,8 +159,8 @@ export const DashboardComprador = () => {
       </div>
 
       {/* Budget Gauge and Recent Entries */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-1">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="xl:col-span-1">
           <BudgetGauge
             current={comprador.utilizado}
             total={comprador.meta}
@@ -168,46 +168,48 @@ export const DashboardComprador = () => {
           />
         </div>
         
-        <div className="lg:col-span-2">
+        <div className="xl:col-span-2">
           <Card className="glass-card">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-lg">
                 <ShoppingCart className="h-5 w-5 text-primary" />
                 Entradas Recentes
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow className="border-border/50">
-                    <TableHead>Data</TableHead>
-                    <TableHead>Fornecedor</TableHead>
-                    <TableHead>Produto</TableHead>
-                    <TableHead className="text-right">Valor</TableHead>
-                    <TableHead>Status</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {entradasRecentes.map((entrada) => (
-                    <TableRow key={entrada.id} className="border-border/50">
-                      <TableCell className="font-medium">
-                        {new Date(entrada.data).toLocaleDateString('pt-BR')}
-                      </TableCell>
-                      <TableCell>{entrada.fornecedor}</TableCell>
-                      <TableCell>{entrada.produto}</TableCell>
-                      <TableCell className="text-right font-medium">
-                        {formatCurrency(entrada.valor)}
-                      </TableCell>
-                      <TableCell>
-                        <StatusBadge 
-                          status={entrada.status === 'Faturado' ? 'success' : 'warning'}
-                          label={entrada.status}
-                        />
-                      </TableCell>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="border-border/50">
+                      <TableHead className="min-w-[80px]">Data</TableHead>
+                      <TableHead className="min-w-[120px]">Fornecedor</TableHead>
+                      <TableHead className="min-w-[120px]">Produto</TableHead>
+                      <TableHead className="text-right min-w-[100px]">Valor</TableHead>
+                      <TableHead className="min-w-[80px]">Status</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {entradasRecentes.map((entrada) => (
+                      <TableRow key={entrada.id} className="border-border/50">
+                        <TableCell className="font-medium">
+                          {new Date(entrada.data).toLocaleDateString('pt-BR')}
+                        </TableCell>
+                        <TableCell className="truncate max-w-[120px]">{entrada.fornecedor}</TableCell>
+                        <TableCell className="truncate max-w-[120px]">{entrada.produto}</TableCell>
+                        <TableCell className="text-right font-medium">
+                          {formatCurrency(entrada.valor)}
+                        </TableCell>
+                        <TableCell>
+                          <StatusBadge 
+                            status={entrada.status === 'Faturado' ? 'success' : 'warning'}
+                            label={entrada.status}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -216,62 +218,64 @@ export const DashboardComprador = () => {
       {/* Products Performance */}
       <Card className="glass-card">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 text-lg">
             <Package className="h-5 w-5 text-primary" />
             Performance dos Meus Produtos
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow className="border-border/50">
-                <TableHead>Produto</TableHead>
-                <TableHead className="text-right">Estoque Atual</TableHead>
-                <TableHead className="text-right">Giro Médio</TableHead>
-                <TableHead className="text-right">Cobertura</TableHead>
-                <TableHead className="text-center">Score</TableHead>
-                <TableHead>Status</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {produtosEstoque.map((produto, index) => (
-                <TableRow key={index} className="border-border/50">
-                  <TableCell className="font-medium">{produto.produto}</TableCell>
-                  <TableCell className="text-right">
-                    {formatCurrency(produto.estoqueAtual)}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    {formatCurrency(produto.giroMedio)}/mês
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <span className={
-                      produto.cobertura > 6 ? 'text-danger' : 
-                      produto.cobertura > 3 ? 'text-warning' : 'text-success'
-                    }>
-                      {produto.cobertura.toFixed(1)} meses
-                    </span>
-                  </TableCell>
-                  <TableCell className="text-center">
-                    <span className={`font-bold ${
-                      produto.score >= 80 ? 'text-success' :
-                      produto.score >= 60 ? 'text-warning' : 'text-danger'
-                    }`}>
-                      {produto.score}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <StatusBadge 
-                      status={produto.status}
-                      label={
-                        produto.status === 'success' ? 'Saudável' :
-                        produto.status === 'warning' ? 'Atenção' : 'Detrator'
-                      }
-                    />
-                  </TableCell>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-border/50">
+                  <TableHead className="min-w-[150px]">Produto</TableHead>
+                  <TableHead className="text-right min-w-[120px]">Estoque Atual</TableHead>
+                  <TableHead className="text-right min-w-[120px]">Giro Médio</TableHead>
+                  <TableHead className="text-right min-w-[100px]">Cobertura</TableHead>
+                  <TableHead className="text-center min-w-[80px]">Score</TableHead>
+                  <TableHead className="min-w-[100px]">Status</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {produtosEstoque.map((produto, index) => (
+                  <TableRow key={index} className="border-border/50">
+                    <TableCell className="font-medium truncate max-w-[140px]">{produto.produto}</TableCell>
+                    <TableCell className="text-right">
+                      {formatCurrency(produto.estoqueAtual)}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {formatCurrency(produto.giroMedio)}/mês
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <span className={
+                        produto.cobertura > 6 ? 'text-danger' : 
+                        produto.cobertura > 3 ? 'text-warning' : 'text-success'
+                      }>
+                        {produto.cobertura.toFixed(1)} meses
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-center">
+                      <span className={`font-bold ${
+                        produto.score >= 80 ? 'text-success' :
+                        produto.score >= 60 ? 'text-warning' : 'text-danger'
+                      }`}>
+                        {produto.score}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <StatusBadge 
+                        status={produto.status}
+                        label={
+                          produto.status === 'success' ? 'Saudável' :
+                          produto.status === 'warning' ? 'Atenção' : 'Detrator'
+                        }
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
     </div>

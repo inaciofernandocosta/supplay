@@ -110,7 +110,7 @@ export const PerformanceView = () => {
       </div>
 
       {/* Performance Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <MetricCard
           title="Score Médio Geral"
           value={scoremedio.toString()}
@@ -154,7 +154,7 @@ export const PerformanceView = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">CD</label>
               <Select defaultValue="todos">
@@ -215,7 +215,7 @@ export const PerformanceView = () => {
             </div>
           </div>
           
-          <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border/50">
+          <div className="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-border/50">
             <span className="text-sm text-muted-foreground">Filtros ativos:</span>
             <Badge variant="secondary" className="gap-1">
               Todos os CDs

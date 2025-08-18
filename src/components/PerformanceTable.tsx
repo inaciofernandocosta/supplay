@@ -44,71 +44,73 @@ export const PerformanceTable = ({ items, className }: PerformanceTableProps) =>
 
   return (
     <div className={`glass-card rounded-lg ${className}`}>
-      <div className="p-6 border-b border-border/50">
+      <div className="p-4 lg:p-6 border-b border-border/50">
         <h3 className="text-lg font-semibold text-foreground">Performance de Giro</h3>
         <p className="text-sm text-muted-foreground">Análise de estoque e cobertura por produto/fornecedor</p>
       </div>
       
-      <Table>
-        <TableHeader>
-          <TableRow className="border-border/50">
-            <TableHead>Item</TableHead>
-            <TableHead className="text-right">Estoque</TableHead>
-            <TableHead className="text-right">Giro Médio</TableHead>
-            <TableHead className="text-right">Cobertura</TableHead>
-            <TableHead className="text-center">Score</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Comprador</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {items.map((item) => (
-            <TableRow key={item.id} className="border-border/50 hover:bg-muted/30">
-              <TableCell>
-                <div className="space-y-1">
-                  <div className="font-medium text-foreground">{item.nome}</div>
-                  <Badge variant="outline" className="text-xs">
-                    {item.tipo === 'produto' ? 'Produto' : 'Fornecedor'}
-                  </Badge>
-                </div>
-              </TableCell>
-              <TableCell className="text-right font-medium">
-                {formatCurrency(item.estoqueAtual)}
-              </TableCell>
-              <TableCell className="text-right">
-                {formatCurrency(item.giroMedio)}/mês
-              </TableCell>
-              <TableCell className="text-right">
-                <span className={item.coberturaMeses > 6 ? 'text-danger' : item.coberturaMeses > 3 ? 'text-warning' : 'text-success'}>
-                  {item.coberturaMeses.toFixed(1)} meses
-                </span>
-              </TableCell>
-              <TableCell className="text-center">
-                <div className="flex items-center justify-center space-x-2">
-                  {getTrendIcon(item.score)}
-                  <span className={`font-bold ${getScoreColor(item.score)}`}>
-                    {item.score}
-                  </span>
-                </div>
-              </TableCell>
-              <TableCell>
-                <StatusBadge 
-                  status={item.status} 
-                  label={
-                    item.status === 'success' ? 'Saudável' :
-                    item.status === 'warning' ? 'Atenção' : 'Detrator'
-                  }
-                />
-              </TableCell>
-              <TableCell>
-                <span className="text-sm font-medium text-muted-foreground">
-                  {item.comprador}
-                </span>
-              </TableCell>
+      <div className="overflow-x-auto">
+        <Table>
+          <TableHeader>
+            <TableRow className="border-border/50">
+              <TableHead className="min-w-[200px]">Item</TableHead>
+              <TableHead className="text-right min-w-[120px]">Estoque</TableHead>
+              <TableHead className="text-right min-w-[120px]">Giro Médio</TableHead>
+              <TableHead className="text-right min-w-[100px]">Cobertura</TableHead>
+              <TableHead className="text-center min-w-[80px]">Score</TableHead>
+              <TableHead className="min-w-[100px]">Status</TableHead>
+              <TableHead className="min-w-[120px]">Comprador</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {items.map((item) => (
+              <TableRow key={item.id} className="border-border/50 hover:bg-muted/30">
+                <TableCell>
+                  <div className="space-y-1">
+                    <div className="font-medium text-foreground truncate max-w-[180px]">{item.nome}</div>
+                    <Badge variant="outline" className="text-xs">
+                      {item.tipo === 'produto' ? 'Produto' : 'Fornecedor'}
+                    </Badge>
+                  </div>
+                </TableCell>
+                <TableCell className="text-right font-medium">
+                  {formatCurrency(item.estoqueAtual)}
+                </TableCell>
+                <TableCell className="text-right">
+                  {formatCurrency(item.giroMedio)}/mês
+                </TableCell>
+                <TableCell className="text-right">
+                  <span className={item.coberturaMeses > 6 ? 'text-danger' : item.coberturaMeses > 3 ? 'text-warning' : 'text-success'}>
+                    {item.coberturaMeses.toFixed(1)} meses
+                  </span>
+                </TableCell>
+                <TableCell className="text-center">
+                  <div className="flex items-center justify-center space-x-2">
+                    {getTrendIcon(item.score)}
+                    <span className={`font-bold ${getScoreColor(item.score)}`}>
+                      {item.score}
+                    </span>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <StatusBadge 
+                    status={item.status} 
+                    label={
+                      item.status === 'success' ? 'Saudável' :
+                      item.status === 'warning' ? 'Atenção' : 'Detrator'
+                    }
+                  />
+                </TableCell>
+                <TableCell>
+                  <span className="text-sm font-medium text-muted-foreground truncate max-w-[100px] block">
+                    {item.comprador}
+                  </span>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 };

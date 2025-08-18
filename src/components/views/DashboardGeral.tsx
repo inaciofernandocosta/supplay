@@ -59,7 +59,7 @@ export const DashboardGeral = () => {
       </div>
 
       {/* Main Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <MetricCard
           title="Orçamento Total Utilizado"
           value="R$ 20,65M"
@@ -97,8 +97,8 @@ export const DashboardGeral = () => {
       </div>
 
       {/* Budget Overview */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-1">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="xl:col-span-1">
           <BudgetGauge
             current={totalUtilizado}
             total={totalMeta}
@@ -106,17 +106,17 @@ export const DashboardGeral = () => {
           />
         </div>
         
-        <div className="lg:col-span-2">
+        <div className="xl:col-span-2">
           <Card className="glass-card">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-lg">
                 <Users className="h-5 w-5 text-primary" />
                 Status dos Compradores
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {compradores.map((comprador, index) => (
-                <div key={index} className="flex items-center justify-between p-4 rounded-lg border border-border/50 hover:bg-muted/30 transition-corporate">
+                <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-lg border border-border/50 hover:bg-muted/30 transition-corporate gap-3 sm:gap-0">
                   <div className="space-y-1">
                     <h4 className="font-medium text-foreground">{comprador.nome}</h4>
                     <p className="text-sm text-muted-foreground">
@@ -124,7 +124,7 @@ export const DashboardGeral = () => {
                     </p>
                   </div>
                   
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center justify-between sm:justify-end gap-3">
                     <div className="text-right">
                       <div className="text-lg font-bold text-foreground">
                         {((comprador.utilizado / comprador.meta) * 100).toFixed(1)}%
