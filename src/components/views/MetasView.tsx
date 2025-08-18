@@ -389,57 +389,6 @@ export const MetasView = () => {
               </CardContent>
             </Card>
           )}
-
-          {/* Tabela de Compradores */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Compradores e Metas</CardTitle>
-              <CardDescription>
-                Acompanhe o desempenho e participação de cada comprador
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Comprador</TableHead>
-                    <TableHead>% Participação</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Ações</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {compradores.map((comprador) => {
-                    return (
-                      <TableRow key={comprador.id}>
-                        <TableCell>
-                          <div>
-                            <div className="font-medium">{comprador.nome}</div>
-                            <div className="text-sm text-muted-foreground">{comprador.email}</div>
-                          </div>
-                        </TableCell>
-                        <TableCell>{comprador.percentualParticipacao}%</TableCell>
-                        <TableCell>
-                          <Badge variant={comprador.status === 'ativo' ? 'default' : 'secondary'}>
-                            {comprador.status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleEdit(comprador)}
-                          >
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </div>
