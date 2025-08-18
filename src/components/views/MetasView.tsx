@@ -372,7 +372,6 @@ export const MetasView = () => {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Comprador</TableHead>
-                    <TableHead>Meta Trimestral</TableHead>
                     <TableHead>% Realizado</TableHead>
                     <TableHead>Valor Realizado</TableHead>
                     <TableHead>% Participação</TableHead>
@@ -393,7 +392,6 @@ export const MetasView = () => {
                             <div className="text-sm text-muted-foreground">{comprador.email}</div>
                           </div>
                         </TableCell>
-                        <TableCell>{formatCurrency(comprador.metaTrimestral)}</TableCell>
                         <TableCell>
                           <div className="flex items-center space-x-2">
                             <Progress 
