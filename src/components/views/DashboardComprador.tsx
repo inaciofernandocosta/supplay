@@ -4,6 +4,7 @@ import { StatusBadge } from "../StatusBadge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { formatValue } from "@/lib/formatters";
 import { 
   Target, 
   ShoppingCart, 
@@ -27,6 +28,8 @@ export const DashboardComprador = () => {
   const empresa = {
     prazoMeta: 45 // days
   };
+
+  const formatCurrency = formatValue;
 
   // Calculate payment term performance and adjusted meta
   const performancePrazo = comprador.prazoMedio / empresa.prazoMeta;
@@ -91,15 +94,6 @@ export const DashboardComprador = () => {
     },
   ];
 
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(value);
-  };
-
   const percentage = (comprador.utilizado / meta) * 100;
   const performancePrazoPercentual = performancePrazo * 100;
 
@@ -148,7 +142,7 @@ export const DashboardComprador = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <MetricCard
           title="Orçamento Utilizado"
-          value={formatCurrency(comprador.utilizado)}
+          value={formatValue(comprador.utilizado)}
           subtitle={`${percentage.toFixed(1)}% do total`}
           icon={Target}
           status={percentage >= 100 ? 'danger' : percentage >= 80 ? 'warning' : 'success'}
@@ -156,7 +150,7 @@ export const DashboardComprador = () => {
         
         <MetricCard
           title="Disponível"
-          value={formatCurrency(Math.max(meta - comprador.utilizado, 0))}
+          value={formatValue(Math.max(meta - comprador.utilizado, 0))}
           subtitle="Saldo restante"
           icon={ShoppingCart}
           status="success"
@@ -187,7 +181,7 @@ export const DashboardComprador = () => {
             <CardContent className="pt-6">
               <div className="space-y-2">
                 <p className="text-sm text-muted-foreground">Meta Base da Empresa</p>
-                <p className="text-2xl font-bold text-foreground">{formatCurrency(comprador.metaBase)}</p>
+                <p className="text-2xl font-bold text-foreground">{formatValue(comprador.metaBase)}</p>
               </div>
             </CardContent>
           </Card>
@@ -197,7 +191,7 @@ export const DashboardComprador = () => {
               <div className="space-y-2">
                 <p className="text-sm text-muted-foreground">Meta Ajustada por Prazo</p>
                 <div className="flex items-center gap-2">
-                  <p className="text-2xl font-bold text-foreground">{formatCurrency(metaAjustada)}</p>
+                  <p className="text-2xl font-bold text-foreground">{formatValue(metaAjustada)}</p>
                   <span className={`text-sm font-medium px-2 py-1 rounded ${
                     ajustePercentual > 0 ? 'bg-success/10 text-success' : 
                     ajustePercentual < 0 ? 'bg-danger/10 text-danger' : 
@@ -250,7 +244,7 @@ export const DashboardComprador = () => {
                     <TableCell className="truncate max-w-[120px]">{entrada.fornecedor}</TableCell>
                     <TableCell className="truncate max-w-[120px]">{entrada.produto}</TableCell>
                     <TableCell className="text-right font-medium">
-                      {formatCurrency(entrada.valor)}
+                      {formatValue(entrada.valor)}
                     </TableCell>
                     <TableCell>
                       <StatusBadge 
@@ -292,10 +286,10 @@ export const DashboardComprador = () => {
                   <TableRow key={index} className="border-border/50">
                     <TableCell className="font-medium truncate max-w-[140px]">{produto.produto}</TableCell>
                     <TableCell className="text-right">
-                      {formatCurrency(produto.estoqueAtual)}
+                      {formatValue(produto.estoqueAtual)}
                     </TableCell>
                     <TableCell className="text-right">
-                      {formatCurrency(produto.giroMedio)}/mês
+                      {formatValue(produto.giroMedio)}/mês
                     </TableCell>
                     <TableCell className="text-right">
                       <span className={

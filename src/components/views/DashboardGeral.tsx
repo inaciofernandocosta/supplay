@@ -4,6 +4,7 @@ import { BudgetGauge } from "../BudgetGauge";
 import { StatusBadge } from "../StatusBadge";
 import { PerformanceTable } from "../PerformanceTable";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatValue } from "@/lib/formatters";
 import { 
   DollarSign, 
   Users, 
@@ -72,7 +73,7 @@ export const DashboardGeral = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <MetricCard
           title="Orçamento Total Utilizado"
-          value={`R$ ${(totalUtilizado / 1000000).toFixed(1)}M`}
+          value={`${(totalUtilizado / 1000000).toFixed(1)}M`}
           subtitle={`${((totalUtilizado / totalMeta) * 100).toFixed(1)}% do total`}
           icon={DollarSign}
           status="success"
@@ -88,7 +89,7 @@ export const DashboardGeral = () => {
         
         <MetricCard
           title="Entradas do Mês"
-          value="R$ 3,2M"
+          value="3.200.000"
           subtitle="156 entradas processadas"
           icon={ShoppingCart}
           status="success"
@@ -127,7 +128,7 @@ export const DashboardGeral = () => {
                 <div className="space-y-1">
                   <h4 className="font-medium text-foreground text-sm">{comprador.nome}</h4>
                   <p className="text-xs text-muted-foreground">
-                    R$ {(comprador.utilizado / 1000000).toFixed(1)}M de R$ {(comprador.meta / 1000000).toFixed(1)}M
+                    {(comprador.utilizado / 1000000).toFixed(1)}M de {(comprador.meta / 1000000).toFixed(1)}M
                   </p>
                 </div>
                 

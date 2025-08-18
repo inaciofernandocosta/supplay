@@ -2,6 +2,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { StatusBadge } from "./StatusBadge";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { formatValue } from "@/lib/formatters";
 
 interface PerformanceItem {
   id: string;
@@ -21,15 +22,8 @@ interface PerformanceTableProps {
 }
 
 export const PerformanceTable = ({ items, className }: PerformanceTableProps) => {
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(value);
-  };
-
+  const formatCurrency = formatValue;
+  
   const getScoreColor = (score: number) => {
     if (score >= 80) return 'text-success';
     if (score >= 60) return 'text-warning';
@@ -74,10 +68,10 @@ export const PerformanceTable = ({ items, className }: PerformanceTableProps) =>
                   </div>
                 </TableCell>
                 <TableCell className="text-right font-medium">
-                  {formatCurrency(item.estoqueAtual)}
+                  {formatValue(item.estoqueAtual)}
                 </TableCell>
                 <TableCell className="text-right">
-                  {formatCurrency(item.giroMedio)}/mês
+                  {formatValue(item.giroMedio)}/mês
                 </TableCell>
                 <TableCell className="text-right">
                   <span className={item.coberturaMeses > 6 ? 'text-danger' : item.coberturaMeses > 3 ? 'text-warning' : 'text-success'}>

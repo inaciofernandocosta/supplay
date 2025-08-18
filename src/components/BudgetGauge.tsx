@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Progress } from "@/components/ui/progress";
+import { formatValue } from "@/lib/formatters";
 
 interface BudgetGaugeProps {
   current: number;
@@ -19,14 +20,7 @@ export const BudgetGauge = ({ current, total, label, className }: BudgetGaugePro
 
   const status = getStatus();
   
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(value);
-  };
+  const formatCurrency = formatValue;
 
   return (
     <div className={cn("space-y-3", className)}>

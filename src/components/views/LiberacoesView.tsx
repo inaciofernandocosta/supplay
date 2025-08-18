@@ -16,6 +16,8 @@ import {
   X
 } from "lucide-react";
 
+import { formatValue } from "@/lib/formatters";
+
 interface Solicitacao {
   id: number;
   comprador: string;
@@ -29,6 +31,8 @@ interface Solicitacao {
 }
 
 export const LiberacoesView = () => {
+  const [filtroStatus, setFiltroStatus] = useState<'todos' | 'pendente' | 'aprovado' | 'rejeitado'>('todos');
+  const [searchTerm, setSearchTerm] = useState("");
   const [solicitacoes, setSolicitacoes] = useState<Solicitacao[]>([
     {
       id: 1,
@@ -65,14 +69,7 @@ export const LiberacoesView = () => {
     }
   ]);
 
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(value);
-  };
+  const formatCurrency = formatValue;
 
   const formatDateTime = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString('pt-BR', {

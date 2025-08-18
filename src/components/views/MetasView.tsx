@@ -11,6 +11,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Plus, Edit, Target, TrendingUp, DollarSign } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
+import { formatValue, formatMillions, maskNumber, unmaskNumber } from "@/lib/formatters";
+
 interface Comprador {
   id: string;
   nome: string;
@@ -21,18 +23,14 @@ interface Comprador {
   status: 'ativo' | 'inativo';
 }
 
-const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL'
-  }).format(value);
-};
+const formatCurrency = formatValue;
 
 export const MetasView = () => {
   const { toast } = useToast();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingComprador, setEditingComprador] = useState<Comprador | null>(null);
   const [metaMensal, setMetaMensal] = useState<number>(0);
+  const [metaMensalInput, setMetaMensalInput] = useState<string>('');
   const [compradores, setCompradores] = useState<Comprador[]>([
     {
       id: '1',
@@ -338,13 +336,17 @@ export const MetasView = () => {
             <CardContent>
               <div className="flex items-center space-x-4">
                 <div className="flex-1">
-                  <Label htmlFor="meta-mensal">Valor da Meta (R$)</Label>
+                  <Label htmlFor="meta-mensal">Valor da Meta</Label>
                   <Input
                     id="meta-mensal"
-                    type="number"
+                    type="text"
                     placeholder="Digite a meta do mês"
-                    value={metaMensal || ''}
-                    onChange={(e) => setMetaMensal(Number(e.target.value) || 0)}
+                    value={metaMensalInput}
+                    onChange={(e) => {
+                      const maskedValue = maskNumber(e.target.value);
+                      setMetaMensalInput(maskedValue);
+                      setMetaMensal(unmaskNumber(maskedValue));
+                    }}
                     className="text-lg"
                   />
                 </div>
@@ -364,7 +366,7 @@ export const MetasView = () => {
               <CardHeader>
                 <CardTitle>Distribuição da Meta</CardTitle>
                 <CardDescription>
-                  Como a meta de {formatCurrency(metaMensal)} será distribuída entre os compradores
+                  Como a meta de {formatValue(metaMensal)} será distribuída entre os compradores
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -379,7 +381,7 @@ export const MetasView = () => {
                         </div>
                         <div className="text-right">
                           <div className="text-lg font-bold text-primary">
-                            {formatCurrency(valorDistribuido)}
+                            {formatValue(valorDistribuido)}
                           </div>
                         </div>
                       </div>
