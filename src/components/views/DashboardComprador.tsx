@@ -141,6 +141,22 @@ export const DashboardComprador = () => {
       {/* Metrics Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 lg:gap-6">
         <MetricCard
+          title="Meta Base da Empresa"
+          value={formatValue(comprador.metaBase)}
+          subtitle=""
+          icon={Target}
+          status="success"
+        />
+
+        <MetricCard
+          title="Meta Ajustada por Prazo"
+          value={formatValue(metaAjustada)}
+          subtitle={`${ajustePercentual > 0 ? '+' : ''}${(ajustePercentual * 100).toFixed(1)}%`}
+          icon={Target}
+          status={ajustePercentual >= 0 ? 'success' : 'danger'}
+        />
+
+        <MetricCard
           title="Orçamento Utilizado"
           value={formatValue(comprador.utilizado)}
           subtitle={`${percentage.toFixed(1)}% do total`}
@@ -162,22 +178,6 @@ export const DashboardComprador = () => {
           subtitle={`${performancePrazoPercentual.toFixed(0)}% da meta (${empresa.prazoMeta}d)`}
           icon={Clock}
           status={performancePrazoPercentual >= 100 ? 'success' : performancePrazoPercentual >= 80 ? 'warning' : 'danger'}
-        />
-
-        <MetricCard
-          title="Meta Base da Empresa"
-          value={formatValue(comprador.metaBase)}
-          subtitle=""
-          icon={Target}
-          status="success"
-        />
-
-        <MetricCard
-          title="Meta Ajustada por Prazo"
-          value={formatValue(metaAjustada)}
-          subtitle={`${ajustePercentual > 0 ? '+' : ''}${(ajustePercentual * 100).toFixed(1)}%`}
-          icon={Target}
-          status={ajustePercentual >= 0 ? 'success' : 'danger'}
         />
       </div>
       
