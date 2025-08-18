@@ -29,11 +29,11 @@ export const BudgetGauge = ({ current, total, label, className }: BudgetGaugePro
   };
 
   return (
-    <div className={cn("space-y-4", className)}>
+    <div className={cn("space-y-3", className)}>
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-foreground">{label}</h3>
+        <h3 className="text-base font-semibold text-foreground">{label}</h3>
         <div className={cn(
-          "px-3 py-1 rounded-full text-xs font-medium",
+          "px-2 py-1 rounded-full text-xs font-medium",
           status === 'success' && "bg-success/10 text-success",
           status === 'warning' && "bg-warning/10 text-warning", 
           status === 'danger' && "bg-danger/10 text-danger"
@@ -42,7 +42,7 @@ export const BudgetGauge = ({ current, total, label, className }: BudgetGaugePro
         </div>
       </div>
       
-      <div className="space-y-2">
+      <div className="space-y-1.5">
         <div className="flex justify-between text-sm">
           <span className="text-muted-foreground">Utilizado</span>
           <span className="font-medium">{formatCurrency(current)}</span>
@@ -50,7 +50,7 @@ export const BudgetGauge = ({ current, total, label, className }: BudgetGaugePro
         
         <Progress 
           value={percentage} 
-          className="h-3"
+          className="h-2.5"
           variant={status}
         />
         
@@ -62,20 +62,20 @@ export const BudgetGauge = ({ current, total, label, className }: BudgetGaugePro
         </div>
       </div>
       
-      <div className="bg-muted/30 rounded-lg p-3">
+      <div className="bg-muted/30 rounded-lg p-2.5">
         <div className="flex justify-between items-center">
           <span className="text-sm font-medium text-muted-foreground">Orçamento Total</span>
-          <span className="text-lg font-bold text-foreground">{formatCurrency(total)}</span>
-        </div>
-        <div className="mt-1 text-right">
-          <span className={cn(
-            "text-2xl font-bold",
-            status === 'success' && "text-success",
-            status === 'warning' && "text-warning",
-            status === 'danger' && "text-danger"
-          )}>
-            {percentage.toFixed(1)}%
-          </span>
+          <div className="text-right">
+            <div className="text-base font-bold text-foreground">{formatCurrency(total)}</div>
+            <div className={cn(
+              "text-xl font-bold",
+              status === 'success' && "text-success",
+              status === 'warning' && "text-warning",
+              status === 'danger' && "text-danger"
+            )}>
+              {percentage.toFixed(1)}%
+            </div>
+          </div>
         </div>
       </div>
     </div>
