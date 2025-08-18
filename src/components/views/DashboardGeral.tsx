@@ -34,12 +34,12 @@ export const DashboardGeral = () => {
   const performanceItems = [
     {
       id: '1',
-      nome: 'Arroz Branco 5kg',
-      tipo: 'produto' as const,
-      estoqueAtual: 450000,
-      giroMedio: 150000,
-      coberturaMeses: 3.0,
-      score: 85,
+      nome: 'Distribuidora Alimentos Sul',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 2800000,
+      giroMedio: 2900000,
+      coberturaMeses: 0.9,
+      score: 92,
       status: 'success' as const,
       comprador: 'João Batata'
     },
@@ -48,12 +48,122 @@ export const DashboardGeral = () => {
       nome: 'Fornecedor ABC Ltda',
       tipo: 'fornecedor' as const,
       estoqueAtual: 1200000,
-      giroMedio: 80000,
-      coberturaMeses: 15.0,
-      score: 35,
-      status: 'danger' as const,
+      giroMedio: 1250000,
+      coberturaMeses: 0.8,
+      score: 88,
+      status: 'success' as const,
       comprador: 'Tatiane'
     },
+    {
+      id: '3',
+      nome: 'Central de Abastecimento Norte',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 1850000,
+      giroMedio: 1900000,
+      coberturaMeses: 1.0,
+      score: 85,
+      status: 'success' as const,
+      comprador: 'Daniel'
+    },
+    {
+      id: '4',
+      nome: 'Atacadão Distribuição',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 3200000,
+      giroMedio: 2400000,
+      coberturaMeses: 1.3,
+      score: 78,
+      status: 'warning' as const,
+      comprador: 'Paulo'
+    },
+    {
+      id: '5',
+      nome: 'Mega Fornecimentos',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 2100000,
+      giroMedio: 1950000,
+      coberturaMeses: 1.1,
+      score: 82,
+      status: 'success' as const,
+      comprador: 'Carlos'
+    },
+    {
+      id: '6',
+      nome: 'Comercial Vitória',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 1650000,
+      giroMedio: 1600000,
+      coberturaMeses: 1.0,
+      score: 86,
+      status: 'success' as const,
+      comprador: 'Vinicius Vila'
+    },
+    {
+      id: '7',
+      nome: 'Distribuidora Premium',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 980000,
+      giroMedio: 1100000,
+      coberturaMeses: 0.9,
+      score: 90,
+      status: 'success' as const,
+      comprador: 'Vinicius Focomix'
+    },
+    {
+      id: '8',
+      nome: 'Fornecedor Regional Ltda',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 2950000,
+      giroMedio: 2200000,
+      coberturaMeses: 1.3,
+      score: 75,
+      status: 'warning' as const,
+      comprador: 'Danilo'
+    },
+    {
+      id: '9',
+      nome: 'Super Atacado Nacional',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 1750000,
+      giroMedio: 1800000,
+      coberturaMeses: 1.0,
+      score: 87,
+      status: 'success' as const,
+      comprador: 'Alexandre'
+    },
+    {
+      id: '10',
+      nome: 'Distribuidora Express',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 1420000,
+      giroMedio: 1380000,
+      coberturaMeses: 1.0,
+      score: 84,
+      status: 'success' as const,
+      comprador: 'Rômulo'
+    },
+    {
+      id: '11',
+      nome: 'Central Logística Integrada',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 2650000,
+      giroMedio: 2100000,
+      coberturaMeses: 1.3,
+      score: 76,
+      status: 'warning' as const,
+      comprador: 'Carolina'
+    },
+    {
+      id: '12',
+      nome: 'Atacado Matriz',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 1280000,
+      giroMedio: 1350000,
+      coberturaMeses: 0.9,
+      score: 89,
+      status: 'success' as const,
+      comprador: 'João Duarte'
+    }
   ];
 
   const totalUtilizado = compradores.reduce((acc, comp) => acc + comp.utilizado, 0);
