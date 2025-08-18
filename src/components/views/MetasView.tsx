@@ -32,6 +32,7 @@ export const MetasView = () => {
   const { toast } = useToast();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingComprador, setEditingComprador] = useState<Comprador | null>(null);
+  const [metaMensal, setMetaMensal] = useState<number>(0);
   const [compradores, setCompradores] = useState<Comprador[]>([
     {
       id: '1',
@@ -212,6 +213,12 @@ export const MetasView = () => {
   const totalMetas = compradores.reduce((acc, c) => acc + c.metaTrimestral, 0);
   const totalRealizado = compradores.reduce((acc, c) => acc + (c.metaTrimestral * c.percentualRealizado / 100), 0);
   const totalParticipacao = compradores.reduce((acc, c) => acc + calcularValorParticipacao(c.metaTrimestral, c.percentualRealizado, c.percentualParticipacao), 0);
+  const totalPercentualParticipacao = compradores.reduce((acc, c) => acc + c.percentualParticipacao, 0);
+
+  const calcularDistribuicao = (comprador: Comprador) => {
+    if (metaMensal === 0) return 0;
+    return (metaMensal * comprador.percentualParticipacao) / totalPercentualParticipacao;
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/5">
@@ -317,47 +324,71 @@ export const MetasView = () => {
 
       <div className="pt-24 pb-8">
         <div className="container mx-auto px-6 space-y-8">
-          {/* Resumo Geral */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Card de Meta Mensal */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Target className="h-5 w-5 text-primary" />
+                Definir Meta do Mês
+              </CardTitle>
+              <CardDescription>
+                Digite a meta mensal para distribuição automática pelos compradores
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center space-x-4">
+                <div className="flex-1">
+                  <Label htmlFor="meta-mensal">Valor da Meta (R$)</Label>
+                  <Input
+                    id="meta-mensal"
+                    type="number"
+                    placeholder="Digite a meta do mês"
+                    value={metaMensal || ''}
+                    onChange={(e) => setMetaMensal(Number(e.target.value) || 0)}
+                    className="text-lg"
+                  />
+                </div>
+                <div className="text-right">
+                  <div className="text-sm text-muted-foreground">Total de Participação</div>
+                  <div className="text-2xl font-bold text-primary">
+                    {totalPercentualParticipacao.toFixed(1)}%
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Distribuição por Compradores */}
+          {metaMensal > 0 && (
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total de Metas</CardTitle>
-                <Target className="h-4 w-4 text-muted-foreground" />
+              <CardHeader>
+                <CardTitle>Distribuição da Meta</CardTitle>
+                <CardDescription>
+                  Como a meta de {formatCurrency(metaMensal)} será distribuída entre os compradores
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{formatCurrency(totalMetas)}</div>
-                <p className="text-xs text-muted-foreground">
-                  Meta trimestral consolidada
-                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {compradores.map((comprador) => {
+                    const valorDistribuido = calcularDistribuicao(comprador);
+                    return (
+                      <div key={comprador.id} className="p-4 rounded-lg border border-border/50 hover:bg-muted/30 transition-corporate space-y-2">
+                        <div className="flex items-center justify-between">
+                          <h4 className="font-medium text-foreground text-sm">{comprador.nome}</h4>
+                          <Badge variant="outline">{comprador.percentualParticipacao}%</Badge>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-lg font-bold text-primary">
+                            {formatCurrency(valorDistribuido)}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </CardContent>
             </Card>
-            
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Realizado</CardTitle>
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{formatCurrency(totalRealizado)}</div>
-                <p className="text-xs text-muted-foreground">
-                  {((totalRealizado / totalMetas) * 100).toFixed(1)}% da meta geral
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Participação</CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{formatCurrency(totalParticipacao)}</div>
-                <p className="text-xs text-muted-foreground">
-                  Valor total de participações
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+          )}
 
           {/* Tabela de Compradores */}
           <Card>
