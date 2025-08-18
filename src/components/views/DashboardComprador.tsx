@@ -18,9 +18,24 @@ export const DashboardComprador = () => {
   const comprador = {
     nome: "João Batata",
     utilizado: 16800000,
-    meta: 20000000,
-    status: 'success' as const // 84% - Good utilization
+    metaBase: 20000000,
+    prazoMedio: 30, // days
+    status: 'success' as const
   };
+
+  // Company parameters
+  const empresa = {
+    prazoMeta: 45 // days
+  };
+
+  // Calculate payment term performance and adjusted meta
+  const performancePrazo = comprador.prazoMedio / empresa.prazoMeta;
+  const delta = performancePrazo - 1;
+  const ajustePercentual = delta * 0.5;
+  const metaAjustada = comprador.metaBase * (1 + ajustePercentual);
+  
+  // Use adjusted meta for calculations
+  const meta = metaAjustada;
 
   const entradasRecentes = [
     {
@@ -85,7 +100,8 @@ export const DashboardComprador = () => {
     }).format(value);
   };
 
-  const percentage = (comprador.utilizado / comprador.meta) * 100;
+  const percentage = (comprador.utilizado / meta) * 100;
+  const performancePrazoPercentual = performancePrazo * 100;
 
   return (
     <div className="space-y-6">
@@ -135,7 +151,7 @@ export const DashboardComprador = () => {
         
         <MetricCard
           title="Disponível"
-          value={formatCurrency(Math.max(comprador.meta - comprador.utilizado, 0))}
+          value={formatCurrency(Math.max(meta - comprador.utilizado, 0))}
           subtitle="Saldo restante"
           icon={ShoppingCart}
           status="success"
@@ -150,20 +166,53 @@ export const DashboardComprador = () => {
         />
         
         <MetricCard
-          title="Tempo Médio Giro"
-          value="4.2 meses"
-          subtitle="Cobertura atual"
+          title="Prazo Médio"
+          value={`${comprador.prazoMedio} dias`}
+          subtitle={`${performancePrazoPercentual.toFixed(0)}% da meta (${empresa.prazoMeta}d)`}
           icon={Clock}
-          status="warning"
+          status={performancePrazoPercentual >= 100 ? 'success' : performancePrazoPercentual >= 80 ? 'warning' : 'danger'}
         />
       </div>
 
       {/* Budget Gauge - Full Width */}
-      <div className="w-full">
+      <div className="w-full space-y-4">
+        {/* Meta Information Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Card className="glass-card">
+            <CardContent className="pt-6">
+              <div className="space-y-2">
+                <p className="text-sm text-muted-foreground">Meta Base da Empresa</p>
+                <p className="text-2xl font-bold text-foreground">{formatCurrency(comprador.metaBase)}</p>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="glass-card">
+            <CardContent className="pt-6">
+              <div className="space-y-2">
+                <p className="text-sm text-muted-foreground">Meta Ajustada por Prazo</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-2xl font-bold text-foreground">{formatCurrency(metaAjustada)}</p>
+                  <span className={`text-sm font-medium px-2 py-1 rounded ${
+                    ajustePercentual > 0 ? 'bg-success/10 text-success' : 
+                    ajustePercentual < 0 ? 'bg-danger/10 text-danger' : 
+                    'bg-muted/10 text-muted-foreground'
+                  }`}>
+                    {ajustePercentual > 0 ? '+' : ''}{(ajustePercentual * 100).toFixed(1)}%
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Performance de prazo: {performancePrazoPercentual.toFixed(0)}% ({comprador.prazoMedio}d vs {empresa.prazoMeta}d)
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
         <BudgetGauge
           current={comprador.utilizado}
-          total={comprador.meta}
-          label="Meu Orçamento"
+          total={metaAjustada}
+          label="Meu Orçamento (Meta Ajustada)"
         />
       </div>
       
