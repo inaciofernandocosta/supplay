@@ -139,7 +139,7 @@ export const DashboardComprador = () => {
       </div>
 
       {/* Metrics Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 lg:gap-6">
         <MetricCard
           title="Orçamento Utilizado"
           value={formatValue(comprador.utilizado)}
@@ -153,14 +153,6 @@ export const DashboardComprador = () => {
           value={formatValue(Math.max(meta - comprador.utilizado, 0))}
           subtitle="Saldo restante"
           icon={ShoppingCart}
-          status="success"
-        />
-        
-        <MetricCard
-          title="Entradas no Mês"
-          value={formatValue(comprador.utilizado)}
-          subtitle="23 entradas"
-          icon={Package}
           status="success"
         />
         
