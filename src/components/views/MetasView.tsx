@@ -372,18 +372,13 @@ export const MetasView = () => {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Comprador</TableHead>
-                    <TableHead>% Realizado</TableHead>
-                    <TableHead>Valor Realizado</TableHead>
                     <TableHead>% Participação</TableHead>
-                    <TableHead>Valor Participação</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Ações</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {compradores.map((comprador) => {
-                    const valorRealizado = (comprador.metaTrimestral * comprador.percentualRealizado) / 100;
-                    const valorParticipacao = calcularValorParticipacao(comprador.metaTrimestral, comprador.percentualRealizado, comprador.percentualParticipacao);
                     return (
                       <TableRow key={comprador.id}>
                         <TableCell>
@@ -392,25 +387,7 @@ export const MetasView = () => {
                             <div className="text-sm text-muted-foreground">{comprador.email}</div>
                           </div>
                         </TableCell>
-                        <TableCell>
-                          <div className="flex items-center space-x-2">
-                            <Progress 
-                              value={Math.min(comprador.percentualRealizado, 100)} 
-                              className="w-16 h-2"
-                              variant={comprador.percentualRealizado >= 100 ? 'success' : comprador.percentualRealizado >= 75 ? 'warning' : 'default'}
-                            />
-                            <span className="text-sm font-medium">
-                              {comprador.percentualRealizado.toFixed(1)}%
-                            </span>
-                          </div>
-                        </TableCell>
-                        <TableCell className="font-medium">
-                          {formatCurrency(valorRealizado)}
-                        </TableCell>
                         <TableCell>{comprador.percentualParticipacao}%</TableCell>
-                        <TableCell className="font-medium">
-                          {formatCurrency(valorParticipacao)}
-                        </TableCell>
                         <TableCell>
                           <Badge variant={comprador.status === 'ativo' ? 'default' : 'secondary'}>
                             {comprador.status}
