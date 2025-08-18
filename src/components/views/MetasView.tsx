@@ -31,6 +31,23 @@ export const MetasView = () => {
   const [editingComprador, setEditingComprador] = useState<Comprador | null>(null);
   const [metaMensal, setMetaMensal] = useState<number>(0);
   const [metaMensalInput, setMetaMensalInput] = useState<string>('');
+  const [metaSalva, setMetaSalva] = useState<number>(0);
+
+  const handleSalvarMeta = () => {
+    if (metaMensal > 0) {
+      setMetaSalva(metaMensal);
+      toast({
+        title: "Meta salva com sucesso!",
+        description: `Meta mensal de ${formatValue(metaMensal)} foi definida e distribuída.`,
+      });
+    } else {
+      toast({
+        title: "Erro ao salvar meta",
+        description: "Por favor, digite um valor válido para a meta.",
+        variant: "destructive",
+      });
+    }
+  };
   const [compradores, setCompradores] = useState<Comprador[]>([
     {
       id: '1',
@@ -214,8 +231,8 @@ export const MetasView = () => {
   const totalPercentualParticipacao = compradores.reduce((acc, c) => acc + c.percentualParticipacao, 0);
 
   const calcularDistribuicao = (comprador: Comprador) => {
-    if (metaMensal === 0) return 0;
-    return (metaMensal * comprador.percentualParticipacao) / 100;
+    if (metaSalva === 0) return 0;
+    return (metaSalva * comprador.percentualParticipacao) / 100;
   };
 
   return (
@@ -334,39 +351,54 @@ export const MetasView = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center space-x-4">
-                <div className="flex-1">
-                  <Label htmlFor="meta-mensal">Valor da Meta</Label>
-                  <Input
-                    id="meta-mensal"
-                    type="text"
-                    placeholder="Digite a meta do mês"
-                    value={metaMensalInput}
-                    onChange={(e) => {
-                      const maskedValue = maskNumber(e.target.value);
-                      setMetaMensalInput(maskedValue);
-                      setMetaMensal(unmaskNumber(maskedValue));
-                    }}
-                    className="text-lg"
-                  />
-                </div>
-                <div className="text-right">
-                  <div className="text-sm text-muted-foreground">Total de Participação</div>
-                  <div className="text-2xl font-bold text-primary">
-                    100.0%
+              <div className="space-y-4">
+                <div className="flex items-center space-x-4">
+                  <div className="flex-1">
+                    <Label htmlFor="meta-mensal">Valor da Meta</Label>
+                    <Input
+                      id="meta-mensal"
+                      type="text"
+                      placeholder="Digite a meta do mês"
+                      value={metaMensalInput}
+                      onChange={(e) => {
+                        const maskedValue = maskNumber(e.target.value);
+                        setMetaMensalInput(maskedValue);
+                        setMetaMensal(unmaskNumber(maskedValue));
+                      }}
+                      className="text-lg"
+                    />
                   </div>
+                  <div className="text-right">
+                    <div className="text-sm text-muted-foreground">Total de Participação</div>
+                    <div className="text-2xl font-bold text-primary">
+                      100.0%
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center justify-between pt-2">
+                  <div className="text-sm text-muted-foreground">
+                    {metaSalva > 0 ? `Meta atual: ${formatValue(metaSalva)}` : 'Nenhuma meta definida'}
+                  </div>
+                  <Button 
+                    onClick={handleSalvarMeta}
+                    disabled={metaMensal === 0}
+                    className="bg-primary hover:bg-primary/90"
+                  >
+                    Gravar Meta
+                  </Button>
                 </div>
               </div>
             </CardContent>
           </Card>
 
           {/* Distribuição por Compradores */}
-          {metaMensal > 0 && (
+          {metaSalva > 0 && (
             <Card>
               <CardHeader>
                 <CardTitle>Distribuição da Meta</CardTitle>
                 <CardDescription>
-                  Como a meta de {formatValue(metaMensal)} será distribuída entre os compradores
+                  Como a meta de {formatValue(metaSalva)} será distribuída entre os compradores
                 </CardDescription>
               </CardHeader>
               <CardContent>
