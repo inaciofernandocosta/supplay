@@ -76,7 +76,6 @@ export const DashboardGeral = () => {
           subtitle={`${((totalUtilizado / totalMeta) * 100).toFixed(1)}% do total`}
           icon={DollarSign}
           status="success"
-          change={{ value: "+12.5%", type: "increase" }}
         />
         
         <MetricCard
@@ -93,7 +92,6 @@ export const DashboardGeral = () => {
           subtitle="156 entradas processadas"
           icon={ShoppingCart}
           status="success"
-          change={{ value: "+8.2%", type: "increase" }}
         />
         
         <MetricCard
@@ -102,7 +100,6 @@ export const DashboardGeral = () => {
           subtitle="Score médio de giro"
           icon={TrendingUp}
           status="success"
-          change={{ value: "+5 pontos", type: "increase" }}
         />
       </div>
 
