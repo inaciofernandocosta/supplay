@@ -33,8 +33,8 @@ const TorreControle = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Mobile Header */}
-      <div className="lg:hidden bg-card border-b border-border/50 p-4">
+      {/* Mobile Header - Fixed */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-card border-b border-border/50 p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
@@ -64,8 +64,8 @@ const TorreControle = () => {
       </div>
 
       <div className="flex">
-        {/* Desktop Sidebar Navigation */}
-        <div className="hidden lg:block w-64 min-h-screen border-r border-border/50">
+        {/* Desktop Sidebar Navigation - Fixed */}
+        <div className="hidden lg:block w-64 fixed left-0 top-0 h-screen border-r border-border/50 bg-background z-40">
           <div className="p-4 border-b border-border/50">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
@@ -82,8 +82,8 @@ const TorreControle = () => {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 min-w-0">
-          <main className="p-4 lg:p-6">
+        <div className="flex-1 min-w-0 lg:ml-64">
+          <main className="p-4 lg:p-6 pt-20 lg:pt-6">
             {renderView()}
           </main>
         </div>
