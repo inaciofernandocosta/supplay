@@ -32,6 +32,7 @@ export const DashboardGeral = () => {
   ];
 
   const performanceItems = [
+    // CD 1 - Vila Nova
     {
       id: '1',
       nome: '1 - Vila Nova',
@@ -45,7 +46,33 @@ export const DashboardGeral = () => {
       fatMes: 3200000
     },
     {
-      id: '2', 
+      id: '2',
+      nome: '1 - Vila Nova',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 1800000,
+      giroMedio: 1750000,
+      coberturaMeses: 1.0,
+      score: 88,
+      status: 'success' as const,
+      comprador: 'Daniel',
+      fatMes: 1950000
+    },
+    {
+      id: '3',
+      nome: '1 - Vila Nova',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 1200000,
+      giroMedio: 1300000,
+      coberturaMeses: 0.9,
+      score: 90,
+      status: 'success' as const,
+      comprador: 'Tatiane',
+      fatMes: 1450000
+    },
+
+    // CD 11 - Vila Nova
+    {
+      id: '4', 
       nome: '11 - Vila Nova',
       tipo: 'fornecedor' as const,
       estoqueAtual: 1200000,
@@ -53,11 +80,37 @@ export const DashboardGeral = () => {
       coberturaMeses: 0.8,
       score: 88,
       status: 'success' as const,
-      comprador: 'Tatiane',
+      comprador: 'Paulo',
       fatMes: 1400000
     },
     {
-      id: '3',
+      id: '5',
+      nome: '11 - Vila Nova',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 950000,
+      giroMedio: 1100000,
+      coberturaMeses: 0.9,
+      score: 85,
+      status: 'success' as const,
+      comprador: 'Carlos',
+      fatMes: 1200000
+    },
+    {
+      id: '6',
+      nome: '11 - Vila Nova',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 800000,
+      giroMedio: 850000,
+      coberturaMeses: 0.9,
+      score: 87,
+      status: 'success' as const,
+      comprador: 'Vinicius Vila',
+      fatMes: 950000
+    },
+
+    // CD 12 - Vila Nova
+    {
+      id: '7',
       nome: '12 - Vila Nova',
       tipo: 'fornecedor' as const,
       estoqueAtual: 1850000,
@@ -65,11 +118,37 @@ export const DashboardGeral = () => {
       coberturaMeses: 1.0,
       score: 85,
       status: 'success' as const,
-      comprador: 'Daniel',
+      comprador: 'Danilo',
       fatMes: 2100000
     },
     {
-      id: '4',
+      id: '8',
+      nome: '12 - Vila Nova',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 1200000,
+      giroMedio: 1150000,
+      coberturaMeses: 1.0,
+      score: 83,
+      status: 'success' as const,
+      comprador: 'Alexandre',
+      fatMes: 1300000
+    },
+    {
+      id: '9',
+      nome: '12 - Vila Nova',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 980000,
+      giroMedio: 1050000,
+      coberturaMeses: 0.9,
+      score: 86,
+      status: 'success' as const,
+      comprador: 'Rômulo',
+      fatMes: 1150000
+    },
+
+    // CD 14 - Vila Nova
+    {
+      id: '10',
       nome: '14 - Vila Nova',
       tipo: 'fornecedor' as const,
       estoqueAtual: 3200000,
@@ -77,11 +156,25 @@ export const DashboardGeral = () => {
       coberturaMeses: 1.3,
       score: 78,
       status: 'warning' as const,
-      comprador: 'Paulo',
+      comprador: 'Carolina',
       fatMes: 2850000
     },
     {
-      id: '5',
+      id: '11',
+      nome: '14 - Vila Nova',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 1600000,
+      giroMedio: 1400000,
+      coberturaMeses: 1.1,
+      score: 82,
+      status: 'success' as const,
+      comprador: 'João Duarte',
+      fatMes: 1750000
+    },
+
+    // CD 502 - Focomix MG
+    {
+      id: '12',
       nome: '502 - Focomix MG',
       tipo: 'fornecedor' as const,
       estoqueAtual: 2100000,
@@ -89,11 +182,37 @@ export const DashboardGeral = () => {
       coberturaMeses: 1.1,
       score: 82,
       status: 'success' as const,
-      comprador: 'Carlos',
+      comprador: 'Vinicius Focomix',
       fatMes: 2250000
     },
     {
-      id: '6',
+      id: '13',
+      nome: '502 - Focomix MG',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 1300000,
+      giroMedio: 1200000,
+      coberturaMeses: 1.1,
+      score: 80,
+      status: 'success' as const,
+      comprador: 'João Batata',
+      fatMes: 1400000
+    },
+    {
+      id: '14',
+      nome: '502 - Focomix MG',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 900000,
+      giroMedio: 850000,
+      coberturaMeses: 1.1,
+      score: 79,
+      status: 'warning' as const,
+      comprador: 'Daniel',
+      fatMes: 950000
+    },
+
+    // CD 501 - Focomix SP
+    {
+      id: '15',
       nome: '501 - Focomix SP',
       tipo: 'fornecedor' as const,
       estoqueAtual: 1650000,
@@ -101,11 +220,37 @@ export const DashboardGeral = () => {
       coberturaMeses: 1.0,
       score: 86,
       status: 'success' as const,
-      comprador: 'Vinicius Vila',
+      comprador: 'Paulo',
       fatMes: 1750000
     },
     {
-      id: '7',
+      id: '16',
+      nome: '501 - Focomix SP',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 1100000,
+      giroMedio: 1050000,
+      coberturaMeses: 1.0,
+      score: 84,
+      status: 'success' as const,
+      comprador: 'Carlos',
+      fatMes: 1200000
+    },
+    {
+      id: '17',
+      nome: '501 - Focomix SP',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 800000,
+      giroMedio: 780000,
+      coberturaMeses: 1.0,
+      score: 83,
+      status: 'success' as const,
+      comprador: 'Tatiane',
+      fatMes: 850000
+    },
+
+    // CD 804 - V2 Farma
+    {
+      id: '18',
       nome: '804 - V2 Farma',
       tipo: 'fornecedor' as const,
       estoqueAtual: 980000,
@@ -113,8 +258,32 @@ export const DashboardGeral = () => {
       coberturaMeses: 0.9,
       score: 90,
       status: 'success' as const,
-      comprador: 'Vinicius Focomix',
+      comprador: 'Vinicius Vila',
       fatMes: 1200000
+    },
+    {
+      id: '19',
+      nome: '804 - V2 Farma',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 650000,
+      giroMedio: 700000,
+      coberturaMeses: 0.9,
+      score: 88,
+      status: 'success' as const,
+      comprador: 'Danilo',
+      fatMes: 780000
+    },
+    {
+      id: '20',
+      nome: '804 - V2 Farma',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 450000,
+      giroMedio: 500000,
+      coberturaMeses: 0.9,
+      score: 87,
+      status: 'success' as const,
+      comprador: 'Alexandre',
+      fatMes: 550000
     }
   ];
 
