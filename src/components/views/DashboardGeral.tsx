@@ -34,7 +34,7 @@ export const DashboardGeral = () => {
   const performanceItems = [
     {
       id: '1',
-      nome: 'Distribuidora Alimentos Sul',
+      nome: '1 - Vila Nova',
       tipo: 'fornecedor' as const,
       estoqueAtual: 2800000,
       giroMedio: 2900000,
@@ -45,7 +45,7 @@ export const DashboardGeral = () => {
     },
     {
       id: '2', 
-      nome: 'Fornecedor ABC Ltda',
+      nome: '11 - Vila Nova',
       tipo: 'fornecedor' as const,
       estoqueAtual: 1200000,
       giroMedio: 1250000,
@@ -56,7 +56,7 @@ export const DashboardGeral = () => {
     },
     {
       id: '3',
-      nome: 'Central de Abastecimento Norte',
+      nome: '12 - Vila Nova',
       tipo: 'fornecedor' as const,
       estoqueAtual: 1850000,
       giroMedio: 1900000,
@@ -67,7 +67,7 @@ export const DashboardGeral = () => {
     },
     {
       id: '4',
-      nome: 'Atacadão Distribuição',
+      nome: '14 - Vila Nova',
       tipo: 'fornecedor' as const,
       estoqueAtual: 3200000,
       giroMedio: 2400000,
@@ -78,7 +78,7 @@ export const DashboardGeral = () => {
     },
     {
       id: '5',
-      nome: 'Mega Fornecimentos',
+      nome: '502 - Focomix MG',
       tipo: 'fornecedor' as const,
       estoqueAtual: 2100000,
       giroMedio: 1950000,
@@ -89,7 +89,7 @@ export const DashboardGeral = () => {
     },
     {
       id: '6',
-      nome: 'Comercial Vitória',
+      nome: '501 - Focomix SP',
       tipo: 'fornecedor' as const,
       estoqueAtual: 1650000,
       giroMedio: 1600000,
@@ -100,7 +100,7 @@ export const DashboardGeral = () => {
     },
     {
       id: '7',
-      nome: 'Distribuidora Premium',
+      nome: '804 - V2 Farma',
       tipo: 'fornecedor' as const,
       estoqueAtual: 980000,
       giroMedio: 1100000,
@@ -108,61 +108,6 @@ export const DashboardGeral = () => {
       score: 90,
       status: 'success' as const,
       comprador: 'Vinicius Focomix'
-    },
-    {
-      id: '8',
-      nome: 'Fornecedor Regional Ltda',
-      tipo: 'fornecedor' as const,
-      estoqueAtual: 2950000,
-      giroMedio: 2200000,
-      coberturaMeses: 1.3,
-      score: 75,
-      status: 'warning' as const,
-      comprador: 'Danilo'
-    },
-    {
-      id: '9',
-      nome: 'Super Atacado Nacional',
-      tipo: 'fornecedor' as const,
-      estoqueAtual: 1750000,
-      giroMedio: 1800000,
-      coberturaMeses: 1.0,
-      score: 87,
-      status: 'success' as const,
-      comprador: 'Alexandre'
-    },
-    {
-      id: '10',
-      nome: 'Distribuidora Express',
-      tipo: 'fornecedor' as const,
-      estoqueAtual: 1420000,
-      giroMedio: 1380000,
-      coberturaMeses: 1.0,
-      score: 84,
-      status: 'success' as const,
-      comprador: 'Rômulo'
-    },
-    {
-      id: '11',
-      nome: 'Central Logística Integrada',
-      tipo: 'fornecedor' as const,
-      estoqueAtual: 2650000,
-      giroMedio: 2100000,
-      coberturaMeses: 1.3,
-      score: 76,
-      status: 'warning' as const,
-      comprador: 'Carolina'
-    },
-    {
-      id: '12',
-      nome: 'Atacado Matriz',
-      tipo: 'fornecedor' as const,
-      estoqueAtual: 1280000,
-      giroMedio: 1350000,
-      coberturaMeses: 0.9,
-      score: 89,
-      status: 'success' as const,
-      comprador: 'João Duarte'
     }
   ];
 

@@ -62,9 +62,6 @@ export const PerformanceTable = ({ items, className }: PerformanceTableProps) =>
                 <TableCell>
                   <div className="space-y-1">
                     <div className="font-medium text-foreground truncate max-w-[180px]">{item.nome}</div>
-                    <Badge variant="outline" className="text-xs">
-                      {item.tipo === 'produto' ? 'Produto' : 'Centro de Distribuição'}
-                    </Badge>
                   </div>
                 </TableCell>
                 <TableCell className="text-right font-medium">
