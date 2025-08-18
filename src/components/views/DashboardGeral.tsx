@@ -89,7 +89,7 @@ export const DashboardGeral = () => {
         
         <MetricCard
           title="Entradas do Mês"
-          value="3.200.000"
+          value={formatValue(totalUtilizado)}
           subtitle="156 entradas processadas"
           icon={ShoppingCart}
           status="success"

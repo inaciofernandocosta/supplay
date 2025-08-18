@@ -158,7 +158,7 @@ export const DashboardComprador = () => {
         
         <MetricCard
           title="Entradas no Mês"
-          value="R$ 281K"
+          value={formatValue(comprador.utilizado)}
           subtitle="23 entradas"
           icon={Package}
           status="success"
