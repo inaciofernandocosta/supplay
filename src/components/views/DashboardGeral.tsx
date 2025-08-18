@@ -13,13 +13,20 @@ import {
 } from "lucide-react";
 
 export const DashboardGeral = () => {
-  // Mock data for demonstration
+  // Compradores reais com metas distribuídas (total 205M)
   const compradores = [
-    { nome: "João Duarte", utilizado: 4550000, meta: 5000000, status: 'warning' as const },
-    { nome: "Maria Silva", utilizado: 3200000, meta: 4000000, status: 'success' as const },
-    { nome: "Pedro Santos", utilizado: 6000000, meta: 6000000, status: 'danger' as const },
-    { nome: "Ana Costa", utilizado: 2100000, meta: 3500000, status: 'success' as const },
-    { nome: "Carlos Lima", utilizado: 4800000, meta: 5500000, status: 'warning' as const },
+    { nome: "João Batata", utilizado: 16800000, meta: 20000000, status: 'success' as const },
+    { nome: "João Duarte", utilizado: 16200000, meta: 18000000, status: 'warning' as const },
+    { nome: "Daniel", utilizado: 17100000, meta: 19000000, status: 'warning' as const },
+    { nome: "Tatiane", utilizado: 13200000, meta: 16000000, status: 'success' as const },
+    { nome: "Paulo", utilizado: 16500000, meta: 18000000, status: 'warning' as const },
+    { nome: "Carlos", utilizado: 15300000, meta: 17000000, status: 'warning' as const },
+    { nome: "Vinicius Vila", utilizado: 12750000, meta: 15000000, status: 'success' as const },
+    { nome: "Vinicius Focomix", utilizado: 13300000, meta: 14000000, status: 'danger' as const },
+    { nome: "Danilo", utilizado: 14400000, meta: 16000000, status: 'warning' as const },
+    { nome: "Alexandre", utilizado: 15450000, meta: 17000000, status: 'warning' as const },
+    { nome: "Rômulo", utilizado: 16200000, meta: 18000000, status: 'warning' as const },
+    { nome: "Carolina", utilizado: 14850000, meta: 17000000, status: 'success' as const },
   ];
 
   const performanceItems = [
@@ -32,7 +39,7 @@ export const DashboardGeral = () => {
       coberturaMeses: 3.0,
       score: 85,
       status: 'success' as const,
-      comprador: 'João Duarte'
+      comprador: 'João Batata'
     },
     {
       id: '2', 
@@ -43,7 +50,7 @@ export const DashboardGeral = () => {
       coberturaMeses: 15.0,
       score: 35,
       status: 'danger' as const,
-      comprador: 'Maria Silva'
+      comprador: 'Tatiane'
     },
   ];
 
@@ -62,7 +69,7 @@ export const DashboardGeral = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <MetricCard
           title="Orçamento Total Utilizado"
-          value="R$ 20,65M"
+          value={`R$ ${(totalUtilizado / 1000000).toFixed(1)}M`}
           subtitle={`${((totalUtilizado / totalMeta) * 100).toFixed(1)}% do total`}
           icon={DollarSign}
           status="success"
@@ -71,8 +78,8 @@ export const DashboardGeral = () => {
         
         <MetricCard
           title="Compradores Ativos"
-          value="5"
-          subtitle="2 em atenção, 1 bloqueado"
+          value="12"
+          subtitle="9 em atenção, 1 bloqueado"
           icon={Users}
           status="warning"
         />

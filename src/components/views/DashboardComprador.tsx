@@ -14,12 +14,12 @@ import {
 } from "lucide-react";
 
 export const DashboardComprador = () => {
-  // Mock data for current buyer (João Duarte)
+  // Mock data for current buyer (João Batata)
   const comprador = {
-    nome: "João Duarte",
-    utilizado: 4550000,
-    meta: 5000000,
-    status: 'warning' as const // 91% - Near limit
+    nome: "João Batata",
+    utilizado: 16800000,
+    meta: 20000000,
+    status: 'success' as const // 84% - Good utilization
   };
 
   const entradasRecentes = [
