@@ -103,54 +103,53 @@ export const DashboardGeral = () => {
         />
       </div>
 
-      {/* Budget Overview */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        <div className="xl:col-span-1">
+      {/* Budget Gauge */}
+      <div className="flex justify-center">
+        <div className="w-full max-w-md">
           <BudgetGauge
             current={totalUtilizado}
             total={totalMeta}
             label="Orçamento Consolidado"
           />
         </div>
-        
-        <div className="xl:col-span-2">
-          <Card className="glass-card">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Users className="h-5 w-5 text-primary" />
-                Status dos Compradores
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {compradores.map((comprador, index) => (
-                <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-lg border border-border/50 hover:bg-muted/30 transition-corporate gap-3 sm:gap-0">
-                  <div className="space-y-1">
-                    <h4 className="font-medium text-foreground">{comprador.nome}</h4>
-                    <p className="text-sm text-muted-foreground">
-                      R$ {(comprador.utilizado / 1000000).toFixed(1)}M de R$ {(comprador.meta / 1000000).toFixed(1)}M
-                    </p>
-                  </div>
-                  
-                  <div className="flex items-center justify-between sm:justify-end gap-3">
-                    <div className="text-right">
-                      <div className="text-lg font-bold text-foreground">
-                        {((comprador.utilizado / comprador.meta) * 100).toFixed(1)}%
-                      </div>
-                    </div>
-                    <StatusBadge 
-                      status={comprador.status}
-                      label={
-                        comprador.status === 'success' ? 'Normal' :
-                        comprador.status === 'warning' ? 'Atenção' : 'Bloqueado'
-                      }
-                    />
-                  </div>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </div>
       </div>
+
+      {/* Status dos Compradores */}
+      <Card className="glass-card">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-lg">
+            <Users className="h-5 w-5 text-primary" />
+            Status dos Compradores
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            {compradores.map((comprador, index) => (
+              <div key={index} className="p-3 rounded-lg border border-border/50 hover:bg-muted/30 transition-corporate space-y-2">
+                <div className="space-y-1">
+                  <h4 className="font-medium text-foreground text-sm">{comprador.nome}</h4>
+                  <p className="text-xs text-muted-foreground">
+                    R$ {(comprador.utilizado / 1000000).toFixed(1)}M de R$ {(comprador.meta / 1000000).toFixed(1)}M
+                  </p>
+                </div>
+                
+                <div className="flex items-center justify-between">
+                  <div className="text-sm font-bold text-foreground">
+                    {((comprador.utilizado / comprador.meta) * 100).toFixed(1)}%
+                  </div>
+                  <StatusBadge 
+                    status={comprador.status}
+                    label={
+                      comprador.status === 'success' ? 'Normal' :
+                      comprador.status === 'warning' ? 'Atenção' : 'Bloqueado'
+                    }
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Performance Table */}
       <PerformanceTable items={performanceItems} />
