@@ -184,7 +184,7 @@ export const DashboardGeral = () => {
         <MetricCard
           title="Orçamento Total"
           value={`${(totalMeta / 1000000).toFixed(0)}M`}
-          subtitle="Limite aprovado para 2024"
+          subtitle="Limite aprovado para agosto"
           icon={DollarSign}
           status="success"
         />
