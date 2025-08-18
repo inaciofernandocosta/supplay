@@ -16,9 +16,8 @@ interface Comprador {
   nome: string;
   email: string;
   metaTrimestral: number;
-  realizadoTrimestre: number;
+  percentualRealizado: number;
   percentualParticipacao: number;
-  valorParticipacao: number;
   status: 'ativo' | 'inativo';
 }
 
@@ -39,9 +38,8 @@ export const MetasView = () => {
       nome: 'João Batata',
       email: 'joao.batata@grupovilanova.com',
       metaTrimestral: 60000000,
-      realizadoTrimestre: 50400000,
+      percentualRealizado: 84.0,
       percentualParticipacao: 2.5,
-      valorParticipacao: 1260000,
       status: 'ativo'
     },
     {
@@ -49,9 +47,8 @@ export const MetasView = () => {
       nome: 'João Duarte',
       email: 'joao.duarte@grupovilanova.com',
       metaTrimestral: 54000000,
-      realizadoTrimestre: 48600000,
+      percentualRealizado: 90.0,
       percentualParticipacao: 2.8,
-      valorParticipacao: 1360800,
       status: 'ativo'
     },
     {
@@ -59,9 +56,8 @@ export const MetasView = () => {
       nome: 'Daniel',
       email: 'daniel@grupovilanova.com',
       metaTrimestral: 57000000,
-      realizadoTrimestre: 51300000,
+      percentualRealizado: 90.0,
       percentualParticipacao: 2.6,
-      valorParticipacao: 1333800,
       status: 'ativo'
     },
     {
@@ -69,9 +65,8 @@ export const MetasView = () => {
       nome: 'Tatiane',
       email: 'tatiane@grupovilanova.com',
       metaTrimestral: 48000000,
-      realizadoTrimestre: 39600000,
+      percentualRealizado: 82.5,
       percentualParticipacao: 2.4,
-      valorParticipacao: 950400,
       status: 'ativo'
     },
     {
@@ -79,9 +74,8 @@ export const MetasView = () => {
       nome: 'Paulo',
       email: 'paulo@grupovilanova.com',
       metaTrimestral: 54000000,
-      realizadoTrimestre: 49500000,
+      percentualRealizado: 91.7,
       percentualParticipacao: 2.7,
-      valorParticipacao: 1336500,
       status: 'ativo'
     },
     {
@@ -89,9 +83,8 @@ export const MetasView = () => {
       nome: 'Carlos',
       email: 'carlos@grupovilanova.com',
       metaTrimestral: 51000000,
-      realizadoTrimestre: 45900000,
+      percentualRealizado: 90.0,
       percentualParticipacao: 2.5,
-      valorParticipacao: 1147500,
       status: 'ativo'
     },
     {
@@ -99,9 +92,8 @@ export const MetasView = () => {
       nome: 'Vinicius Vila',
       email: 'vinicius.vila@grupovilanova.com',
       metaTrimestral: 45000000,
-      realizadoTrimestre: 38250000,
+      percentualRealizado: 85.0,
       percentualParticipacao: 2.3,
-      valorParticipacao: 879750,
       status: 'ativo'
     },
     {
@@ -109,9 +101,8 @@ export const MetasView = () => {
       nome: 'Vinicius Focomix',
       email: 'vinicius.focomix@grupovilanova.com',
       metaTrimestral: 42000000,
-      realizadoTrimestre: 39900000,
+      percentualRealizado: 95.0,
       percentualParticipacao: 2.2,
-      valorParticipacao: 877800,
       status: 'ativo'
     },
     {
@@ -119,9 +110,8 @@ export const MetasView = () => {
       nome: 'Danilo',
       email: 'danilo@grupovilanova.com',
       metaTrimestral: 48000000,
-      realizadoTrimestre: 43200000,
+      percentualRealizado: 90.0,
       percentualParticipacao: 2.4,
-      valorParticipacao: 1036800,
       status: 'ativo'
     },
     {
@@ -129,9 +119,8 @@ export const MetasView = () => {
       nome: 'Alexandre',
       email: 'alexandre@grupovilanova.com',
       metaTrimestral: 51000000,
-      realizadoTrimestre: 46350000,
+      percentualRealizado: 90.9,
       percentualParticipacao: 2.5,
-      valorParticipacao: 1158750,
       status: 'ativo'
     },
     {
@@ -139,9 +128,8 @@ export const MetasView = () => {
       nome: 'Rômulo',
       email: 'romulo@grupovilanova.com',
       metaTrimestral: 54000000,
-      realizadoTrimestre: 48600000,
+      percentualRealizado: 90.0,
       percentualParticipacao: 2.6,
-      valorParticipacao: 1263600,
       status: 'ativo'
     },
     {
@@ -149,9 +137,8 @@ export const MetasView = () => {
       nome: 'Carolina',
       email: 'carolina@grupovilanova.com',
       metaTrimestral: 51000000,
-      realizadoTrimestre: 44550000,
+      percentualRealizado: 87.4,
       percentualParticipacao: 2.4,
-      valorParticipacao: 1069200,
       status: 'ativo'
     }
   ]);
@@ -160,16 +147,14 @@ export const MetasView = () => {
     nome: '',
     email: '',
     metaTrimestral: '',
+    percentualRealizado: '',
     percentualParticipacao: '',
     status: 'ativo' as 'ativo' | 'inativo'
   });
 
-  const calcularPercentualMeta = (realizado: number, meta: number) => {
-    return (realizado / meta) * 100;
-  };
-
-  const calcularValorParticipacao = (realizado: number, percentual: number) => {
-    return (realizado * percentual) / 100;
+  const calcularValorParticipacao = (meta: number, percentualRealizado: number, percentualParticipacao: number) => {
+    const valorRealizado = (meta * percentualRealizado) / 100;
+    return (valorRealizado * percentualParticipacao) / 100;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -180,9 +165,8 @@ export const MetasView = () => {
       nome: formData.nome,
       email: formData.email,
       metaTrimestral: Number(formData.metaTrimestral),
-      realizadoTrimestre: editingComprador ? editingComprador.realizadoTrimestre : 0,
+      percentualRealizado: Number(formData.percentualRealizado) || 0,
       percentualParticipacao: Number(formData.percentualParticipacao),
-      valorParticipacao: editingComprador ? calcularValorParticipacao(editingComprador.realizadoTrimestre, Number(formData.percentualParticipacao)) : 0,
       status: formData.status
     };
 
@@ -206,6 +190,7 @@ export const MetasView = () => {
       nome: '',
       email: '',
       metaTrimestral: '',
+      percentualRealizado: '',
       percentualParticipacao: '',
       status: 'ativo'
     });
@@ -217,6 +202,7 @@ export const MetasView = () => {
       nome: comprador.nome,
       email: comprador.email,
       metaTrimestral: comprador.metaTrimestral.toString(),
+      percentualRealizado: comprador.percentualRealizado.toString(),
       percentualParticipacao: comprador.percentualParticipacao.toString(),
       status: comprador.status
     });
@@ -224,8 +210,8 @@ export const MetasView = () => {
   };
 
   const totalMetas = compradores.reduce((acc, c) => acc + c.metaTrimestral, 0);
-  const totalRealizado = compradores.reduce((acc, c) => acc + c.realizadoTrimestre, 0);
-  const totalParticipacao = compradores.reduce((acc, c) => acc + c.valorParticipacao, 0);
+  const totalRealizado = compradores.reduce((acc, c) => acc + (c.metaTrimestral * c.percentualRealizado / 100), 0);
+  const totalParticipacao = compradores.reduce((acc, c) => acc + calcularValorParticipacao(c.metaTrimestral, c.percentualRealizado, c.percentualParticipacao), 0);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/5">
@@ -280,6 +266,18 @@ export const MetasView = () => {
                       value={formData.metaTrimestral}
                       onChange={(e) => setFormData(prev => ({ ...prev, metaTrimestral: e.target.value }))}
                       required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="realizado">Percentual Realizado (%)</Label>
+                    <Input
+                      id="realizado"
+                      type="number"
+                      step="0.1"
+                      min="0"
+                      max="100"
+                      value={formData.percentualRealizado}
+                      onChange={(e) => setFormData(prev => ({ ...prev, percentualRealizado: e.target.value }))}
                     />
                   </div>
                   <div className="space-y-2">
@@ -375,8 +373,8 @@ export const MetasView = () => {
                   <TableRow>
                     <TableHead>Comprador</TableHead>
                     <TableHead>Meta Trimestral</TableHead>
-                    <TableHead>Realizado</TableHead>
-                    <TableHead>% Meta</TableHead>
+                    <TableHead>% Realizado</TableHead>
+                    <TableHead>Valor Realizado</TableHead>
                     <TableHead>% Participação</TableHead>
                     <TableHead>Valor Participação</TableHead>
                     <TableHead>Status</TableHead>
@@ -385,7 +383,8 @@ export const MetasView = () => {
                 </TableHeader>
                 <TableBody>
                   {compradores.map((comprador) => {
-                    const percentualMeta = calcularPercentualMeta(comprador.realizadoTrimestre, comprador.metaTrimestral);
+                    const valorRealizado = (comprador.metaTrimestral * comprador.percentualRealizado) / 100;
+                    const valorParticipacao = calcularValorParticipacao(comprador.metaTrimestral, comprador.percentualRealizado, comprador.percentualParticipacao);
                     return (
                       <TableRow key={comprador.id}>
                         <TableCell>
@@ -395,22 +394,24 @@ export const MetasView = () => {
                           </div>
                         </TableCell>
                         <TableCell>{formatCurrency(comprador.metaTrimestral)}</TableCell>
-                        <TableCell>{formatCurrency(comprador.realizadoTrimestre)}</TableCell>
                         <TableCell>
                           <div className="flex items-center space-x-2">
                             <Progress 
-                              value={Math.min(percentualMeta, 100)} 
+                              value={Math.min(comprador.percentualRealizado, 100)} 
                               className="w-16 h-2"
-                              variant={percentualMeta >= 100 ? 'success' : percentualMeta >= 75 ? 'warning' : 'default'}
+                              variant={comprador.percentualRealizado >= 100 ? 'success' : comprador.percentualRealizado >= 75 ? 'warning' : 'default'}
                             />
                             <span className="text-sm font-medium">
-                              {percentualMeta.toFixed(1)}%
+                              {comprador.percentualRealizado.toFixed(1)}%
                             </span>
                           </div>
                         </TableCell>
+                        <TableCell className="font-medium">
+                          {formatCurrency(valorRealizado)}
+                        </TableCell>
                         <TableCell>{comprador.percentualParticipacao}%</TableCell>
                         <TableCell className="font-medium">
-                          {formatCurrency(comprador.valorParticipacao)}
+                          {formatCurrency(valorParticipacao)}
                         </TableCell>
                         <TableCell>
                           <Badge variant={comprador.status === 'ativo' ? 'default' : 'secondary'}>
