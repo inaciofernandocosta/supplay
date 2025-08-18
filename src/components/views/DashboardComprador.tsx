@@ -158,62 +158,59 @@ export const DashboardComprador = () => {
         />
       </div>
 
-      {/* Budget Gauge and Recent Entries */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        <div className="xl:col-span-1">
-          <BudgetGauge
-            current={comprador.utilizado}
-            total={comprador.meta}
-            label="Meu Orçamento"
-          />
-        </div>
-        
-        <div className="xl:col-span-2">
-          <Card className="glass-card">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <ShoppingCart className="h-5 w-5 text-primary" />
-                Entradas Recentes
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="border-border/50">
-                      <TableHead className="min-w-[80px]">Data</TableHead>
-                      <TableHead className="min-w-[120px]">Fornecedor</TableHead>
-                      <TableHead className="min-w-[120px]">Produto</TableHead>
-                      <TableHead className="text-right min-w-[100px]">Valor</TableHead>
-                      <TableHead className="min-w-[80px]">Status</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {entradasRecentes.map((entrada) => (
-                      <TableRow key={entrada.id} className="border-border/50">
-                        <TableCell className="font-medium">
-                          {new Date(entrada.data).toLocaleDateString('pt-BR')}
-                        </TableCell>
-                        <TableCell className="truncate max-w-[120px]">{entrada.fornecedor}</TableCell>
-                        <TableCell className="truncate max-w-[120px]">{entrada.produto}</TableCell>
-                        <TableCell className="text-right font-medium">
-                          {formatCurrency(entrada.valor)}
-                        </TableCell>
-                        <TableCell>
-                          <StatusBadge 
-                            status={entrada.status === 'Faturado' ? 'success' : 'warning'}
-                            label={entrada.status}
-                          />
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+      {/* Budget Gauge - Full Width */}
+      <div className="w-full">
+        <BudgetGauge
+          current={comprador.utilizado}
+          total={comprador.meta}
+          label="Meu Orçamento"
+        />
       </div>
+      
+      {/* Recent Entries - Full Width */}
+      <Card className="glass-card w-full">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-lg">
+            <ShoppingCart className="h-5 w-5 text-primary" />
+            Entradas Recentes
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-border/50">
+                  <TableHead className="min-w-[80px]">Data</TableHead>
+                  <TableHead className="min-w-[120px]">Fornecedor</TableHead>
+                  <TableHead className="min-w-[120px]">Produto</TableHead>
+                  <TableHead className="text-right min-w-[100px]">Valor</TableHead>
+                  <TableHead className="min-w-[80px]">Status</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {entradasRecentes.map((entrada) => (
+                  <TableRow key={entrada.id} className="border-border/50">
+                    <TableCell className="font-medium">
+                      {new Date(entrada.data).toLocaleDateString('pt-BR')}
+                    </TableCell>
+                    <TableCell className="truncate max-w-[120px]">{entrada.fornecedor}</TableCell>
+                    <TableCell className="truncate max-w-[120px]">{entrada.produto}</TableCell>
+                    <TableCell className="text-right font-medium">
+                      {formatCurrency(entrada.valor)}
+                    </TableCell>
+                    <TableCell>
+                      <StatusBadge 
+                        status={entrada.status === 'Faturado' ? 'success' : 'warning'}
+                        label={entrada.status}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Products Performance */}
       <Card className="glass-card">
