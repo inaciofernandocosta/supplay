@@ -121,21 +121,21 @@ export const AgenteView = () => {
     <div className="space-y-6">
       {/* Header */}
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold text-foreground">Agente IA - WhatsApp</h1>
-        <p className="text-muted-foreground">Simulação de interação via Evolution API</p>
+        <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Agente IA - WhatsApp</h1>
+        <p className="text-sm lg:text-base text-muted-foreground">Simulação de interação via Evolution API</p>
       </div>
 
       {/* User Toggle */}
       <Card className="glass-card">
         <CardContent className="p-4">
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
             <span className="text-sm font-medium text-muted-foreground">Simular como:</span>
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full sm:w-auto">
               <Button
                 variant={activeUser === 'comprador' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setActiveUser('comprador')}
-                className="gap-2"
+                className="gap-2 flex-1 sm:flex-none"
               >
                 <User className="h-4 w-4" />
                 Comprador
@@ -144,7 +144,7 @@ export const AgenteView = () => {
                 variant={activeUser === 'diretor' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setActiveUser('diretor')}
-                className="gap-2"
+                className="gap-2 flex-1 sm:flex-none"
               >
                 <CheckCircle2 className="h-4 w-4" />
                 Diretor
@@ -174,14 +174,14 @@ export const AgenteView = () => {
 
         <CardContent className="p-0">
           {/* Messages Area */}
-          <div className="h-96 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-background to-muted/20">
+          <div className="h-80 lg:h-96 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-background to-muted/20">
             {messages.map((message) => (
               <div
                 key={message.id}
                 className={`flex ${message.tipo === 'user' ? 'justify-end' : 'justify-start'}`}
               >
-                <div className={`flex items-start gap-2 max-w-md ${message.tipo === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-                  <Avatar className="h-8 w-8">
+                <div className={`flex items-start gap-2 max-w-sm lg:max-w-md ${message.tipo === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+                  <Avatar className="h-8 w-8 flex-shrink-0">
                     <AvatarFallback className={
                       message.tipo === 'bot' ? 'bg-primary text-primary-foreground' :
                       message.usuario === 'Diretor Comercial' ? 'bg-warning text-warning-foreground' :
@@ -193,12 +193,12 @@ export const AgenteView = () => {
                     </AvatarFallback>
                   </Avatar>
                   
-                  <div className={`space-y-1 ${message.tipo === 'user' ? 'text-right' : 'text-left'}`}>
+                  <div className={`space-y-1 min-w-0 ${message.tipo === 'user' ? 'text-right' : 'text-left'}`}>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-medium text-muted-foreground">
+                      <span className="text-xs font-medium text-muted-foreground truncate">
                         {message.usuario}
                       </span>
-                      <span className="text-xs text-muted-foreground">
+                      <span className="text-xs text-muted-foreground flex-shrink-0">
                         {formatTime(message.timestamp)}
                       </span>
                     </div>
@@ -208,16 +208,16 @@ export const AgenteView = () => {
                         ? 'bg-primary text-primary-foreground' 
                         : 'bg-card border border-border/50'
                     }`}>
-                      <p className="text-sm whitespace-pre-line">{message.conteudo}</p>
+                      <p className="text-sm whitespace-pre-line break-words">{message.conteudo}</p>
                       
                       {message.acao && message.acao.tipo === 'aprovacao' && (
                         <div className="mt-3 pt-3 border-t border-border/20 space-y-2">
-                          <div className="flex gap-2">
-                            <Button size="sm" className="bg-gradient-success hover:bg-success/90 gap-1">
+                          <div className="flex flex-col sm:flex-row gap-2">
+                            <Button size="sm" className="bg-gradient-success hover:bg-success/90 gap-1 text-xs">
                               <CheckCircle2 className="h-3 w-3" />
                               Aprovar R$ 250K
                             </Button>
-                            <Button size="sm" variant="outline" className="gap-1">
+                            <Button size="sm" variant="outline" className="gap-1 text-xs">
                               <Clock className="h-3 w-3" />
                               Ver Detalhes
                             </Button>
@@ -241,9 +241,9 @@ export const AgenteView = () => {
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                 className="flex-1"
               />
-              <Button onClick={handleSendMessage} className="gap-2">
+              <Button onClick={handleSendMessage} className="gap-2 flex-shrink-0">
                 <Send className="h-4 w-4" />
-                Enviar
+                <span className="hidden sm:inline">Enviar</span>
               </Button>
             </div>
             
@@ -274,7 +274,7 @@ export const AgenteView = () => {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="space-y-2">
               <h4 className="font-medium text-foreground">🔗 Evolution API</h4>
               <p className="text-sm text-muted-foreground">

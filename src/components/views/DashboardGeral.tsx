@@ -54,8 +54,8 @@ export const DashboardGeral = () => {
     <div className="space-y-6">
       {/* Header */}
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold text-foreground">Dashboard Executivo</h1>
-        <p className="text-muted-foreground">Visão completa do controle orçamentário - Grupo Vila Nova</p>
+        <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Dashboard Executivo</h1>
+        <p className="text-sm lg:text-base text-muted-foreground">Visão completa do controle orçamentário - Grupo Vila Nova</p>
       </div>
 
       {/* Main Metrics */}

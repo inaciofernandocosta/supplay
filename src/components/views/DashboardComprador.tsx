@@ -91,14 +91,14 @@ export const DashboardComprador = () => {
     <div className="space-y-6">
       {/* Header with Alert */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Meu Orçamento</h1>
-            <p className="text-muted-foreground">Controle individual - {comprador.nome}</p>
+            <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Meu Orçamento</h1>
+            <p className="text-sm lg:text-base text-muted-foreground">Controle individual - {comprador.nome}</p>
           </div>
           
           {percentage >= 100 && (
-            <Button className="bg-gradient-danger hover:bg-danger/90">
+            <Button className="bg-gradient-danger hover:bg-danger/90 w-full sm:w-auto">
               <Unlock className="h-4 w-4 mr-2" />
               Solicitar Liberação
             </Button>

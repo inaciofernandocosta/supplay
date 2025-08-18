@@ -5,9 +5,14 @@ import { DashboardComprador } from "@/components/views/DashboardComprador";
 import { PerformanceView } from "@/components/views/PerformanceView";
 import { LiberacoesView } from "@/components/views/LiberacoesView";
 import { AgenteView } from "@/components/views/AgenteView";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { Building2, Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const TorreControle = () => {
   const [activeView, setActiveView] = useState('dashboard');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const renderView = () => {
     switch (activeView) {
@@ -28,15 +33,57 @@ const TorreControle = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Mobile Header */}
+      <div className="lg:hidden bg-card border-b border-border/50 p-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-64 p-0">
+                <Navigation 
+                  activeView={activeView} 
+                  onViewChange={(view) => {
+                    setActiveView(view);
+                    setSidebarOpen(false);
+                  }} 
+                />
+              </SheetContent>
+            </Sheet>
+            <Building2 className="h-6 w-6 text-primary" />
+            <div>
+              <h1 className="text-lg font-bold text-foreground">Torre de Controle</h1>
+              <p className="text-xs text-muted-foreground">Grupo Vila Nova</p>
+            </div>
+          </div>
+          <ThemeToggle />
+        </div>
+      </div>
+
       <div className="flex">
-        {/* Sidebar Navigation */}
-        <div className="w-64 min-h-screen border-r border-border/50">
+        {/* Desktop Sidebar Navigation */}
+        <div className="hidden lg:block w-64 min-h-screen border-r border-border/50">
+          <div className="p-4 border-b border-border/50">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <Building2 className="h-6 w-6 text-primary" />
+                <div>
+                  <h1 className="text-lg font-bold text-foreground">Torre de Controle</h1>
+                  <p className="text-xs text-muted-foreground">Grupo Vila Nova</p>
+                </div>
+              </div>
+              <ThemeToggle />
+            </div>
+          </div>
           <Navigation activeView={activeView} onViewChange={setActiveView} />
         </div>
 
         {/* Main Content */}
-        <div className="flex-1">
-          <main className="p-6">
+        <div className="flex-1 min-w-0">
+          <main className="p-4 lg:p-6">
             {renderView()}
           </main>
         </div>
