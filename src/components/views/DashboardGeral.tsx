@@ -1,3 +1,4 @@
+
 import { MetricCard } from "../MetricCard";
 import { BudgetGauge } from "../BudgetGauge";
 import { StatusBadge } from "../StatusBadge";
@@ -60,8 +61,8 @@ export const DashboardGeral = () => {
   return (
     <div className="space-y-6">
       {/* Header - Fixed */}
-      <div className="sticky top-0 lg:top-6 z-30 bg-background/95 backdrop-blur-sm border-b border-border/20 pb-4 mb-6">
-        <div className="space-y-2">
+      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border/20 pb-4 mb-6 -mt-6">
+        <div className="space-y-2 pt-6">
           <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Dashboard Executivo</h1>
           <p className="text-sm lg:text-base text-muted-foreground">Visão completa do controle orçamentário - Grupo Vila Nova</p>
         </div>
