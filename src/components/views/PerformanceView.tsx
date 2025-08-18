@@ -17,17 +17,6 @@ export const PerformanceView = () => {
   const performanceItems = [
     {
       id: '1',
-      nome: 'Arroz Branco 5kg',
-      tipo: 'produto' as const,
-      estoqueAtual: 450000,
-      giroMedio: 150000,
-      coberturaMeses: 3.0,
-      score: 85,
-      status: 'success' as const,
-      comprador: 'João Duarte'
-    },
-    {
-      id: '2',
       nome: 'Fornecedor ABC Ltda',
       tipo: 'fornecedor' as const,
       estoqueAtual: 1200000,
@@ -38,18 +27,7 @@ export const PerformanceView = () => {
       comprador: 'Maria Silva'
     },
     {
-      id: '3',
-      nome: 'Açúcar Cristal 1kg',
-      tipo: 'produto' as const,
-      estoqueAtual: 280000,
-      giroMedio: 45000,
-      coberturaMeses: 6.2,
-      score: 65,
-      status: 'warning' as const,
-      comprador: 'João Duarte'
-    },
-    {
-      id: '4',
+      id: '2',
       nome: 'Distribuidora XYZ',
       tipo: 'fornecedor' as const,
       estoqueAtual: 890000,
@@ -60,26 +38,70 @@ export const PerformanceView = () => {
       comprador: 'Pedro Santos'
     },
     {
-      id: '5',
-      nome: 'Óleo de Soja 900ml',
-      tipo: 'produto' as const,
-      estoqueAtual: 320000,
+      id: '3',
+      nome: 'Atacadista Central',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 650000,
       giroMedio: 95000,
-      coberturaMeses: 3.4,
-      score: 78,
+      coberturaMeses: 6.8,
+      score: 62,
+      status: 'warning' as const,
+      comprador: 'Ana Costa'
+    },
+    {
+      id: '4',
+      nome: 'Indústria Alimentícia Norte',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 420000,
+      giroMedio: 140000,
+      coberturaMeses: 3.0,
+      score: 88,
+      status: 'success' as const,
+      comprador: 'João Duarte'
+    },
+    {
+      id: '5',
+      nome: 'Cooperativa Agrícola Sul',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 780000,
+      giroMedio: 110000,
+      coberturaMeses: 7.1,
+      score: 58,
+      status: 'warning' as const,
+      comprador: 'Carlos Lima'
+    },
+    {
+      id: '6',
+      nome: 'Distribuidora Premium',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 350000,
+      giroMedio: 125000,
+      coberturaMeses: 2.8,
+      score: 92,
       status: 'success' as const,
       comprador: 'Ana Costa'
     },
     {
-      id: '6',
-      nome: 'Café Torrado 500g',
-      tipo: 'produto' as const,
-      estoqueAtual: 180000,
-      giroMedio: 12000,
-      coberturaMeses: 15.0,
-      score: 25,
+      id: '7',
+      nome: 'Atacado Regional Nordeste',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 1500000,
+      giroMedio: 75000,
+      coberturaMeses: 20.0,
+      score: 28,
       status: 'danger' as const,
-      comprador: 'Carlos Lima'
+      comprador: 'Pedro Santos'
+    },
+    {
+      id: '8',
+      nome: 'Fornecedor Express',
+      tipo: 'fornecedor' as const,
+      estoqueAtual: 480000,
+      giroMedio: 160000,
+      coberturaMeses: 3.0,
+      score: 85,
+      status: 'success' as const,
+      comprador: 'João Duarte'
     },
   ];
 
@@ -121,7 +143,7 @@ export const PerformanceView = () => {
         />
         
         <MetricCard
-          title="Produtos Saudáveis"
+          title="Fornecedores Saudáveis"
           value={saudaveis.toString()}
           subtitle={`${Math.round((saudaveis/performanceItems.length)*100)}% do total`}
           icon={TrendingUp}
@@ -186,15 +208,17 @@ export const PerformanceView = () => {
             </div>
             
             <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">Tipo</label>
+              <label className="text-sm font-medium text-foreground">Tipo de Fornecedor</label>
               <Select defaultValue="todos">
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="todos">Produtos e Fornecedores</SelectItem>
-                  <SelectItem value="produto">Apenas Produtos</SelectItem>
-                  <SelectItem value="fornecedor">Apenas Fornecedores</SelectItem>
+                  <SelectItem value="todos">Todos os Tipos</SelectItem>
+                  <SelectItem value="atacadista">Atacadistas</SelectItem>
+                  <SelectItem value="distribuidora">Distribuidoras</SelectItem>
+                  <SelectItem value="industria">Indústrias</SelectItem>
+                  <SelectItem value="cooperativa">Cooperativas</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -241,25 +265,25 @@ export const PerformanceView = () => {
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <h4 className="font-medium text-success">🟢 Produtos Saudáveis</h4>
+              <h4 className="font-medium text-success">🟢 Fornecedores Saudáveis</h4>
               <p className="text-sm text-muted-foreground">
-                {saudaveis} produtos com cobertura adequada e giro eficiente.
+                {saudaveis} fornecedores com cobertura adequada e giro eficiente.
                 Representam {Math.round((saudaveis/performanceItems.length)*100)}% do portfólio.
               </p>
             </div>
             
             <div className="space-y-2">
-              <h4 className="font-medium text-warning">🟡 Produtos em Atenção</h4>
+              <h4 className="font-medium text-warning">🟡 Fornecedores em Atenção</h4>
               <p className="text-sm text-muted-foreground">
-                {atencao} produtos com cobertura elevada. 
+                {atencao} fornecedores com cobertura elevada. 
                 Necessitam de monitoramento para otimizar giro.
               </p>
             </div>
             
             <div className="space-y-2">
-              <h4 className="font-medium text-danger">🔴 Produtos Detratores</h4>
+              <h4 className="font-medium text-danger">🔴 Fornecedores Detratores</h4>
               <p className="text-sm text-muted-foreground">
-                {detratores} produtos com cobertura excessiva. 
+                {detratores} fornecedores com cobertura excessiva. 
                 Requerem ação imediata para reduzir estoque.
               </p>
             </div>
