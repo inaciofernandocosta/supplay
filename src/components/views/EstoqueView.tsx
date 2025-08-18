@@ -274,17 +274,7 @@ export const EstoqueView = () => {
               {filteredData.map((item) => (
                 <TableRow key={item.id} className="border-border/50 hover:bg-muted/30">
                   <TableCell>
-                    <div className="space-y-1">
-                      <div className="font-medium text-foreground truncate max-w-[180px]">{item.familia}</div>
-                      <div className="flex gap-2">
-                        <Badge variant="outline" className="text-xs">
-                          {item.categoria}
-                        </Badge>
-                        <Badge variant="secondary" className="text-xs truncate max-w-[120px]">
-                          {item.fornecedor}
-                        </Badge>
-                      </div>
-                    </div>
+                    <div className="font-medium text-foreground truncate max-w-[180px]">{item.familia}</div>
                   </TableCell>
                   <TableCell className="text-right font-medium">
                     {formatValue(item.giroMedio)}/mês
