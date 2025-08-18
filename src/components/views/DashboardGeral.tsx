@@ -180,7 +180,7 @@ export const DashboardGeral = () => {
       </div>
 
       {/* Main Metrics */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <MetricCard
           title="Orçamento Total Utilizado"
           value={`${(totalUtilizado / 1000000).toFixed(1)}M`}
@@ -204,14 +204,13 @@ export const DashboardGeral = () => {
           icon={TrendingUp}
           status="success"
         />
-      </div>
 
-      {/* Budget Gauge - Full Width */}
-      <div className="w-full">
-        <BudgetGauge
-          current={totalUtilizado}
-          total={totalMeta}
-          label="Orçamento Consolidado"
+        <MetricCard
+          title="Orçamento Consolidado"
+          value={`${((totalUtilizado / totalMeta) * 100).toFixed(1)}%`}
+          subtitle={`${formatValue(totalMeta - totalUtilizado)} disponível`}
+          icon={DollarSign}
+          status={((totalUtilizado / totalMeta) * 100) >= 100 ? 'danger' : ((totalUtilizado / totalMeta) * 100) >= 80 ? 'warning' : 'success'}
         />
       </div>
 
