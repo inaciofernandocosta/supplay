@@ -1,0 +1,370 @@
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { RefreshCw, Download, Package, TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { formatValue } from "@/lib/formatters";
+import { MetricCard } from "../MetricCard";
+
+interface EstoqueFamilia {
+  id: string;
+  familia: string;
+  categoria: string;
+  fornecedor: string;
+  estoqueCentral: number;
+  estoqueRegional: number;
+  estoqueLocal: number;
+  totalEstoque: number;
+  giroMedio: number;
+  coberturaMeses: number;
+  performance: 'alta' | 'media' | 'baixa';
+  score: number;
+  valorEstoque: number;
+}
+
+export const EstoqueView = () => {
+  const [filtroCD, setFiltroCD] = useState<string>("todos");
+  const [filtroFornecedor, setFiltroFornecedor] = useState<string>("todos");
+
+  const estoqueData: EstoqueFamilia[] = [
+    {
+      id: '1',
+      familia: 'Arroz Branco',
+      categoria: 'Grãos',
+      fornecedor: 'Distribuidora Alimentos Sul',
+      estoqueCentral: 850000,
+      estoqueRegional: 320000,
+      estoqueLocal: 180000,
+      totalEstoque: 1350000,
+      giroMedio: 450000,
+      coberturaMeses: 3.0,
+      performance: 'media',
+      score: 75,
+      valorEstoque: 2700000
+    },
+    {
+      id: '2',
+      familia: 'Feijão Carioca',
+      categoria: 'Grãos',
+      fornecedor: 'Fornecedor ABC Ltda',
+      estoqueCentral: 650000,
+      estoqueRegional: 280000,
+      estoqueLocal: 150000,
+      totalEstoque: 1080000,
+      giroMedio: 380000,
+      coberturaMeses: 2.8,
+      performance: 'alta',
+      score: 88,
+      valorEstoque: 3240000
+    },
+    {
+      id: '3',
+      familia: 'Açúcar Cristal',
+      categoria: 'Açúcares',
+      fornecedor: 'Central de Abastecimento Norte',
+      estoqueCentral: 920000,
+      estoqueRegional: 410000,
+      estoqueLocal: 220000,
+      totalEstoque: 1550000,
+      giroMedio: 520000,
+      coberturaMeses: 3.0,
+      performance: 'alta',
+      score: 92,
+      valorEstoque: 1860000
+    },
+    {
+      id: '4',
+      familia: 'Óleo de Soja',
+      categoria: 'Óleos',
+      fornecedor: 'Atacadão Distribuição',
+      estoqueCentral: 480000,
+      estoqueRegional: 190000,
+      estoqueLocal: 110000,
+      totalEstoque: 780000,
+      giroMedio: 250000,
+      coberturaMeses: 3.1,
+      performance: 'media',
+      score: 78,
+      valorEstoque: 4680000
+    },
+    {
+      id: '5',
+      familia: 'Macarrão Espaguete',
+      categoria: 'Massas',
+      fornecedor: 'Mega Fornecimentos',
+      estoqueCentral: 720000,
+      estoqueRegional: 340000,
+      estoqueLocal: 180000,
+      totalEstoque: 1240000,
+      giroMedio: 420000,
+      coberturaMeses: 2.9,
+      performance: 'alta',
+      score: 85,
+      valorEstoque: 2480000
+    },
+    {
+      id: '6',
+      familia: 'Leite em Pó',
+      categoria: 'Laticínios',
+      fornecedor: 'Comercial Vitória',
+      estoqueCentral: 380000,
+      estoqueRegional: 160000,
+      estoqueLocal: 90000,
+      totalEstoque: 630000,
+      giroMedio: 210000,
+      coberturaMeses: 3.0,
+      performance: 'media',
+      score: 82,
+      valorEstoque: 5670000
+    },
+    {
+      id: '7',
+      familia: 'Café Torrado',
+      categoria: 'Bebidas',
+      fornecedor: 'Distribuidora Premium',
+      estoqueCentral: 290000,
+      estoqueRegional: 120000,
+      estoqueLocal: 70000,
+      totalEstoque: 480000,
+      giroMedio: 160000,
+      coberturaMeses: 3.0,
+      performance: 'alta',
+      score: 90,
+      valorEstoque: 3840000
+    },
+    {
+      id: '8',
+      familia: 'Farinha de Trigo',
+      categoria: 'Farinhas',
+      fornecedor: 'Fornecedor Regional Ltda',
+      estoqueCentral: 1200000,
+      estoqueRegional: 520000,
+      estoqueLocal: 280000,
+      totalEstoque: 2000000,
+      giroMedio: 650000,
+      coberturaMeses: 3.1,
+      performance: 'baixa',
+      score: 68,
+      valorEstoque: 2400000
+    }
+  ];
+
+  const filteredData = estoqueData.filter(item => {
+    const matchCD = filtroCD === "todos" || true; // Implementar lógica de CD quando necessário
+    const matchFornecedor = filtroFornecedor === "todos" || item.fornecedor === filtroFornecedor;
+    return matchCD && matchFornecedor;
+  });
+
+  const totalValorEstoque = filteredData.reduce((acc, item) => acc + item.valorEstoque, 0);
+  const totalQuantidadeEstoque = filteredData.reduce((acc, item) => acc + item.totalEstoque, 0);
+  const mediaCobertura = filteredData.reduce((acc, item) => acc + item.coberturaMeses, 0) / filteredData.length;
+  const performanceAlta = filteredData.filter(item => item.performance === 'alta').length;
+
+  const getPerformanceColor = (performance: string) => {
+    switch (performance) {
+      case 'alta': return 'text-success';
+      case 'media': return 'text-warning';
+      case 'baixa': return 'text-danger';
+      default: return 'text-muted-foreground';
+    }
+  };
+
+  const getPerformanceIcon = (performance: string) => {
+    switch (performance) {
+      case 'alta': return <TrendingUp className="h-4 w-4 text-success" />;
+      case 'media': return <Minus className="h-4 w-4 text-warning" />;
+      case 'baixa': return <TrendingDown className="h-4 w-4 text-danger" />;
+      default: return null;
+    }
+  };
+
+  const getPerformanceBadge = (performance: string) => {
+    const variants = {
+      'alta': 'default',
+      'media': 'secondary', 
+      'baixa': 'destructive'
+    } as const;
+    
+    const labels = {
+      'alta': 'Alta',
+      'media': 'Média',
+      'baixa': 'Baixa'
+    };
+
+    return (
+      <Badge variant={variants[performance as keyof typeof variants]}>
+        {labels[performance as keyof typeof labels]}
+      </Badge>
+    );
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Gestão de Estoque</h1>
+          <p className="text-muted-foreground">Controle de estoque por família de produtos</p>
+        </div>
+        <div className="flex gap-3">
+          <Button variant="outline" size="sm">
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Atualizar
+          </Button>
+          <Button variant="outline" size="sm">
+            <Download className="h-4 w-4 mr-2" />
+            Exportar
+          </Button>
+        </div>
+      </div>
+
+      {/* Métricas Principais */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <MetricCard
+          title="Valor Total do Estoque"
+          value={`R$ ${formatValue(totalValorEstoque / 1000000)}M`}
+          subtitle="Valor investido"
+          icon={Package}
+        />
+        <MetricCard
+          title="Quantidade Total"
+          value={formatValue(totalQuantidadeEstoque)}
+          subtitle="Unidades em estoque"
+          icon={Package}
+        />
+        <MetricCard
+          title="Cobertura Média"
+          value={`${mediaCobertura.toFixed(1)} meses`}
+          subtitle="Tempo de cobertura"
+          status={mediaCobertura > 3.5 ? "danger" : mediaCobertura > 2.5 ? "warning" : "success"}
+        />
+        <MetricCard
+          title="Performance Alta"
+          value={`${performanceAlta}/${filteredData.length}`}
+          subtitle="Famílias com alta performance"
+          status="success"
+        />
+      </div>
+
+      {/* Filtros */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Filtros</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-foreground">CD</label>
+              <Select value={filtroCD} onValueChange={setFiltroCD}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione o CD" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="todos">Todos os CDs</SelectItem>
+                  <SelectItem value="central">CD Central</SelectItem>
+                  <SelectItem value="regional">CD Regional</SelectItem>
+                  <SelectItem value="local">CD Local</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-foreground">Fornecedor</label>
+              <Select value={filtroFornecedor} onValueChange={setFiltroFornecedor}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione o fornecedor" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="todos">Todos os Fornecedores</SelectItem>
+                  {Array.from(new Set(estoqueData.map(item => item.fornecedor))).map(fornecedor => (
+                    <SelectItem key={fornecedor} value={fornecedor}>
+                      {fornecedor}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Tabela de Estoque */}
+      <div className="glass-card rounded-lg">
+        <div className="p-4 lg:p-6 border-b border-border/50">
+          <h3 className="text-lg font-semibold text-foreground">Estoque por Família</h3>
+          <p className="text-sm text-muted-foreground">Análise detalhada por família de produtos e CD</p>
+        </div>
+        
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow className="border-border/50">
+                <TableHead className="min-w-[200px]">Família</TableHead>
+                <TableHead className="text-right min-w-[120px]">CD Central</TableHead>
+                <TableHead className="text-right min-w-[120px]">CD Regional</TableHead>
+                <TableHead className="text-right min-w-[120px]">CD Local</TableHead>
+                <TableHead className="text-right min-w-[120px]">Total</TableHead>
+                <TableHead className="text-right min-w-[120px]">Valor Estoque</TableHead>
+                <TableHead className="text-right min-w-[100px]">Cobertura</TableHead>
+                <TableHead className="text-center min-w-[80px]">Score</TableHead>
+                <TableHead className="min-w-[100px]">Performance</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredData.map((item) => (
+                <TableRow key={item.id} className="border-border/50 hover:bg-muted/30">
+                  <TableCell>
+                    <div className="space-y-1">
+                      <div className="font-medium text-foreground truncate max-w-[180px]">{item.familia}</div>
+                      <div className="flex gap-2">
+                        <Badge variant="outline" className="text-xs">
+                          {item.categoria}
+                        </Badge>
+                        <Badge variant="secondary" className="text-xs truncate max-w-[120px]">
+                          {item.fornecedor}
+                        </Badge>
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-right font-medium">
+                    {formatValue(item.estoqueCentral)}
+                  </TableCell>
+                  <TableCell className="text-right font-medium">
+                    {formatValue(item.estoqueRegional)}
+                  </TableCell>
+                  <TableCell className="text-right font-medium">
+                    {formatValue(item.estoqueLocal)}
+                  </TableCell>
+                  <TableCell className="text-right font-bold">
+                    {formatValue(item.totalEstoque)}
+                  </TableCell>
+                  <TableCell className="text-right font-medium">
+                    R$ {formatValue(item.valorEstoque / 1000)}k
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <span className={item.coberturaMeses > 3.5 ? 'text-danger' : item.coberturaMeses > 2.5 ? 'text-warning' : 'text-success'}>
+                      {item.coberturaMeses.toFixed(1)} meses
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <div className="flex items-center justify-center space-x-2">
+                      {getPerformanceIcon(item.performance)}
+                      <span className={`font-bold ${getPerformanceColor(item.performance)}`}>
+                        {item.score}
+                      </span>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    {getPerformanceBadge(item.performance)}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+    </div>
+  );
+};
