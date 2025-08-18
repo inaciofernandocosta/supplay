@@ -13,9 +13,6 @@ interface EstoqueFamilia {
   familia: string;
   categoria: string;
   fornecedor: string;
-  estoqueCentral: number;
-  estoqueRegional: number;
-  estoqueLocal: number;
   totalEstoque: number;
   giroMedio: number;
   coberturaMeses: number;
@@ -25,7 +22,6 @@ interface EstoqueFamilia {
 }
 
 export const EstoqueView = () => {
-  const [filtroCD, setFiltroCD] = useState<string>("todos");
   const [filtroFornecedor, setFiltroFornecedor] = useState<string>("todos");
 
   const estoqueData: EstoqueFamilia[] = [
@@ -34,9 +30,6 @@ export const EstoqueView = () => {
       familia: 'Arroz Branco',
       categoria: 'Grãos',
       fornecedor: 'Distribuidora Alimentos Sul',
-      estoqueCentral: 850000,
-      estoqueRegional: 320000,
-      estoqueLocal: 180000,
       totalEstoque: 1350000,
       giroMedio: 450000,
       coberturaMeses: 3.0,
@@ -49,9 +42,6 @@ export const EstoqueView = () => {
       familia: 'Feijão Carioca',
       categoria: 'Grãos',
       fornecedor: 'Fornecedor ABC Ltda',
-      estoqueCentral: 650000,
-      estoqueRegional: 280000,
-      estoqueLocal: 150000,
       totalEstoque: 1080000,
       giroMedio: 380000,
       coberturaMeses: 2.8,
@@ -64,9 +54,6 @@ export const EstoqueView = () => {
       familia: 'Açúcar Cristal',
       categoria: 'Açúcares',
       fornecedor: 'Central de Abastecimento Norte',
-      estoqueCentral: 920000,
-      estoqueRegional: 410000,
-      estoqueLocal: 220000,
       totalEstoque: 1550000,
       giroMedio: 520000,
       coberturaMeses: 3.0,
@@ -79,9 +66,6 @@ export const EstoqueView = () => {
       familia: 'Óleo de Soja',
       categoria: 'Óleos',
       fornecedor: 'Atacadão Distribuição',
-      estoqueCentral: 480000,
-      estoqueRegional: 190000,
-      estoqueLocal: 110000,
       totalEstoque: 780000,
       giroMedio: 250000,
       coberturaMeses: 3.1,
@@ -94,9 +78,6 @@ export const EstoqueView = () => {
       familia: 'Macarrão Espaguete',
       categoria: 'Massas',
       fornecedor: 'Mega Fornecimentos',
-      estoqueCentral: 720000,
-      estoqueRegional: 340000,
-      estoqueLocal: 180000,
       totalEstoque: 1240000,
       giroMedio: 420000,
       coberturaMeses: 2.9,
@@ -109,9 +90,6 @@ export const EstoqueView = () => {
       familia: 'Leite em Pó',
       categoria: 'Laticínios',
       fornecedor: 'Comercial Vitória',
-      estoqueCentral: 380000,
-      estoqueRegional: 160000,
-      estoqueLocal: 90000,
       totalEstoque: 630000,
       giroMedio: 210000,
       coberturaMeses: 3.0,
@@ -124,9 +102,6 @@ export const EstoqueView = () => {
       familia: 'Café Torrado',
       categoria: 'Bebidas',
       fornecedor: 'Distribuidora Premium',
-      estoqueCentral: 290000,
-      estoqueRegional: 120000,
-      estoqueLocal: 70000,
       totalEstoque: 480000,
       giroMedio: 160000,
       coberturaMeses: 3.0,
@@ -139,9 +114,6 @@ export const EstoqueView = () => {
       familia: 'Farinha de Trigo',
       categoria: 'Farinhas',
       fornecedor: 'Fornecedor Regional Ltda',
-      estoqueCentral: 1200000,
-      estoqueRegional: 520000,
-      estoqueLocal: 280000,
       totalEstoque: 2000000,
       giroMedio: 650000,
       coberturaMeses: 3.1,
@@ -152,9 +124,8 @@ export const EstoqueView = () => {
   ];
 
   const filteredData = estoqueData.filter(item => {
-    const matchCD = filtroCD === "todos" || true; // Implementar lógica de CD quando necessário
     const matchFornecedor = filtroFornecedor === "todos" || item.fornecedor === filtroFornecedor;
-    return matchCD && matchFornecedor;
+    return matchFornecedor;
   });
 
   const totalValorEstoque = filteredData.reduce((acc, item) => acc + item.valorEstoque, 0);
@@ -224,26 +195,30 @@ export const EstoqueView = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <MetricCard
           title="Valor Total do Estoque"
-          value={`R$ ${formatValue(totalValorEstoque / 1000000)}M`}
+          value={`R$ ${(totalValorEstoque / 1000000).toFixed(0)}M`}
           subtitle="Valor investido"
           icon={Package}
+          status="success"
         />
         <MetricCard
           title="Quantidade Total"
-          value={formatValue(totalQuantidadeEstoque)}
+          value={`${(totalQuantidadeEstoque / 1000000).toFixed(3)}`}
           subtitle="Unidades em estoque"
           icon={Package}
+          status="success"
         />
         <MetricCard
           title="Cobertura Média"
           value={`${mediaCobertura.toFixed(1)} meses`}
           subtitle="Tempo de cobertura"
+          icon={Package}
           status={mediaCobertura > 3.5 ? "danger" : mediaCobertura > 2.5 ? "warning" : "success"}
         />
         <MetricCard
           title="Performance Alta"
           value={`${performanceAlta}/${filteredData.length}`}
           subtitle="Famílias com alta performance"
+          icon={TrendingUp}
           status="success"
         />
       </div>
@@ -255,21 +230,6 @@ export const EstoqueView = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">CD</label>
-              <Select value={filtroCD} onValueChange={setFiltroCD}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione o CD" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="todos">Todos os CDs</SelectItem>
-                  <SelectItem value="central">CD Central</SelectItem>
-                  <SelectItem value="regional">CD Regional</SelectItem>
-                  <SelectItem value="local">CD Local</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">Fornecedor</label>
               <Select value={filtroFornecedor} onValueChange={setFiltroFornecedor}>
@@ -302,10 +262,8 @@ export const EstoqueView = () => {
             <TableHeader>
               <TableRow className="border-border/50">
                 <TableHead className="min-w-[200px]">Família</TableHead>
-                <TableHead className="text-right min-w-[120px]">CD Central</TableHead>
-                <TableHead className="text-right min-w-[120px]">CD Regional</TableHead>
-                <TableHead className="text-right min-w-[120px]">CD Local</TableHead>
-                <TableHead className="text-right min-w-[120px]">Total</TableHead>
+                <TableHead className="text-right min-w-[120px]">Giro Médio</TableHead>
+                <TableHead className="text-right min-w-[120px]">Estoque</TableHead>
                 <TableHead className="text-right min-w-[120px]">Valor Estoque</TableHead>
                 <TableHead className="text-right min-w-[100px]">Cobertura</TableHead>
                 <TableHead className="text-center min-w-[80px]">Score</TableHead>
@@ -329,15 +287,9 @@ export const EstoqueView = () => {
                     </div>
                   </TableCell>
                   <TableCell className="text-right font-medium">
-                    {formatValue(item.estoqueCentral)}
+                    {formatValue(item.giroMedio)}/mês
                   </TableCell>
                   <TableCell className="text-right font-medium">
-                    {formatValue(item.estoqueRegional)}
-                  </TableCell>
-                  <TableCell className="text-right font-medium">
-                    {formatValue(item.estoqueLocal)}
-                  </TableCell>
-                  <TableCell className="text-right font-bold">
                     {formatValue(item.totalEstoque)}
                   </TableCell>
                   <TableCell className="text-right font-medium">
