@@ -3,12 +3,12 @@ import { MetricCard } from "../MetricCard";
 import { BudgetGauge } from "../BudgetGauge";
 import { StatusBadge } from "../StatusBadge";
 import { PerformanceTable } from "../PerformanceTable";
-import { EntryCard } from "../EntryCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatValue } from "@/lib/formatters";
 import { 
   DollarSign, 
   Users, 
+  ShoppingCart,
   TrendingUp,
   AlertTriangle,
   CheckCircle
@@ -179,8 +179,8 @@ export const DashboardGeral = () => {
         </div>
       </div>
 
-      {/* Budget Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+      {/* Main Metrics */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <MetricCard
           title="Orçamento Total Utilizado"
           value={`${(totalUtilizado / 1000000).toFixed(1)}M`}
@@ -198,6 +198,14 @@ export const DashboardGeral = () => {
         />
         
         <MetricCard
+          title="Entradas do Mês"
+          value={formatValue(totalUtilizado)}
+          subtitle="156 entradas processadas"
+          icon={ShoppingCart}
+          status="success"
+        />
+        
+        <MetricCard
           title="Performance Geral"
           value="82"
           subtitle="Score médio de giro"
@@ -205,12 +213,6 @@ export const DashboardGeral = () => {
           status="success"
         />
       </div>
-
-      {/* Entry Card */}
-      <EntryCard 
-        value={totalUtilizado}
-        entriesCount={156}
-      />
 
       {/* Budget Gauge - Full Width */}
       <div className="w-full">
