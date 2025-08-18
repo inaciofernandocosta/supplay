@@ -182,35 +182,35 @@ export const DashboardGeral = () => {
       {/* Main Metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <MetricCard
-          title="Orçamento Total Utilizado"
-          value={`${(totalUtilizado / 1000000).toFixed(1)}M`}
-          subtitle={`${((totalUtilizado / totalMeta) * 100).toFixed(1)}% do total`}
+          title="Orçamento Total"
+          value={`${(totalMeta / 1000000).toFixed(0)}M`}
+          subtitle="Limite aprovado para 2024"
           icon={DollarSign}
           status="success"
         />
         
+        <MetricCard
+          title="Valor Utilizado"
+          value={`${(totalUtilizado / 1000000).toFixed(1)}M`}
+          subtitle={`${((totalUtilizado / totalMeta) * 100).toFixed(1)}% consumido`}
+          icon={DollarSign}
+          status={((totalUtilizado / totalMeta) * 100) >= 90 ? 'danger' : ((totalUtilizado / totalMeta) * 100) >= 80 ? 'warning' : 'success'}
+        />
+        
+        <MetricCard
+          title="Saldo Disponível"
+          value={`${((totalMeta - totalUtilizado) / 1000000).toFixed(1)}M`}
+          subtitle={`${(100 - (totalUtilizado / totalMeta) * 100).toFixed(1)}% restante`}
+          icon={DollarSign}
+          status={((totalUtilizado / totalMeta) * 100) >= 90 ? 'danger' : ((totalUtilizado / totalMeta) * 100) >= 80 ? 'warning' : 'success'}
+        />
+
         <MetricCard
           title="Compradores Ativos"
           value="12"
           subtitle="9 em atenção, 1 bloqueado"
           icon={Users}
           status="warning"
-        />
-        
-        <MetricCard
-          title="Performance Geral"
-          value="82"
-          subtitle="Score médio de giro"
-          icon={TrendingUp}
-          status="success"
-        />
-
-        <MetricCard
-          title="Orçamento Consolidado"
-          value={`${((totalUtilizado / totalMeta) * 100).toFixed(1)}%`}
-          subtitle={`${formatValue(totalMeta - totalUtilizado)} disponível`}
-          icon={DollarSign}
-          status={((totalUtilizado / totalMeta) * 100) >= 100 ? 'danger' : ((totalUtilizado / totalMeta) * 100) >= 80 ? 'warning' : 'success'}
         />
       </div>
 
