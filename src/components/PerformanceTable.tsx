@@ -14,6 +14,7 @@ interface PerformanceItem {
   score: number;
   status: 'success' | 'warning' | 'danger';
   comprador: string;
+  fatMes: number;
 }
 
 interface PerformanceTableProps {
@@ -48,8 +49,9 @@ export const PerformanceTable = ({ items, className }: PerformanceTableProps) =>
           <TableHeader>
             <TableRow className="border-border/50">
               <TableHead className="min-w-[200px]">Item</TableHead>
-              <TableHead className="text-right min-w-[120px]">Estoque</TableHead>
               <TableHead className="text-right min-w-[120px]">Giro Médio</TableHead>
+              <TableHead className="text-right min-w-[120px]">Estoque</TableHead>
+              <TableHead className="text-right min-w-[120px]">Fat Mês</TableHead>
               <TableHead className="text-right min-w-[100px]">Cobertura</TableHead>
               <TableHead className="text-center min-w-[80px]">Score</TableHead>
               <TableHead className="min-w-[100px]">Status</TableHead>
@@ -65,10 +67,13 @@ export const PerformanceTable = ({ items, className }: PerformanceTableProps) =>
                   </div>
                 </TableCell>
                 <TableCell className="text-right font-medium">
-                  {formatValue(item.estoqueAtual)}
+                  {formatValue(item.giroMedio)}
                 </TableCell>
                 <TableCell className="text-right">
-                  {formatValue(item.giroMedio)}/mês
+                  {formatValue(item.estoqueAtual)}
+                </TableCell>
+                <TableCell className="text-right font-medium">
+                  {formatValue(item.fatMes || 0)}
                 </TableCell>
                 <TableCell className="text-right">
                   <span className={item.coberturaMeses > 6 ? 'text-danger' : item.coberturaMeses > 3 ? 'text-warning' : 'text-success'}>

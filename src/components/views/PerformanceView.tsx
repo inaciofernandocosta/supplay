@@ -24,7 +24,8 @@ export const PerformanceView = () => {
       coberturaMeses: 15.0,
       score: 35,
       status: 'danger' as const,
-      comprador: 'Maria Silva'
+      comprador: 'Maria Silva',
+      fatMes: 900000
     },
     {
       id: '2',
@@ -35,7 +36,8 @@ export const PerformanceView = () => {
       coberturaMeses: 7.4,
       score: 45,
       status: 'warning' as const,
-      comprador: 'Pedro Santos'
+      comprador: 'Pedro Santos',
+      fatMes: 1100000
     },
     {
       id: '3',
@@ -46,7 +48,8 @@ export const PerformanceView = () => {
       coberturaMeses: 6.8,
       score: 62,
       status: 'warning' as const,
-      comprador: 'Ana Costa'
+      comprador: 'Ana Costa',
+      fatMes: 750000
     },
     {
       id: '4',
@@ -57,7 +60,8 @@ export const PerformanceView = () => {
       coberturaMeses: 3.0,
       score: 88,
       status: 'success' as const,
-      comprador: 'João Duarte'
+      comprador: 'João Duarte',
+      fatMes: 1500000
     },
     {
       id: '5',
@@ -68,7 +72,8 @@ export const PerformanceView = () => {
       coberturaMeses: 7.1,
       score: 58,
       status: 'warning' as const,
-      comprador: 'Carlos Lima'
+      comprador: 'Carlos Lima',
+      fatMes: 950000
     },
     {
       id: '6',
@@ -79,7 +84,8 @@ export const PerformanceView = () => {
       coberturaMeses: 2.8,
       score: 92,
       status: 'success' as const,
-      comprador: 'Ana Costa'
+      comprador: 'Ana Costa',
+      fatMes: 1350000
     },
     {
       id: '7',
@@ -90,7 +96,8 @@ export const PerformanceView = () => {
       coberturaMeses: 20.0,
       score: 28,
       status: 'danger' as const,
-      comprador: 'Pedro Santos'
+      comprador: 'Pedro Santos',
+      fatMes: 650000
     },
     {
       id: '8',
@@ -101,7 +108,8 @@ export const PerformanceView = () => {
       coberturaMeses: 3.0,
       score: 85,
       status: 'success' as const,
-      comprador: 'João Duarte'
+      comprador: 'João Duarte',
+      fatMes: 1720000
     },
   ];
 

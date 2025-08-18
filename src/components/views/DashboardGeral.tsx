@@ -41,7 +41,8 @@ export const DashboardGeral = () => {
       coberturaMeses: 0.9,
       score: 92,
       status: 'success' as const,
-      comprador: 'João Batata'
+      comprador: 'João Batata',
+      fatMes: 3200000
     },
     {
       id: '2', 
@@ -52,7 +53,8 @@ export const DashboardGeral = () => {
       coberturaMeses: 0.8,
       score: 88,
       status: 'success' as const,
-      comprador: 'Tatiane'
+      comprador: 'Tatiane',
+      fatMes: 1400000
     },
     {
       id: '3',
@@ -63,7 +65,8 @@ export const DashboardGeral = () => {
       coberturaMeses: 1.0,
       score: 85,
       status: 'success' as const,
-      comprador: 'Daniel'
+      comprador: 'Daniel',
+      fatMes: 2100000
     },
     {
       id: '4',
@@ -74,7 +77,8 @@ export const DashboardGeral = () => {
       coberturaMeses: 1.3,
       score: 78,
       status: 'warning' as const,
-      comprador: 'Paulo'
+      comprador: 'Paulo',
+      fatMes: 2850000
     },
     {
       id: '5',
@@ -85,7 +89,8 @@ export const DashboardGeral = () => {
       coberturaMeses: 1.1,
       score: 82,
       status: 'success' as const,
-      comprador: 'Carlos'
+      comprador: 'Carlos',
+      fatMes: 2250000
     },
     {
       id: '6',
@@ -96,7 +101,8 @@ export const DashboardGeral = () => {
       coberturaMeses: 1.0,
       score: 86,
       status: 'success' as const,
-      comprador: 'Vinicius Vila'
+      comprador: 'Vinicius Vila',
+      fatMes: 1750000
     },
     {
       id: '7',
@@ -107,7 +113,8 @@ export const DashboardGeral = () => {
       coberturaMeses: 0.9,
       score: 90,
       status: 'success' as const,
-      comprador: 'Vinicius Focomix'
+      comprador: 'Vinicius Focomix',
+      fatMes: 1200000
     }
   ];
 
