@@ -112,22 +112,26 @@ export const PerformanceView = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header with Actions */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Performance de Giro</h1>
-          <p className="text-sm lg:text-base text-muted-foreground">Análise de estoque e cobertura - Todos os CDs</p>
-        </div>
-        
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-          <Button variant="outline" className="gap-2">
-            <RefreshCw className="h-4 w-4" />
-            Atualizar
-          </Button>
-          <Button variant="outline" className="gap-2">
-            <Download className="h-4 w-4" />
-            Exportar
-          </Button>
+      {/* Header - Fixed */}
+      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border/20 pb-4 mb-6 -mt-6">
+        <div className="space-y-2 pt-6">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div>
+              <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Performance de Giro</h1>
+              <p className="text-sm lg:text-base text-muted-foreground">Análise de estoque e cobertura - Todos os CDs</p>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              <Button variant="outline" className="gap-2">
+                <RefreshCw className="h-4 w-4" />
+                Atualizar
+              </Button>
+              <Button variant="outline" className="gap-2">
+                <Download className="h-4 w-4" />
+                Exportar
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
 

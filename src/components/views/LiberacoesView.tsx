@@ -101,10 +101,12 @@ export const LiberacoesView = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="space-y-2">
-        <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Liberações de Orçamento</h1>
-        <p className="text-sm lg:text-base text-muted-foreground">Aprovação de solicitações - Diretor Comercial</p>
+      {/* Header - Fixed */}
+      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border/20 pb-4 mb-6 -mt-6">
+        <div className="space-y-2 pt-6">
+          <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Liberações de Orçamento</h1>
+          <p className="text-sm lg:text-base text-muted-foreground">Aprovação de solicitações - Diretor Comercial</p>
+        </div>
       </div>
 
       {/* Status Cards */}

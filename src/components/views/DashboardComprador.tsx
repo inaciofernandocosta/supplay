@@ -105,22 +105,27 @@ export const DashboardComprador = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header with Alert */}
-      <div className="space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Meu Orçamento</h1>
-            <p className="text-sm lg:text-base text-muted-foreground">Controle individual - {comprador.nome}</p>
+      {/* Header - Fixed */}
+      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border/20 pb-4 mb-6 -mt-6">
+        <div className="space-y-2 pt-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Meu Orçamento</h1>
+              <p className="text-sm lg:text-base text-muted-foreground">Controle individual - {comprador.nome}</p>
+            </div>
+            
+            {percentage >= 100 && (
+              <Button className="bg-gradient-danger hover:bg-danger/90 w-full sm:w-auto">
+                <Unlock className="h-4 w-4 mr-2" />
+                Solicitar Liberação
+              </Button>
+            )}
           </div>
-          
-          {percentage >= 100 && (
-            <Button className="bg-gradient-danger hover:bg-danger/90 w-full sm:w-auto">
-              <Unlock className="h-4 w-4 mr-2" />
-              Solicitar Liberação
-            </Button>
-          )}
         </div>
+      </div>
 
+      {/* Alert */}
+      <div className="space-y-4">
         {percentage >= 80 && (
           <div className="flex items-center gap-3 p-4 rounded-lg bg-warning/10 border border-warning/20">
             <AlertTriangle className="h-5 w-5 text-warning" />
