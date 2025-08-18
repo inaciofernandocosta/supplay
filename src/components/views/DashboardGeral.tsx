@@ -103,15 +103,13 @@ export const DashboardGeral = () => {
         />
       </div>
 
-      {/* Budget Gauge */}
-      <div className="flex justify-center">
-        <div className="w-full max-w-md">
-          <BudgetGauge
-            current={totalUtilizado}
-            total={totalMeta}
-            label="Orçamento Consolidado"
-          />
-        </div>
+      {/* Budget Gauge - Full Width */}
+      <div className="w-full">
+        <BudgetGauge
+          current={totalUtilizado}
+          total={totalMeta}
+          label="Orçamento Consolidado"
+        />
       </div>
 
       {/* Status dos Compradores */}
