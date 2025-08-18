@@ -9,7 +9,8 @@ import {
   CheckCircle2,
   MessageCircle,
   Settings,
-  Package
+  Package,
+  UserCircle
 } from "lucide-react";
 
 interface NavigationProps {
@@ -24,6 +25,7 @@ export const Navigation = ({ activeView, onViewChange }: NavigationProps) => {
     { id: 'estoque', label: 'Gestão de Estoque', icon: Package },
     { id: 'liberacoes', label: 'Liberações', icon: CheckCircle2 },
     { id: 'metas', label: 'Gestão de Metas', icon: Users },
+    { id: 'perfil', label: 'Meu Perfil', icon: UserCircle },
     { id: 'agente', label: 'Agente IA', icon: MessageCircle },
   ];
 
