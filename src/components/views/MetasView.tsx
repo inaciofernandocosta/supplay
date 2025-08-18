@@ -40,7 +40,7 @@ export const MetasView = () => {
       email: 'joao.batata@grupovilanova.com',
       metaTrimestral: 60000000,
       percentualRealizado: 84.0,
-      percentualParticipacao: 2.5,
+      percentualParticipacao: 12.0,
       status: 'ativo'
     },
     {
@@ -49,7 +49,7 @@ export const MetasView = () => {
       email: 'joao.duarte@grupovilanova.com',
       metaTrimestral: 54000000,
       percentualRealizado: 90.0,
-      percentualParticipacao: 2.8,
+      percentualParticipacao: 10.5,
       status: 'ativo'
     },
     {
@@ -58,7 +58,7 @@ export const MetasView = () => {
       email: 'daniel@grupovilanova.com',
       metaTrimestral: 57000000,
       percentualRealizado: 90.0,
-      percentualParticipacao: 2.6,
+      percentualParticipacao: 11.0,
       status: 'ativo'
     },
     {
@@ -67,7 +67,7 @@ export const MetasView = () => {
       email: 'tatiane@grupovilanova.com',
       metaTrimestral: 48000000,
       percentualRealizado: 82.5,
-      percentualParticipacao: 2.4,
+      percentualParticipacao: 9.0,
       status: 'ativo'
     },
     {
@@ -76,7 +76,7 @@ export const MetasView = () => {
       email: 'paulo@grupovilanova.com',
       metaTrimestral: 54000000,
       percentualRealizado: 91.7,
-      percentualParticipacao: 2.7,
+      percentualParticipacao: 10.5,
       status: 'ativo'
     },
     {
@@ -85,7 +85,7 @@ export const MetasView = () => {
       email: 'carlos@grupovilanova.com',
       metaTrimestral: 51000000,
       percentualRealizado: 90.0,
-      percentualParticipacao: 2.5,
+      percentualParticipacao: 9.5,
       status: 'ativo'
     },
     {
@@ -94,7 +94,7 @@ export const MetasView = () => {
       email: 'vinicius.vila@grupovilanova.com',
       metaTrimestral: 45000000,
       percentualRealizado: 85.0,
-      percentualParticipacao: 2.3,
+      percentualParticipacao: 8.5,
       status: 'ativo'
     },
     {
@@ -103,7 +103,7 @@ export const MetasView = () => {
       email: 'vinicius.focomix@grupovilanova.com',
       metaTrimestral: 42000000,
       percentualRealizado: 95.0,
-      percentualParticipacao: 2.2,
+      percentualParticipacao: 8.0,
       status: 'ativo'
     },
     {
@@ -112,7 +112,7 @@ export const MetasView = () => {
       email: 'danilo@grupovilanova.com',
       metaTrimestral: 48000000,
       percentualRealizado: 90.0,
-      percentualParticipacao: 2.4,
+      percentualParticipacao: 9.0,
       status: 'ativo'
     },
     {
@@ -121,7 +121,7 @@ export const MetasView = () => {
       email: 'alexandre@grupovilanova.com',
       metaTrimestral: 51000000,
       percentualRealizado: 90.9,
-      percentualParticipacao: 2.5,
+      percentualParticipacao: 9.5,
       status: 'ativo'
     },
     {
@@ -130,7 +130,7 @@ export const MetasView = () => {
       email: 'romulo@grupovilanova.com',
       metaTrimestral: 54000000,
       percentualRealizado: 90.0,
-      percentualParticipacao: 2.6,
+      percentualParticipacao: 10.5,
       status: 'ativo'
     },
     {
@@ -139,7 +139,7 @@ export const MetasView = () => {
       email: 'carolina@grupovilanova.com',
       metaTrimestral: 51000000,
       percentualRealizado: 87.4,
-      percentualParticipacao: 2.4,
+      percentualParticipacao: 2.0,
       status: 'ativo'
     }
   ]);
@@ -217,7 +217,7 @@ export const MetasView = () => {
 
   const calcularDistribuicao = (comprador: Comprador) => {
     if (metaMensal === 0) return 0;
-    return (metaMensal * comprador.percentualParticipacao) / totalPercentualParticipacao;
+    return (metaMensal * comprador.percentualParticipacao) / 100;
   };
 
   return (
@@ -351,7 +351,7 @@ export const MetasView = () => {
                 <div className="text-right">
                   <div className="text-sm text-muted-foreground">Total de Participação</div>
                   <div className="text-2xl font-bold text-primary">
-                    {totalPercentualParticipacao.toFixed(1)}%
+                    100.0%
                   </div>
                 </div>
               </div>
