@@ -139,7 +139,7 @@ export const DashboardComprador = () => {
       </div>
 
       {/* Metrics Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 lg:gap-6">
         <MetricCard
           title="Orçamento Utilizado"
           value={formatValue(comprador.utilizado)}
@@ -171,47 +171,21 @@ export const DashboardComprador = () => {
           icon={Clock}
           status={performancePrazoPercentual >= 100 ? 'success' : performancePrazoPercentual >= 80 ? 'warning' : 'danger'}
         />
-      </div>
 
-      {/* Budget Gauge - Full Width */}
-      <div className="w-full space-y-4">
-        {/* Meta Information Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Card className="glass-card">
-            <CardContent className="pt-6">
-              <div className="space-y-2">
-                <p className="text-sm text-muted-foreground">Meta Base da Empresa</p>
-                <p className="text-2xl font-bold text-foreground">{formatValue(comprador.metaBase)}</p>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="glass-card">
-            <CardContent className="pt-6">
-              <div className="space-y-2">
-                <p className="text-sm text-muted-foreground">Meta Ajustada por Prazo</p>
-                <div className="flex items-center gap-2">
-                  <p className="text-2xl font-bold text-foreground">{formatValue(metaAjustada)}</p>
-                  <span className={`text-sm font-medium px-2 py-1 rounded ${
-                    ajustePercentual > 0 ? 'bg-success/10 text-success' : 
-                    ajustePercentual < 0 ? 'bg-danger/10 text-danger' : 
-                    'bg-muted/10 text-muted-foreground'
-                  }`}>
-                    {ajustePercentual > 0 ? '+' : ''}{(ajustePercentual * 100).toFixed(1)}%
-                  </span>
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  Performance de prazo: {performancePrazoPercentual.toFixed(0)}% ({comprador.prazoMedio}d vs {empresa.prazoMeta}d)
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        <MetricCard
+          title="Meta Base da Empresa"
+          value={formatValue(comprador.metaBase)}
+          subtitle=""
+          icon={Target}
+          status="success"
+        />
 
-        <BudgetGauge
-          current={comprador.utilizado}
-          total={metaAjustada}
-          label="Meu Orçamento (Meta Ajustada)"
+        <MetricCard
+          title="Meta Ajustada por Prazo"
+          value={formatValue(metaAjustada)}
+          subtitle={`${ajustePercentual > 0 ? '+' : ''}${(ajustePercentual * 100).toFixed(1)}%`}
+          icon={Target}
+          status={ajustePercentual >= 0 ? 'success' : 'danger'}
         />
       </div>
       
