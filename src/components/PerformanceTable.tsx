@@ -39,8 +39,8 @@ export const PerformanceTable = ({ items, className }: PerformanceTableProps) =>
   return (
     <div className={`glass-card rounded-lg ${className}`}>
       <div className="p-4 lg:p-6 border-b border-border/50">
-        <h3 className="text-lg font-semibold text-foreground">Performance de Giro</h3>
-        <p className="text-sm text-muted-foreground">Análise de estoque e cobertura por produto/fornecedor</p>
+        <h3 className="text-lg font-semibold text-foreground">Performance por Centro de Distribuição</h3>
+        <p className="text-sm text-muted-foreground">Análise de estoque e cobertura por centro de distribuição</p>
       </div>
       
       <div className="overflow-x-auto">
@@ -63,7 +63,7 @@ export const PerformanceTable = ({ items, className }: PerformanceTableProps) =>
                   <div className="space-y-1">
                     <div className="font-medium text-foreground truncate max-w-[180px]">{item.nome}</div>
                     <Badge variant="outline" className="text-xs">
-                      {item.tipo === 'produto' ? 'Produto' : 'Fornecedor'}
+                      {item.tipo === 'produto' ? 'Produto' : 'Centro de Distribuição'}
                     </Badge>
                   </div>
                 </TableCell>
