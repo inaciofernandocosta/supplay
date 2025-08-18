@@ -22,6 +22,7 @@ interface EstoqueFamilia {
 }
 
 export const EstoqueView = () => {
+  const [filtroCD, setFiltroCD] = useState<string>("todos");
   const [filtroFornecedor, setFiltroFornecedor] = useState<string>("todos");
 
   const estoqueData: EstoqueFamilia[] = [
@@ -124,8 +125,9 @@ export const EstoqueView = () => {
   ];
 
   const filteredData = estoqueData.filter(item => {
+    const matchCD = filtroCD === "todos" || true; // Implementar lógica de CD quando necessário
     const matchFornecedor = filtroFornecedor === "todos" || item.fornecedor === filtroFornecedor;
-    return matchFornecedor;
+    return matchCD && matchFornecedor;
   });
 
   const totalValorEstoque = filteredData.reduce((acc, item) => acc + item.valorEstoque, 0);
@@ -230,6 +232,25 @@ export const EstoqueView = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-foreground">CD</label>
+              <Select value={filtroCD} onValueChange={setFiltroCD}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione o CD" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="todos">Todos os CDs</SelectItem>
+                  <SelectItem value="1">1 - Vila Nova</SelectItem>
+                  <SelectItem value="11">11 - Vila Nova</SelectItem>
+                  <SelectItem value="12">12 - Vila Nova</SelectItem>
+                  <SelectItem value="14">14 - Vila Nova</SelectItem>
+                  <SelectItem value="502">502 - Focomix MG</SelectItem>
+                  <SelectItem value="501">501 - Focomix SP</SelectItem>
+                  <SelectItem value="804">804 - V2 Farma</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">Fornecedor</label>
               <Select value={filtroFornecedor} onValueChange={setFiltroFornecedor}>
