@@ -36,32 +36,122 @@ export const MetasView = () => {
   const [compradores, setCompradores] = useState<Comprador[]>([
     {
       id: '1',
-      nome: 'Ana Silva',
-      email: 'ana.silva@empresa.com',
-      metaTrimestral: 500000,
-      realizadoTrimestre: 450000,
+      nome: 'João Batata',
+      email: 'joao.batata@grupovilanova.com',
+      metaTrimestral: 60000000,
+      realizadoTrimestre: 50400000,
       percentualParticipacao: 2.5,
-      valorParticipacao: 11250,
+      valorParticipacao: 1260000,
       status: 'ativo'
     },
     {
       id: '2',
-      nome: 'Carlos Santos',
-      email: 'carlos.santos@empresa.com',
-      metaTrimestral: 750000,
-      realizadoTrimestre: 820000,
-      percentualParticipacao: 3.0,
-      valorParticipacao: 24600,
+      nome: 'João Duarte',
+      email: 'joao.duarte@grupovilanova.com',
+      metaTrimestral: 54000000,
+      realizadoTrimestre: 48600000,
+      percentualParticipacao: 2.8,
+      valorParticipacao: 1360800,
       status: 'ativo'
     },
     {
       id: '3',
-      nome: 'Maria Oliveira',
-      email: 'maria.oliveira@empresa.com',
-      metaTrimestral: 400000,
-      realizadoTrimestre: 380000,
-      percentualParticipacao: 2.0,
-      valorParticipacao: 7600,
+      nome: 'Daniel',
+      email: 'daniel@grupovilanova.com',
+      metaTrimestral: 57000000,
+      realizadoTrimestre: 51300000,
+      percentualParticipacao: 2.6,
+      valorParticipacao: 1333800,
+      status: 'ativo'
+    },
+    {
+      id: '4',
+      nome: 'Tatiane',
+      email: 'tatiane@grupovilanova.com',
+      metaTrimestral: 48000000,
+      realizadoTrimestre: 39600000,
+      percentualParticipacao: 2.4,
+      valorParticipacao: 950400,
+      status: 'ativo'
+    },
+    {
+      id: '5',
+      nome: 'Paulo',
+      email: 'paulo@grupovilanova.com',
+      metaTrimestral: 54000000,
+      realizadoTrimestre: 49500000,
+      percentualParticipacao: 2.7,
+      valorParticipacao: 1336500,
+      status: 'ativo'
+    },
+    {
+      id: '6',
+      nome: 'Carlos',
+      email: 'carlos@grupovilanova.com',
+      metaTrimestral: 51000000,
+      realizadoTrimestre: 45900000,
+      percentualParticipacao: 2.5,
+      valorParticipacao: 1147500,
+      status: 'ativo'
+    },
+    {
+      id: '7',
+      nome: 'Vinicius Vila',
+      email: 'vinicius.vila@grupovilanova.com',
+      metaTrimestral: 45000000,
+      realizadoTrimestre: 38250000,
+      percentualParticipacao: 2.3,
+      valorParticipacao: 879750,
+      status: 'ativo'
+    },
+    {
+      id: '8',
+      nome: 'Vinicius Focomix',
+      email: 'vinicius.focomix@grupovilanova.com',
+      metaTrimestral: 42000000,
+      realizadoTrimestre: 39900000,
+      percentualParticipacao: 2.2,
+      valorParticipacao: 877800,
+      status: 'ativo'
+    },
+    {
+      id: '9',
+      nome: 'Danilo',
+      email: 'danilo@grupovilanova.com',
+      metaTrimestral: 48000000,
+      realizadoTrimestre: 43200000,
+      percentualParticipacao: 2.4,
+      valorParticipacao: 1036800,
+      status: 'ativo'
+    },
+    {
+      id: '10',
+      nome: 'Alexandre',
+      email: 'alexandre@grupovilanova.com',
+      metaTrimestral: 51000000,
+      realizadoTrimestre: 46350000,
+      percentualParticipacao: 2.5,
+      valorParticipacao: 1158750,
+      status: 'ativo'
+    },
+    {
+      id: '11',
+      nome: 'Rômulo',
+      email: 'romulo@grupovilanova.com',
+      metaTrimestral: 54000000,
+      realizadoTrimestre: 48600000,
+      percentualParticipacao: 2.6,
+      valorParticipacao: 1263600,
+      status: 'ativo'
+    },
+    {
+      id: '12',
+      nome: 'Carolina',
+      email: 'carolina@grupovilanova.com',
+      metaTrimestral: 51000000,
+      realizadoTrimestre: 44550000,
+      percentualParticipacao: 2.4,
+      valorParticipacao: 1069200,
       status: 'ativo'
     }
   ]);
