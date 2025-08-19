@@ -245,15 +245,15 @@ export const LiberacoesView = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto max-h-[calc(100vh-300px)] relative">
             <Table>
-              <TableHeader>
-                <TableRow className="border-border/50">
-                  <TableHead className="min-w-[120px]">Data</TableHead>
-                  <TableHead className="min-w-[120px]">Comprador</TableHead>
-                  <TableHead className="text-right min-w-[100px]">Valor</TableHead>
-                  <TableHead className="min-w-[200px]">Motivo</TableHead>
-                  <TableHead className="min-w-[100px]">Status</TableHead>
+              <TableHeader style={{ position: 'sticky', top: 0, zIndex: 10, backgroundColor: 'hsl(var(--background))' }}>
+                <TableRow className="border-border/50 hover:bg-transparent">
+                  <TableHead className="min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Data</TableHead>
+                  <TableHead className="min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Comprador</TableHead>
+                  <TableHead className="text-right min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Valor</TableHead>
+                  <TableHead className="min-w-[200px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Motivo</TableHead>
+                  <TableHead className="min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Status</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>

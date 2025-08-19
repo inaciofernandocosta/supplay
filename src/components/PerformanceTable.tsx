@@ -44,18 +44,18 @@ export const PerformanceTable = ({ items, className }: PerformanceTableProps) =>
         <p className="text-sm text-muted-foreground">Análise de estoque e cobertura por centro de distribuição</p>
       </div>
       
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto max-h-[calc(100vh-300px)] relative">
         <Table>
-          <TableHeader>
-            <TableRow className="border-border/50">
-              <TableHead className="min-w-[200px]">Item</TableHead>
-              <TableHead className="text-right min-w-[120px]">Giro Médio</TableHead>
-              <TableHead className="text-right min-w-[120px]">Estoque</TableHead>
-              <TableHead className="text-right min-w-[120px]">Fat Mês</TableHead>
-              <TableHead className="text-right min-w-[100px]">Cobertura</TableHead>
-              <TableHead className="text-center min-w-[80px]">Score</TableHead>
-              <TableHead className="min-w-[100px]">Status</TableHead>
-              <TableHead className="min-w-[120px]">Comprador</TableHead>
+          <TableHeader style={{ position: 'sticky', top: 0, zIndex: 10, backgroundColor: 'hsl(var(--background))' }}>
+            <TableRow className="border-border/50 hover:bg-transparent">
+              <TableHead className="min-w-[200px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Item</TableHead>
+              <TableHead className="text-right min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Giro Médio</TableHead>
+              <TableHead className="text-right min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Estoque</TableHead>
+              <TableHead className="text-right min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Fat Mês</TableHead>
+              <TableHead className="text-right min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Cobertura</TableHead>
+              <TableHead className="text-center min-w-[80px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Score</TableHead>
+              <TableHead className="min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Status</TableHead>
+              <TableHead className="min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Comprador</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
