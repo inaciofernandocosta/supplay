@@ -3,6 +3,7 @@ import { Navigation } from "@/components/Navigation";
 import { DashboardGeral } from "@/components/views/DashboardGeral";
 import { DashboardComprador } from "@/components/views/DashboardComprador";
 import { EstoqueView } from "@/components/views/EstoqueView";
+import { PerformanceView } from "@/components/views/PerformanceView";
 import { LiberacoesView } from "@/components/views/LiberacoesView";
 import { MetasView } from "@/components/views/MetasView";
 import { PerfilView } from "@/components/views/PerfilView";
@@ -25,6 +26,8 @@ const TorreControle = () => {
         return <DashboardComprador />;
       case 'estoque':
         return <EstoqueView />;
+      case 'performance':
+        return <PerformanceView />;
       case 'liberacoes':
         return <LiberacoesView />;
       case 'metas':

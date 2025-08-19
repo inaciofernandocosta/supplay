@@ -10,7 +10,8 @@ import {
   MessageCircle,
   Settings,
   Package,
-  UserCircle
+  UserCircle,
+  Calculator
 } from "lucide-react";
 
 interface NavigationProps {
@@ -23,6 +24,7 @@ export const Navigation = ({ activeView, onViewChange }: NavigationProps) => {
     { id: 'dashboard', label: 'Dashboard Geral', icon: BarChart3 },
     { id: 'comprador', label: 'Meu Orçamento', icon: Target },
     { id: 'estoque', label: 'Gestão de Estoque', icon: Package },
+    { id: 'performance', label: 'Performance', icon: Calculator },
     { id: 'liberacoes', label: 'Liberações', icon: CheckCircle2 },
     { id: 'metas', label: 'Gestão de Metas', icon: Users },
     { id: 'perfil', label: 'Meu Perfil', icon: UserCircle },
