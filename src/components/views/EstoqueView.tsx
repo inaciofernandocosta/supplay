@@ -305,19 +305,19 @@ export const EstoqueView = () => {
           <p className="text-sm text-muted-foreground">Análise detalhada por família de produtos e CD</p>
         </div>
         
-        <div className="overflow-x-auto max-h-[70vh]">
+        <div className="overflow-auto max-h-[calc(100vh-300px)] relative">
           <Table>
-            <TableHeader className="sticky top-0 bg-background z-10">
-              <TableRow className="border-border/50">
-                <TableHead className="min-w-[200px] bg-background">Família</TableHead>
-                <TableHead className="text-right min-w-[100px] bg-background">Embalagem</TableHead>
-                <TableHead className="text-right min-w-[120px] bg-background">Quantidade Giro</TableHead>
-                <TableHead className="text-right min-w-[120px] bg-background">Quantidade Estoque</TableHead>
-                <TableHead className="text-right min-w-[120px] bg-background">Giro Médio</TableHead>
-                <TableHead className="text-right min-w-[120px] bg-background">Estoque</TableHead>
-                <TableHead className="text-right min-w-[120px] bg-background">Valor Estoque</TableHead>
-                <TableHead className="text-right min-w-[100px] bg-background">Cobertura</TableHead>
-                <TableHead className="min-w-[100px] bg-background">Performance</TableHead>
+            <TableHeader className="sticky top-0 bg-card/95 backdrop-blur-sm border-b shadow-sm z-20">
+              <TableRow className="border-border/50 hover:bg-transparent">
+                <TableHead className="min-w-[200px] bg-card/95 backdrop-blur-sm font-semibold">Família</TableHead>
+                <TableHead className="text-right min-w-[100px] bg-card/95 backdrop-blur-sm font-semibold">Embalagem</TableHead>
+                <TableHead className="text-right min-w-[120px] bg-card/95 backdrop-blur-sm font-semibold">Quantidade Giro</TableHead>
+                <TableHead className="text-right min-w-[120px] bg-card/95 backdrop-blur-sm font-semibold">Quantidade Estoque</TableHead>
+                <TableHead className="text-right min-w-[120px] bg-card/95 backdrop-blur-sm font-semibold">Giro Médio</TableHead>
+                <TableHead className="text-right min-w-[120px] bg-card/95 backdrop-blur-sm font-semibold">Estoque</TableHead>
+                <TableHead className="text-right min-w-[120px] bg-card/95 backdrop-blur-sm font-semibold">Valor Estoque</TableHead>
+                <TableHead className="text-right min-w-[100px] bg-card/95 backdrop-blur-sm font-semibold">Cobertura</TableHead>
+                <TableHead className="min-w-[100px] bg-card/95 backdrop-blur-sm font-semibold">Performance</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
