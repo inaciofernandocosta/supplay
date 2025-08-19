@@ -299,25 +299,25 @@ export const EstoqueView = () => {
       </Card>
 
       {/* Tabela de Estoque */}
-      <div className="glass-card rounded-lg overflow-hidden">
+      <div className="glass-card rounded-lg">
         <div className="p-4 lg:p-6 border-b border-border/50">
           <h3 className="text-lg font-semibold text-foreground">Estoque por Família</h3>
           <p className="text-sm text-muted-foreground">Análise detalhada por família de produtos e CD</p>
         </div>
         
-        <div className="relative overflow-auto" style={{ maxHeight: 'calc(100vh - 400px)' }}>
+        <div className="overflow-x-auto">
           <Table>
-            <TableHeader style={{ position: 'sticky', top: 0, zIndex: 10, backgroundColor: 'hsl(var(--background))' }}>
-              <TableRow className="border-border/50 hover:bg-transparent">
-                <TableHead className="min-w-[200px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Família</TableHead>
-                <TableHead className="text-right min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Embalagem</TableHead>
-                <TableHead className="text-right min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Quantidade Giro</TableHead>
-                <TableHead className="text-right min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Quantidade Estoque</TableHead>
-                <TableHead className="text-right min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Giro Médio</TableHead>
-                <TableHead className="text-right min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Estoque</TableHead>
-                <TableHead className="text-right min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Valor Estoque</TableHead>
-                <TableHead className="text-right min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Cobertura</TableHead>
-                <TableHead className="min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Performance</TableHead>
+            <TableHeader>
+              <TableRow className="border-border/50">
+                <TableHead className="min-w-[200px]">Família</TableHead>
+                <TableHead className="text-right min-w-[100px]">Embalagem</TableHead>
+                <TableHead className="text-right min-w-[120px]">Quantidade Giro</TableHead>
+                <TableHead className="text-right min-w-[120px]">Quantidade Estoque</TableHead>
+                <TableHead className="text-right min-w-[120px]">Giro Médio</TableHead>
+                <TableHead className="text-right min-w-[120px]">Estoque</TableHead>
+                <TableHead className="text-right min-w-[120px]">Valor Estoque</TableHead>
+                <TableHead className="text-right min-w-[100px]">Cobertura</TableHead>
+                <TableHead className="min-w-[100px]">Performance</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
