@@ -306,7 +306,6 @@ export const PerformanceView = () => {
                 <TableHead className="text-right min-w-[120px]">Valor Venda</TableHead>
                 <TableHead className="text-right min-w-[100px]">Margem</TableHead>
                 <TableHead className="text-right min-w-[100px]">Cobertura</TableHead>
-                <TableHead className="text-center min-w-[80px]">Score</TableHead>
                 <TableHead className="min-w-[100px]">Performance</TableHead>
               </TableRow>
             </TableHeader>
@@ -319,10 +318,10 @@ export const PerformanceView = () => {
                       <div className="font-medium text-foreground truncate max-w-[180px]">{item.familia}</div>
                     </TableCell>
                     <TableCell className="text-right font-medium">
-                      R$ {formatValue(item.valorCusto / 1000)}k
+                      {Math.round(item.valorCusto).toLocaleString('pt-BR')}
                     </TableCell>
                     <TableCell className="text-right font-medium text-success">
-                      R$ {formatValue(item.valorVenda / 1000)}k
+                      {Math.round(item.valorVenda).toLocaleString('pt-BR')}
                     </TableCell>
                     <TableCell className="text-right">
                       <span className={margem >= 15 ? 'text-success' : margem >= 10 ? 'text-warning' : 'text-danger'}>
@@ -333,14 +332,6 @@ export const PerformanceView = () => {
                       <span className={item.coberturaMeses > 3.5 ? 'text-danger' : item.coberturaMeses > 2.5 ? 'text-warning' : 'text-success'}>
                         {item.coberturaMeses.toFixed(1)} meses
                       </span>
-                    </TableCell>
-                    <TableCell className="text-center">
-                      <div className="flex items-center justify-center space-x-2">
-                        {getPerformanceIcon(item.performance)}
-                        <span className={`font-bold ${getPerformanceColor(item.performance)}`}>
-                          {item.score}
-                        </span>
-                      </div>
                     </TableCell>
                     <TableCell>
                       {getPerformanceBadge(item.performance)}

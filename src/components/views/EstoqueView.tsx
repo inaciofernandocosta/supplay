@@ -297,13 +297,13 @@ export const EstoqueView = () => {
                     <div className="font-medium text-foreground truncate max-w-[180px]">{item.familia}</div>
                   </TableCell>
                   <TableCell className="text-right font-medium">
-                    {formatValue(item.giroMedio)}
+                    {Math.round(item.giroMedio).toLocaleString('pt-BR')}
                   </TableCell>
                   <TableCell className="text-right font-medium">
-                    {formatValue(item.totalEstoque)}
+                    {Math.round(item.totalEstoque).toLocaleString('pt-BR')}
                   </TableCell>
                   <TableCell className="text-right font-medium">
-                    R$ {formatValue(item.valorEstoque)}
+                    {Math.round(item.valorEstoque).toLocaleString('pt-BR')}
                   </TableCell>
                   <TableCell className="text-right">
                     <span className={item.coberturaMeses > 3.5 ? 'text-danger' : item.coberturaMeses > 2.5 ? 'text-warning' : 'text-success'}>
