@@ -221,7 +221,7 @@ export const EstoqueView = () => {
       </div>
 
       {/* Métricas Principais */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <MetricCard
           title="Valor Total do Estoque"
           value={`R$ ${(totalValorEstoque / 1000000).toFixed(0)}M`}
@@ -258,7 +258,7 @@ export const EstoqueView = () => {
           <CardTitle className="text-lg">Filtros</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">CD</label>
               <Select value={filtroCD} onValueChange={setFiltroCD}>
@@ -305,19 +305,19 @@ export const EstoqueView = () => {
           <p className="text-sm text-muted-foreground">Análise detalhada por família de produtos e CD</p>
         </div>
         
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto max-h-[70vh]">
           <Table>
-            <TableHeader>
+            <TableHeader className="sticky top-0 bg-background z-10">
               <TableRow className="border-border/50">
-                <TableHead className="min-w-[200px]">Família</TableHead>
-                <TableHead className="text-right min-w-[100px]">Embalagem</TableHead>
-                <TableHead className="text-right min-w-[120px]">Quantidade Giro</TableHead>
-                <TableHead className="text-right min-w-[120px]">Quantidade Estoque</TableHead>
-                <TableHead className="text-right min-w-[120px]">Giro Médio</TableHead>
-                <TableHead className="text-right min-w-[120px]">Estoque</TableHead>
-                <TableHead className="text-right min-w-[120px]">Valor Estoque</TableHead>
-                <TableHead className="text-right min-w-[100px]">Cobertura</TableHead>
-                <TableHead className="min-w-[100px]">Performance</TableHead>
+                <TableHead className="min-w-[200px] bg-background">Família</TableHead>
+                <TableHead className="text-right min-w-[100px] bg-background">Embalagem</TableHead>
+                <TableHead className="text-right min-w-[120px] bg-background">Quantidade Giro</TableHead>
+                <TableHead className="text-right min-w-[120px] bg-background">Quantidade Estoque</TableHead>
+                <TableHead className="text-right min-w-[120px] bg-background">Giro Médio</TableHead>
+                <TableHead className="text-right min-w-[120px] bg-background">Estoque</TableHead>
+                <TableHead className="text-right min-w-[120px] bg-background">Valor Estoque</TableHead>
+                <TableHead className="text-right min-w-[100px] bg-background">Cobertura</TableHead>
+                <TableHead className="min-w-[100px] bg-background">Performance</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
