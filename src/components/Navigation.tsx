@@ -52,7 +52,16 @@ export const Navigation = ({ activeView, onViewChange }: NavigationProps) => {
       </div>
 
       <div className="pt-4 mt-6 border-t border-border/50">
-        <Button variant="ghost" className="w-full justify-start text-muted-foreground text-sm">
+        <Button 
+          variant={activeView === 'configuracoes' ? "default" : "ghost"} 
+          className={cn(
+            "w-full justify-start transition-corporate text-sm",
+            activeView === 'configuracoes' 
+              ? "bg-primary text-primary-foreground" 
+              : "text-muted-foreground"
+          )}
+          onClick={() => onViewChange('configuracoes')}
+        >
           <Settings className="h-4 w-4 mr-3 flex-shrink-0" />
           <span className="truncate">Configurações</span>
         </Button>

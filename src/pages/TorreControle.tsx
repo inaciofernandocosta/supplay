@@ -7,6 +7,7 @@ import { LiberacoesView } from "@/components/views/LiberacoesView";
 import { MetasView } from "@/components/views/MetasView";
 import { PerfilView } from "@/components/views/PerfilView";
 import { AgenteView } from "@/components/views/AgenteView";
+import { ConfiguracoesView } from "@/components/views/ConfiguracoesView";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Building2, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -32,6 +33,8 @@ const TorreControle = () => {
         return <PerfilView />;
       case 'agente':
         return <AgenteView />;
+      case 'configuracoes':
+        return <ConfiguracoesView />;
       default:
         return <DashboardGeral />;
     }
