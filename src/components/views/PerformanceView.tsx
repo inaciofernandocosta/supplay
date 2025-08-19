@@ -20,6 +20,9 @@ interface PerformanceItem {
   score: number;
   valorCusto: number;
   valorVenda: number;
+  embalagem: number;
+  quantidadeGiro: number;
+  quantidadeEstoque: number;
 }
 
 export const PerformanceView = () => {
@@ -42,7 +45,10 @@ export const PerformanceView = () => {
       performance: 'media',
       score: 75,
       valorCusto: 2700000,
-      valorVenda: 2700000 / (divisorMarkdown / 100) // Custo dividido por 0.835
+      valorVenda: 2700000 / (divisorMarkdown / 100),
+      embalagem: 30,
+      quantidadeGiro: 15000,
+      quantidadeEstoque: 45000
     },
     {
       id: '2',
@@ -55,7 +61,10 @@ export const PerformanceView = () => {
       performance: 'alta',
       score: 88,
       valorCusto: 3240000,
-      valorVenda: 3240000 / (divisorMarkdown / 100)
+      valorVenda: 3240000 / (divisorMarkdown / 100),
+      embalagem: 25,
+      quantidadeGiro: 15200,
+      quantidadeEstoque: 43200
     },
     {
       id: '3',
@@ -68,7 +77,10 @@ export const PerformanceView = () => {
       performance: 'alta',
       score: 92,
       valorCusto: 1860000,
-      valorVenda: 1860000 / (divisorMarkdown / 100)
+      valorVenda: 1860000 / (divisorMarkdown / 100),
+      embalagem: 50,
+      quantidadeGiro: 10400,
+      quantidadeEstoque: 31000
     },
     {
       id: '4',
@@ -81,7 +93,10 @@ export const PerformanceView = () => {
       performance: 'media',
       score: 78,
       valorCusto: 4680000,
-      valorVenda: 4680000 / (divisorMarkdown / 100)
+      valorVenda: 4680000 / (divisorMarkdown / 100),
+      embalagem: 12,
+      quantidadeGiro: 20833,
+      quantidadeEstoque: 65000
     },
     {
       id: '5',
@@ -94,7 +109,10 @@ export const PerformanceView = () => {
       performance: 'alta',
       score: 85,
       valorCusto: 2480000,
-      valorVenda: 2480000 / (divisorMarkdown / 100)
+      valorVenda: 2480000 / (divisorMarkdown / 100),
+      embalagem: 20,
+      quantidadeGiro: 21000,
+      quantidadeEstoque: 62000
     },
     {
       id: '6',
@@ -107,7 +125,10 @@ export const PerformanceView = () => {
       performance: 'media',
       score: 82,
       valorCusto: 5670000,
-      valorVenda: 5670000 / (divisorMarkdown / 100)
+      valorVenda: 5670000 / (divisorMarkdown / 100),
+      embalagem: 18,
+      quantidadeGiro: 11667,
+      quantidadeEstoque: 35000
     },
     {
       id: '7',
@@ -120,7 +141,10 @@ export const PerformanceView = () => {
       performance: 'alta',
       score: 90,
       valorCusto: 3840000,
-      valorVenda: 3840000 / (divisorMarkdown / 100)
+      valorVenda: 3840000 / (divisorMarkdown / 100),
+      embalagem: 24,
+      quantidadeGiro: 6667,
+      quantidadeEstoque: 20000
     },
     {
       id: '8',
@@ -133,7 +157,10 @@ export const PerformanceView = () => {
       performance: 'baixa',
       score: 68,
       valorCusto: 2400000,
-      valorVenda: 2400000 / (divisorMarkdown / 100)
+      valorVenda: 2400000 / (divisorMarkdown / 100),
+      embalagem: 25,
+      quantidadeGiro: 26000,
+      quantidadeEstoque: 80000
     }
   ];
 
@@ -302,6 +329,9 @@ export const PerformanceView = () => {
             <TableHeader>
               <TableRow className="border-border/50">
                 <TableHead className="min-w-[200px]">Família</TableHead>
+                <TableHead className="text-right min-w-[100px]">Embalagem</TableHead>
+                <TableHead className="text-right min-w-[120px]">Quantidade Giro</TableHead>
+                <TableHead className="text-right min-w-[120px]">Quantidade Estoque</TableHead>
                 <TableHead className="text-right min-w-[120px]">Valor Custo</TableHead>
                 <TableHead className="text-right min-w-[120px]">Valor Venda</TableHead>
                 <TableHead className="text-right min-w-[100px]">Margem</TableHead>
@@ -316,6 +346,15 @@ export const PerformanceView = () => {
                   <TableRow key={item.id} className="border-border/50 hover:bg-muted/30">
                     <TableCell>
                       <div className="font-medium text-foreground truncate max-w-[180px]">{item.familia}</div>
+                    </TableCell>
+                    <TableCell className="text-right font-medium">
+                      {item.embalagem}
+                    </TableCell>
+                    <TableCell className="text-right font-medium">
+                      {Math.round(item.quantidadeGiro).toLocaleString('pt-BR')}
+                    </TableCell>
+                    <TableCell className="text-right font-medium">
+                      {Math.round(item.quantidadeEstoque).toLocaleString('pt-BR')}
                     </TableCell>
                     <TableCell className="text-right font-medium">
                       {Math.round(item.valorCusto).toLocaleString('pt-BR')}

@@ -19,6 +19,9 @@ interface EstoqueFamilia {
   performance: 'alta' | 'media' | 'baixa';
   score: number;
   valorEstoque: number;
+  embalagem: number;
+  quantidadeGiro: number;
+  quantidadeEstoque: number;
 }
 
 export const EstoqueView = () => {
@@ -36,7 +39,10 @@ export const EstoqueView = () => {
       coberturaMeses: 3.0,
       performance: 'media',
       score: 75,
-      valorEstoque: 2700000
+      valorEstoque: 2700000,
+      embalagem: 30,
+      quantidadeGiro: 15000,
+      quantidadeEstoque: 45000
     },
     {
       id: '2',
@@ -48,7 +54,10 @@ export const EstoqueView = () => {
       coberturaMeses: 2.8,
       performance: 'alta',
       score: 88,
-      valorEstoque: 3240000
+      valorEstoque: 3240000,
+      embalagem: 25,
+      quantidadeGiro: 15200,
+      quantidadeEstoque: 43200
     },
     {
       id: '3',
@@ -60,7 +69,10 @@ export const EstoqueView = () => {
       coberturaMeses: 3.0,
       performance: 'alta',
       score: 92,
-      valorEstoque: 1860000
+      valorEstoque: 1860000,
+      embalagem: 50,
+      quantidadeGiro: 10400,
+      quantidadeEstoque: 31000
     },
     {
       id: '4',
@@ -72,7 +84,10 @@ export const EstoqueView = () => {
       coberturaMeses: 3.1,
       performance: 'media',
       score: 78,
-      valorEstoque: 4680000
+      valorEstoque: 4680000,
+      embalagem: 12,
+      quantidadeGiro: 20833,
+      quantidadeEstoque: 65000
     },
     {
       id: '5',
@@ -84,7 +99,10 @@ export const EstoqueView = () => {
       coberturaMeses: 2.9,
       performance: 'alta',
       score: 85,
-      valorEstoque: 2480000
+      valorEstoque: 2480000,
+      embalagem: 20,
+      quantidadeGiro: 21000,
+      quantidadeEstoque: 62000
     },
     {
       id: '6',
@@ -96,7 +114,10 @@ export const EstoqueView = () => {
       coberturaMeses: 3.0,
       performance: 'media',
       score: 82,
-      valorEstoque: 5670000
+      valorEstoque: 5670000,
+      embalagem: 18,
+      quantidadeGiro: 11667,
+      quantidadeEstoque: 35000
     },
     {
       id: '7',
@@ -108,7 +129,10 @@ export const EstoqueView = () => {
       coberturaMeses: 3.0,
       performance: 'alta',
       score: 90,
-      valorEstoque: 3840000
+      valorEstoque: 3840000,
+      embalagem: 24,
+      quantidadeGiro: 6667,
+      quantidadeEstoque: 20000
     },
     {
       id: '8',
@@ -120,7 +144,10 @@ export const EstoqueView = () => {
       coberturaMeses: 3.1,
       performance: 'baixa',
       score: 68,
-      valorEstoque: 2400000
+      valorEstoque: 2400000,
+      embalagem: 25,
+      quantidadeGiro: 26000,
+      quantidadeEstoque: 80000
     }
   ];
 
@@ -283,6 +310,9 @@ export const EstoqueView = () => {
             <TableHeader>
               <TableRow className="border-border/50">
                 <TableHead className="min-w-[200px]">Família</TableHead>
+                <TableHead className="text-right min-w-[100px]">Embalagem</TableHead>
+                <TableHead className="text-right min-w-[120px]">Quantidade Giro</TableHead>
+                <TableHead className="text-right min-w-[120px]">Quantidade Estoque</TableHead>
                 <TableHead className="text-right min-w-[120px]">Giro Médio</TableHead>
                 <TableHead className="text-right min-w-[120px]">Estoque</TableHead>
                 <TableHead className="text-right min-w-[120px]">Valor Estoque</TableHead>
@@ -295,6 +325,15 @@ export const EstoqueView = () => {
                 <TableRow key={item.id} className="border-border/50 hover:bg-muted/30">
                   <TableCell>
                     <div className="font-medium text-foreground truncate max-w-[180px]">{item.familia}</div>
+                  </TableCell>
+                  <TableCell className="text-right font-medium">
+                    {item.embalagem}
+                  </TableCell>
+                  <TableCell className="text-right font-medium">
+                    {Math.round(item.quantidadeGiro).toLocaleString('pt-BR')}
+                  </TableCell>
+                  <TableCell className="text-right font-medium">
+                    {Math.round(item.quantidadeEstoque).toLocaleString('pt-BR')}
                   </TableCell>
                   <TableCell className="text-right font-medium">
                     {Math.round(item.giroMedio).toLocaleString('pt-BR')}
