@@ -318,25 +318,25 @@ export const PerformanceView = () => {
       </Card>
 
       {/* Tabela de Performance */}
-      <div className="glass-card rounded-lg">
+      <div className="glass-card rounded-lg overflow-hidden">
         <div className="p-4 lg:p-6 border-b border-border/50">
           <h3 className="text-lg font-semibold text-foreground">Performance por Família</h3>
           <p className="text-sm text-muted-foreground">Análise com valores reais de venda (Custo + Markdown)</p>
         </div>
         
-        <div className="overflow-auto max-h-[calc(100vh-300px)] relative">
+        <div className="relative overflow-auto" style={{ maxHeight: 'calc(100vh - 400px)' }}>
           <Table>
-            <TableHeader className="sticky top-0 bg-card/95 backdrop-blur-sm border-b shadow-sm z-20">
+            <TableHeader style={{ position: 'sticky', top: 0, zIndex: 10, backgroundColor: 'hsl(var(--background))' }}>
               <TableRow className="border-border/50 hover:bg-transparent">
-                <TableHead className="min-w-[200px] bg-card/95 backdrop-blur-sm font-semibold">Família</TableHead>
-                <TableHead className="text-right min-w-[100px] bg-card/95 backdrop-blur-sm font-semibold">Embalagem</TableHead>
-                <TableHead className="text-right min-w-[120px] bg-card/95 backdrop-blur-sm font-semibold">Quantidade Giro</TableHead>
-                <TableHead className="text-right min-w-[120px] bg-card/95 backdrop-blur-sm font-semibold">Quantidade Estoque</TableHead>
-                <TableHead className="text-right min-w-[120px] bg-card/95 backdrop-blur-sm font-semibold">Valor Custo</TableHead>
-                <TableHead className="text-right min-w-[120px] bg-card/95 backdrop-blur-sm font-semibold">Valor Venda</TableHead>
-                <TableHead className="text-right min-w-[100px] bg-card/95 backdrop-blur-sm font-semibold">Margem</TableHead>
-                <TableHead className="text-right min-w-[100px] bg-card/95 backdrop-blur-sm font-semibold">Cobertura</TableHead>
-                <TableHead className="min-w-[100px] bg-card/95 backdrop-blur-sm font-semibold">Performance</TableHead>
+                <TableHead className="min-w-[200px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Família</TableHead>
+                <TableHead className="text-right min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Embalagem</TableHead>
+                <TableHead className="text-right min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Quantidade Giro</TableHead>
+                <TableHead className="text-right min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Quantidade Estoque</TableHead>
+                <TableHead className="text-right min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Valor Custo</TableHead>
+                <TableHead className="text-right min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Valor Venda</TableHead>
+                <TableHead className="text-right min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Margem</TableHead>
+                <TableHead className="text-right min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Cobertura</TableHead>
+                <TableHead className="min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Performance</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
