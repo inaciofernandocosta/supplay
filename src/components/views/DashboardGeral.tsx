@@ -468,7 +468,7 @@ export const DashboardGeral = () => {
   const pedidosAbertosTotal = metricas?.totalValorPedidos || 0;
   const totalEstoqueMaisPedidos = estoqueAtualTotal + pedidosAbertosTotal;
   const percentualPedidos = estoqueAtualTotal > 0 ? (pedidosAbertosTotal / estoqueAtualTotal) * 100 : 0;
-  const coberturaMedia = metricas?.mediaCobertura || 0;
+  const coberturaMedia = 1.0;
   const coberturaProjetada = metricas?.mediaCoberturaProjetada || 0;
 
   return (
