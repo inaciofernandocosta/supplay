@@ -183,20 +183,20 @@ export const DashboardGeral = () => {
     }
   ];
 
-  // Compradores reais com gastos mensais (total 17M/mês para chegar a 205M/ano)
+  // Compradores com valores utilizados do orçamento total (205M)
   const compradores = [
-    { nome: "João Batata", utilizado: 1400000, meta: 1670000, status: 'success' as const },
-    { nome: "João Duarte", utilizado: 1350000, meta: 1500000, status: 'warning' as const },
-    { nome: "Daniel", utilizado: 1425000, meta: 1580000, status: 'warning' as const },
-    { nome: "Tatiane", utilizado: 1100000, meta: 1330000, status: 'success' as const },
-    { nome: "Paulo", utilizado: 1375000, meta: 1500000, status: 'warning' as const },
-    { nome: "Carlos", utilizado: 1275000, meta: 1420000, status: 'warning' as const },
-    { nome: "Vinicius Vila", utilizado: 1063000, meta: 1250000, status: 'success' as const },
-    { nome: "Vinicius Focomix", utilizado: 1108000, meta: 1170000, status: 'danger' as const },
-    { nome: "Danilo", utilizado: 1200000, meta: 1330000, status: 'warning' as const },
-    { nome: "Alexandre", utilizado: 1288000, meta: 1420000, status: 'warning' as const },
-    { nome: "Rômulo", utilizado: 1350000, meta: 1500000, status: 'warning' as const },
-    { nome: "Carolina", utilizado: 1238000, meta: 1420000, status: 'success' as const },
+    { nome: "João Batata", utilizado: 16800000, meta: 20000000, status: 'success' as const },
+    { nome: "João Duarte", utilizado: 16200000, meta: 18000000, status: 'warning' as const },
+    { nome: "Daniel", utilizado: 17100000, meta: 19000000, status: 'warning' as const },
+    { nome: "Tatiane", utilizado: 13200000, meta: 16000000, status: 'success' as const },
+    { nome: "Paulo", utilizado: 16500000, meta: 18000000, status: 'warning' as const },
+    { nome: "Carlos", utilizado: 15300000, meta: 17000000, status: 'warning' as const },
+    { nome: "Vinicius Vila", utilizado: 12750000, meta: 15000000, status: 'success' as const },
+    { nome: "Vinicius Focomix", utilizado: 13300000, meta: 14000000, status: 'danger' as const },
+    { nome: "Danilo", utilizado: 14400000, meta: 16000000, status: 'warning' as const },
+    { nome: "Alexandre", utilizado: 15450000, meta: 17000000, status: 'warning' as const },
+    { nome: "Rômulo", utilizado: 16200000, meta: 18000000, status: 'warning' as const },
+    { nome: "Carolina", utilizado: 14850000, meta: 17000000, status: 'success' as const },
   ];
 
   const performanceItems = [
@@ -456,26 +456,19 @@ export const DashboardGeral = () => {
   ];
 
   const totalUtilizado = compradores.reduce((acc, comp) => acc + comp.utilizado, 0);
-  const totalMetaMensal = compradores.reduce((acc, comp) => acc + comp.meta, 0);
-  const totalMeta = 205000000; // R$ 205 milhões (orçamento anual)
-  const orcamentoMensal = totalMeta / 12; // Orçamento mensal (~17M)
+  const totalMeta = 205000000; // R$ 205 milhões
 
   // Cálculos de estoque + pedidos abertos - com validação para evitar NaN
   const stockData = calculateStockWithOrders(mockEstoque, mockPurchaseOrders);
   const { metricas } = stockData;
   
-  // Validações para evitar NaN
-  const estoqueAtualTotal = metricas?.totalValorEstoque || 0;
+  // O estoque atual deve ser igual ao valor utilizado pelos compradores
+  const estoqueAtualTotal = totalUtilizado; // Valor utilizado = Estoque Atual
   const pedidosAbertosTotal = metricas?.totalValorPedidos || 0;
-  const totalEstoqueMaisPedidos = metricas?.totalValorProjetado || 0;
+  const totalEstoqueMaisPedidos = estoqueAtualTotal + pedidosAbertosTotal;
   const percentualPedidos = estoqueAtualTotal > 0 ? (pedidosAbertosTotal / estoqueAtualTotal) * 100 : 0;
   const coberturaMedia = metricas?.mediaCobertura || 0;
   const coberturaProjetada = metricas?.mediaCoberturaProjetada || 0;
-  const performanceAlta = metricas?.performanceAlta || 0;
-
-  // Projeção anual baseada no gasto mensal atual
-  const gastoAnualProjetado = totalUtilizado * 12;
-  const percentualUtilizadoAnual = (gastoAnualProjetado / totalMeta) * 100;
 
   return (
     <div className="space-y-6">
@@ -487,10 +480,10 @@ export const DashboardGeral = () => {
         </div>
       </div>
 
-      {/* Main Metrics - Reorganizada para clareza conceitual */}
+      {/* Main Metrics - Simplificado conforme escopo */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <MetricCard
-          title="Orçamento Anual"
+          title="Orçamento Total"
           value={`${(totalMeta / 1000000).toFixed(0)}M`}
           subtitle="Budget aprovado 2024"
           icon={DollarSign}
@@ -498,44 +491,36 @@ export const DashboardGeral = () => {
         />
         
         <MetricCard
-          title="Gasto Mensal Atual"
+          title="Valor Utilizado"
           value={`${(totalUtilizado / 1000000).toFixed(1)}M`}
-          subtitle={`Meta: ${(orcamentoMensal / 1000000).toFixed(1)}M/mês`}
-          icon={TrendingUp}
-          status={(totalUtilizado / orcamentoMensal) >= 1.1 ? 'danger' : (totalUtilizado / orcamentoMensal) >= 0.9 ? 'warning' : 'success'}
-        />
-
-        <MetricCard
-          title="Projeção Anual"
-          value={`${(gastoAnualProjetado / 1000000).toFixed(1)}M`}
-          subtitle={`${percentualUtilizadoAnual.toFixed(1)}% do orçamento`}
-          icon={TrendingUp}
-          status={percentualUtilizadoAnual >= 100 ? 'danger' : percentualUtilizadoAnual >= 90 ? 'warning' : 'success'}
+          subtitle={`${((totalUtilizado / totalMeta) * 100).toFixed(1)}% do orçamento`}
+          icon={Package}
+          status={((totalUtilizado / totalMeta) * 100) >= 90 ? 'danger' : ((totalUtilizado / totalMeta) * 100) >= 80 ? 'warning' : 'success'}
         />
 
         <MetricCard
           title="Saldo Disponível"
-          value={`${((totalMeta - gastoAnualProjetado) / 1000000).toFixed(1)}M`}
-          subtitle={`${(100 - percentualUtilizadoAnual).toFixed(1)}% restante`}
+          value={`${((totalMeta - totalUtilizado) / 1000000).toFixed(1)}M`}
+          subtitle={`${(100 - (totalUtilizado / totalMeta) * 100).toFixed(1)}% restante`}
           icon={DollarSign}
-          status={percentualUtilizadoAnual >= 100 ? 'danger' : percentualUtilizadoAnual >= 90 ? 'warning' : 'success'}
+          status={((totalUtilizado / totalMeta) * 100) >= 90 ? 'danger' : ((totalUtilizado / totalMeta) * 100) >= 80 ? 'warning' : 'success'}
+        />
+
+        <MetricCard
+          title="Cobertura Média"
+          value={`${coberturaMedia > 0 ? coberturaMedia.toFixed(1) : '0.0'} meses`}
+          subtitle="Baseada no giro médio"
+          icon={TrendingUp}
+          status={coberturaMedia >= 2 && coberturaMedia <= 3 ? 'success' : coberturaMedia >= 1 ? 'warning' : 'danger'}
         />
       </div>
 
       {/* Métricas Operacionais */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <MetricCard
-          title="Cobertura Média"
-          value={`${coberturaMedia > 0 ? coberturaMedia.toFixed(1) : '0.0'} meses`}
-          subtitle="Baseada no giro médio"
-          icon={Package}
-          status={coberturaMedia >= 2 && coberturaMedia <= 3 ? 'success' : coberturaMedia >= 1 ? 'warning' : 'danger'}
-        />
-
-        <MetricCard
           title="Estoque Atual"
           value={`${(estoqueAtualTotal / 1000000).toFixed(1)}M`}
-          subtitle="Valor total em estoque"
+          subtitle="Mesmo valor utilizado"
           icon={Package}
           status="success"
         />
@@ -546,6 +531,14 @@ export const DashboardGeral = () => {
           subtitle="Em trânsito e aprovados"
           icon={FileText}
           status="warning"
+        />
+
+        <MetricCard
+          title="Total Projetado"
+          value={`${(totalEstoqueMaisPedidos / 1000000).toFixed(1)}M`}
+          subtitle="Estoque + Pedidos"
+          icon={TrendingUp}
+          status="success"
         />
 
         <MetricCard
@@ -624,8 +617,8 @@ export const DashboardGeral = () => {
                   <span className="text-sm font-medium">{coberturaProjetada > 0 ? coberturaProjetada.toFixed(1) : '0.0'} meses</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Performance Alta:</span>
-                  <span className="text-sm font-medium">{performanceAlta > 0 ? performanceAlta.toFixed(0) : '0'}%</span>
+                  <span className="text-sm text-muted-foreground">Itens Ativos:</span>
+                  <span className="text-sm font-medium">{mockEstoque.length} produtos</span>
                 </div>
               </div>
             </div>
