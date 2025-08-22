@@ -50,25 +50,25 @@ export const DashboardComprador = () => {
   const entradasRecentes = [
     {
       id: 1,
+      numeroPedido: "PED-2024-0001",
       data: yesterdayStr,
       fornecedor: "Fornecedor ABC Ltda",
-      produto: "Arroz Branco 5kg", 
       valor: 125000,
       status: "Faturado"
     },
     {
       id: 2,
+      numeroPedido: "PED-2024-0002",
       data: yesterdayStr,
       fornecedor: "Distribuidora XYZ",
-      produto: "Feijão Preto 1kg",
       valor: 89000,
       status: "Faturado"
     },
     {
       id: 3,
+      numeroPedido: "PED-2024-0003",
       data: yesterdayStr,
       fornecedor: "Alimentos Premium",
-      produto: "Óleo de Soja 900ml", 
       valor: 67000,
       status: "Faturado"
     },
@@ -78,36 +78,27 @@ export const DashboardComprador = () => {
   const pedidosAndamento = [
     {
       id: 1,
+      numeroPedido: "PED-2024-0004",
       data: "2024-01-20",
       fornecedor: "Tio João",
-      produto: "Arroz Branco 5kg",
-      quantidade: 2000,
-      valorUnitario: 30,
-      valorTotal: 60000,
-      status: "Em Entrada",
-      previsaoEntrega: "2024-01-25"
+      valor: 60000,
+      status: "Em Entrada"
     },
     {
       id: 2,
+      numeroPedido: "PED-2024-0005",
       data: "2024-01-18",
       fornecedor: "União",
-      produto: "Açúcar Cristal 1kg",
-      quantidade: 5000,
-      valorUnitario: 5,
-      valorTotal: 25000,
-      status: "Em Entrada",
-      previsaoEntrega: "2024-01-22"
+      valor: 25000,
+      status: "Em Entrada"
     },
     {
       id: 3,
+      numeroPedido: "PED-2024-0006",
       data: "2024-01-19",
       fornecedor: "Liza",
-      produto: "Óleo de Soja 900ml",
-      quantidade: 1500,
-      valorUnitario: 7,
-      valorTotal: 10500,
-      status: "Em Entrada",
-      previsaoEntrega: "2024-01-30"
+      valor: 10500,
+      status: "Em Entrada"
     },
   ];
 
@@ -273,35 +264,29 @@ export const DashboardComprador = () => {
             <Table>
               <TableHeader style={{ position: 'sticky', top: 0, zIndex: 10, backgroundColor: 'hsl(var(--background))' }}>
                 <TableRow className="border-border/50 hover:bg-transparent">
+                  <TableHead className="min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Nº Pedido</TableHead>
                   <TableHead className="min-w-[80px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Data</TableHead>
                   <TableHead className="min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Fornecedor</TableHead>
-                  <TableHead className="min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Produto</TableHead>
-                  <TableHead className="text-right min-w-[80px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Qtd</TableHead>
-                  <TableHead className="text-right min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Valor Total</TableHead>
+                  <TableHead className="text-right min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Valor</TableHead>
                   <TableHead className="min-w-[80px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Status</TableHead>
-                  <TableHead className="min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Previsão</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {pedidosAndamento.map((pedido) => (
                   <TableRow key={pedido.id} className="border-border/50">
+                    <TableCell className="font-medium">{pedido.numeroPedido}</TableCell>
                     <TableCell className="font-medium">
                       {new Date(pedido.data).toLocaleDateString('pt-BR')}
                     </TableCell>
                     <TableCell className="truncate max-w-[120px]">{pedido.fornecedor}</TableCell>
-                    <TableCell className="truncate max-w-[120px]">{pedido.produto}</TableCell>
-                    <TableCell className="text-right">{pedido.quantidade.toLocaleString()}</TableCell>
                     <TableCell className="text-right font-medium">
-                      {formatValue(pedido.valorTotal)}
+                      {formatValue(pedido.valor)}
                     </TableCell>
                     <TableCell>
                       <StatusBadge 
                         status="warning"
                         label={pedido.status}
                       />
-                    </TableCell>
-                    <TableCell className="text-sm">
-                      {new Date(pedido.previsaoEntrega).toLocaleDateString('pt-BR')}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -324,9 +309,9 @@ export const DashboardComprador = () => {
             <Table>
               <TableHeader style={{ position: 'sticky', top: 0, zIndex: 10, backgroundColor: 'hsl(var(--background))' }}>
                 <TableRow className="border-border/50 hover:bg-transparent">
+                  <TableHead className="min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Nº Pedido</TableHead>
                   <TableHead className="min-w-[80px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Data</TableHead>
                   <TableHead className="min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Fornecedor</TableHead>
-                  <TableHead className="min-w-[120px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Produto</TableHead>
                   <TableHead className="text-right min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Valor</TableHead>
                   <TableHead className="min-w-[80px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Status</TableHead>
                 </TableRow>
@@ -334,11 +319,11 @@ export const DashboardComprador = () => {
               <TableBody>
                 {entradasRecentes.map((entrada) => (
                   <TableRow key={entrada.id} className="border-border/50">
+                    <TableCell className="font-medium">{entrada.numeroPedido}</TableCell>
                     <TableCell className="font-medium">
                       {new Date(entrada.data).toLocaleDateString('pt-BR')}
                     </TableCell>
                     <TableCell className="truncate max-w-[120px]">{entrada.fornecedor}</TableCell>
-                    <TableCell className="truncate max-w-[120px]">{entrada.produto}</TableCell>
                     <TableCell className="text-right font-medium">
                       {formatValue(entrada.valor)}
                     </TableCell>
