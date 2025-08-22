@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 
 export const DashboardGeral = () => {
+  // Dashboard executivo com KPIs de estoque e orçamento
   // Mock estoque atual para cálculos - dados realistas compatíveis com orçamento de 205M
   const mockEstoque = [
     {
