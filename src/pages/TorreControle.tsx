@@ -28,6 +28,8 @@ const TorreControle = () => {
         return <EstoqueView />;
       case 'performance':
         return <PerformanceView />;
+      case 'performance-markdown':
+        return <PerformanceView />;
       case 'liberacoes':
         return <LiberacoesView />;
       case 'metas':
