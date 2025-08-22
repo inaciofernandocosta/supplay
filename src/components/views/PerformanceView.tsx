@@ -36,6 +36,7 @@ export const PerformanceView = () => {
   const markdownPercentual = 16.5;
   const divisorMarkdown = 100 - markdownPercentual; // 83.5
 
+  // Dados idênticos ao EstoqueView
   const performanceData: PerformanceItem[] = [
     {
       id: '1',
@@ -56,9 +57,9 @@ export const PerformanceView = () => {
     },
     {
       id: '2',
-      familia: 'Feijão Carioca',
-      categoria: 'Grãos',
-      fornecedor: 'Fornecedor ABC Ltda',
+      familia: 'Biscoito Recheado Chocolate',
+      categoria: 'Biscoitos',
+      fornecedor: 'Mondelez',
       cd: 'CD São Paulo',
       totalEstoque: 1080000,
       giroMedio: 380000,
@@ -73,10 +74,10 @@ export const PerformanceView = () => {
     },
     {
       id: '3',
-      familia: 'Açúcar Cristal',
-      categoria: 'Açúcares',
-      fornecedor: 'Central de Abastecimento Norte',
-      cd: 'CD Belo Horizonte',
+      familia: 'Refrigerante Cola 2L',
+      categoria: 'Bebidas',
+      fornecedor: 'Coca-Cola',
+      cd: 'CD São Paulo',
       totalEstoque: 1550000,
       giroMedio: 520000,
       coberturaMeses: 3.0,
@@ -90,9 +91,9 @@ export const PerformanceView = () => {
     },
     {
       id: '4',
-      familia: 'Óleo de Soja',
+      familia: 'Óleo de Soja 900ml',
       categoria: 'Óleos',
-      fornecedor: 'Atacadão Distribuição',
+      fornecedor: 'Sadia',
       cd: 'CD São Paulo',
       totalEstoque: 780000,
       giroMedio: 250000,
@@ -107,9 +108,9 @@ export const PerformanceView = () => {
     },
     {
       id: '5',
-      familia: 'Macarrão Espaguete',
+      familia: 'Macarrão Espaguete 500g',
       categoria: 'Massas',
-      fornecedor: 'Mega Fornecimentos',
+      fornecedor: 'Barilla',
       cd: 'CD Belo Horizonte',
       totalEstoque: 1240000,
       giroMedio: 420000,
@@ -124,9 +125,9 @@ export const PerformanceView = () => {
     },
     {
       id: '6',
-      familia: 'Leite em Pó',
-      categoria: 'Laticínios',
-      fornecedor: 'Comercial Vitória',
+      familia: 'Achocolatado Pó 400g',
+      categoria: 'Bebidas',
+      fornecedor: 'Nestlé',
       cd: 'CD São Paulo',
       totalEstoque: 630000,
       giroMedio: 210000,
@@ -141,9 +142,9 @@ export const PerformanceView = () => {
     },
     {
       id: '7',
-      familia: 'Café Torrado',
-      categoria: 'Bebidas',
-      fornecedor: 'Distribuidora Premium',
+      familia: 'Feijão Preto 1kg',
+      categoria: 'Grãos',
+      fornecedor: 'Kicaldo',
       cd: 'CD Rio de Janeiro',
       totalEstoque: 480000,
       giroMedio: 160000,
@@ -158,9 +159,9 @@ export const PerformanceView = () => {
     },
     {
       id: '8',
-      familia: 'Farinha de Trigo',
-      categoria: 'Farinhas',
-      fornecedor: 'Fornecedor Regional Ltda',
+      familia: 'Sabão em Pó 1kg',
+      categoria: 'Limpeza',
+      fornecedor: 'Unilever',
       cd: 'CD Belo Horizonte',
       totalEstoque: 2000000,
       giroMedio: 650000,
@@ -360,18 +361,23 @@ export const PerformanceView = () => {
             <TableHeader>
               <TableRow className="border-border/50">
                 <TableHead className="min-w-[200px]">Família</TableHead>
-                <TableHead className="text-right min-w-[100px]">Estoque Atual</TableHead>
+                 <TableHead className="text-right min-w-[100px]">Estoque Atual</TableHead>
                 <TableHead className="text-right min-w-[120px]">Pedidos Abertos</TableHead>
                 <TableHead className="text-right min-w-[120px]">Valor Custo</TableHead>
                 <TableHead className="text-right min-w-[120px]">Valor Venda</TableHead>
                 <TableHead className="text-right min-w-[100px]">Margem</TableHead>
                 <TableHead className="text-right min-w-[100px]">Cobertura</TableHead>
+                <TableHead className="text-center min-w-[120px]">Performance P/Custo</TableHead>
+                <TableHead className="text-center min-w-[120px]">Performance C/Markdown</TableHead>
                 <TableHead className="min-w-[100px]">Performance</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredData.map((item) => {
                 const margem = ((item.valorVenda - item.valorCusto) / item.valorVenda) * 100;
+                const performancePorCusto = item.giroMedio > 0 ? (item.valorCusto / item.giroMedio).toFixed(2) : '0.00';
+                const performanceComMarkdown = item.giroMedio > 0 ? (item.valorVenda / item.giroMedio).toFixed(2) : '0.00';
+                
                 return (
                   <TableRow key={item.id} className="border-border/50 hover:bg-muted/30">
                     <TableCell>
@@ -402,6 +408,16 @@ export const PerformanceView = () => {
                     <TableCell className="text-right">
                       <span className={item.coberturaMeses > 3.5 ? 'text-danger' : item.coberturaMeses > 2.5 ? 'text-warning' : 'text-success'}>
                         {item.coberturaMeses.toFixed(1)}m
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-center">
+                      <span className="text-sm font-medium text-muted-foreground">
+                        {performancePorCusto}
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-center">
+                      <span className="text-sm font-medium text-primary">
+                        {performanceComMarkdown}
                       </span>
                     </TableCell>
                     <TableCell>
