@@ -18,9 +18,9 @@ import {
 } from "lucide-react";
 
 export const DashboardComprador = () => {
-  // Mock data for current buyer (João Batata) com pedidos abertos
+  // Mock data for current buyer (João Batista) com pedidos abertos
   const comprador = {
-    nome: "João Batata",
+    nome: "João Batista",
     utilizado: 16800000,
     pedidosAbertos: 1200000, // Pedidos aprovados mas não entregues
     pedidosPendentes: 800000, // Pedidos aguardando aprovação

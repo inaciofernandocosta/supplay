@@ -54,8 +54,8 @@ export const MetasView = () => {
   const [compradores, setCompradores] = useState<Comprador[]>([
     {
       id: '1',
-      nome: 'João Batata',
-      email: 'joao.batata@grupovilanova.com',
+      nome: 'João Batista',
+      email: 'joao.batista@grupovilanova.com',
       metaTrimestral: 60000000,
       percentualRealizado: 84.0,
       percentualParticipacao: 12.0,

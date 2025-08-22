@@ -186,7 +186,7 @@ export const DashboardGeral = () => {
 
   // Compradores com valores utilizados do orçamento total (205M) + Pedidos Abertos
   const compradores = [
-    { nome: "João Batata", utilizado: 16800000, pedidosAbertos: 1200000, meta: 20000000, status: 'success' as const },
+    { nome: "João Batista", utilizado: 16800000, pedidosAbertos: 1200000, meta: 20000000, status: 'success' as const },
     { nome: "João Duarte", utilizado: 16200000, pedidosAbertos: 900000, meta: 18000000, status: 'warning' as const },
     { nome: "Daniel", utilizado: 17100000, pedidosAbertos: 800000, meta: 19000000, status: 'warning' as const },
     { nome: "Tatiane", utilizado: 13200000, pedidosAbertos: 1100000, meta: 16000000, status: 'success' as const },
@@ -211,7 +211,7 @@ export const DashboardGeral = () => {
       coberturaMeses: 0.9,
       score: 92,
       status: 'success' as const,
-      comprador: 'João Batata',
+      comprador: 'João Batista',
       fatMes: 3200000
     },
     {
@@ -363,7 +363,7 @@ export const DashboardGeral = () => {
       coberturaMeses: 1.1,
       score: 80,
       status: 'success' as const,
-      comprador: 'João Batata',
+      comprador: 'João Batista',
       fatMes: 1400000
     },
     {
