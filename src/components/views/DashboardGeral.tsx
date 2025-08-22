@@ -5,16 +5,88 @@ import { StatusBadge } from "../StatusBadge";
 import { PerformanceTable } from "../PerformanceTable";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatValue } from "@/lib/formatters";
+import { calculateStockWithOrders } from "@/lib/stockCalculations";
+import { mockPurchaseOrders } from "@/lib/mockPurchaseOrders";
 import { 
   DollarSign, 
   Users, 
   ShoppingCart,
   TrendingUp,
   AlertTriangle,
-  CheckCircle
+  CheckCircle,
+  Package,
+  FileText
 } from "lucide-react";
 
 export const DashboardGeral = () => {
+  // Mock estoque atual para cálculos
+  const mockEstoque = [
+    {
+      familia: 'Biscoito Recheado Chocolate',
+      fornecedor: 'Mondelez', 
+      cd: 'CD São Paulo',
+      estoqueAtual: 8500,
+      valorEstoqueAtual: 27625,
+      giroMedio: 2400
+    },
+    {
+      familia: 'Refrigerante Cola 2L',
+      fornecedor: 'Coca-Cola',
+      cd: 'CD São Paulo', 
+      estoqueAtual: 5200,
+      valorEstoqueAtual: 23400,
+      giroMedio: 1800
+    },
+    {
+      familia: 'Arroz Tipo 1 5kg',
+      fornecedor: 'Tio João',
+      cd: 'CD Rio de Janeiro',
+      estoqueAtual: 12000,
+      valorEstoqueAtual: 225000,
+      giroMedio: 3500
+    },
+    {
+      familia: 'Óleo de Soja 900ml',
+      fornecedor: 'Sadia',
+      cd: 'CD São Paulo',
+      estoqueAtual: 4200,
+      valorEstoqueAtual: 28560,
+      giroMedio: 1600
+    },
+    {
+      familia: 'Macarrão Espaguete 500g',
+      fornecedor: 'Barilla',
+      cd: 'CD Belo Horizonte',
+      estoqueAtual: 7800,
+      valorEstoqueAtual: 33150,
+      giroMedio: 2900
+    },
+    {
+      familia: 'Achocolatado Pó 400g',
+      fornecedor: 'Nestlé',
+      cd: 'CD São Paulo',
+      estoqueAtual: 6500,
+      valorEstoqueAtual: 57850,
+      giroMedio: 2300
+    },
+    {
+      familia: 'Feijão Preto 1kg',
+      fornecedor: 'Kicaldo',
+      cd: 'CD Rio de Janeiro',
+      estoqueAtual: 3800,
+      valorEstoqueAtual: 27740,
+      giroMedio: 1700
+    },
+    {
+      familia: 'Sabão em Pó 1kg',
+      fornecedor: 'Unilever',
+      cd: 'CD Belo Horizonte',
+      estoqueAtual: 9200,
+      valorEstoqueAtual: 114080,
+      giroMedio: 3600
+    }
+  ];
+
   // Compradores reais com metas distribuídas (total 205M)
   const compradores = [
     { nome: "João Batata", utilizado: 16800000, meta: 20000000, status: 'success' as const },
@@ -290,6 +362,15 @@ export const DashboardGeral = () => {
   const totalUtilizado = compradores.reduce((acc, comp) => acc + comp.utilizado, 0);
   const totalMeta = 205000000; // R$ 205 milhões
 
+  // Cálculos de estoque + pedidos abertos
+  const stockData = calculateStockWithOrders(mockEstoque, mockPurchaseOrders);
+  const { metricas } = stockData;
+  
+  const estoqueAtualTotal = metricas.totalValorEstoque;
+  const pedidosAbertosTotal = metricas.totalValorPedidos;
+  const totalEstoqueMaisPedidos = metricas.totalValorProjetado;
+  const percentualPedidos = pedidosAbertosTotal > 0 ? (pedidosAbertosTotal / estoqueAtualTotal) * 100 : 0;
+
   return (
     <div className="space-y-6">
       {/* Header - Fixed */}
@@ -334,6 +415,117 @@ export const DashboardGeral = () => {
           status="warning"
         />
       </div>
+
+      {/* Métricas de Estoque + Pedidos */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+        <MetricCard
+          title="Estoque Atual"
+          value={formatValue(estoqueAtualTotal)}
+          subtitle="Valor total em estoque"
+          icon={Package}
+          status="success"
+        />
+        
+        <MetricCard
+          title="Pedidos Abertos"
+          value={formatValue(pedidosAbertosTotal)}
+          subtitle="Em trânsito e aprovados"
+          icon={FileText}
+          status="warning"
+        />
+        
+        <MetricCard
+          title="Total Projetado"
+          value={formatValue(totalEstoqueMaisPedidos)}
+          subtitle="Estoque + Pedidos"
+          icon={TrendingUp}
+          status="success"
+        />
+
+        <MetricCard
+          title="% Pedidos vs Estoque"
+          value={`${percentualPedidos.toFixed(1)}%`}
+          subtitle="Proporção de pedidos"
+          icon={ShoppingCart}
+          status={percentualPedidos > 50 ? 'warning' : percentualPedidos > 30 ? 'success' : 'danger'}
+        />
+      </div>
+
+      {/* Detalhamento Estoque + Pedidos */}
+      <Card className="glass-card">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-lg">
+            <Package className="h-5 w-5 text-primary" />
+            Detalhamento: Estoque + Pedidos Abertos
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <Package className="h-4 w-4 text-success" />
+                <h4 className="font-semibold text-foreground">Estoque Atual</h4>
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-sm text-muted-foreground">Valor Total:</span>
+                  <span className="text-sm font-medium">{formatValue(estoqueAtualTotal)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-muted-foreground">Quantidade Total:</span>
+                  <span className="text-sm font-medium">{formatValue(metricas.totalQuantidadeEstoque)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-muted-foreground">Cobertura Média:</span>
+                  <span className="text-sm font-medium">{metricas.mediaCobertura.toFixed(1)} meses</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <FileText className="h-4 w-4 text-warning" />
+                <h4 className="font-semibold text-foreground">Pedidos Abertos</h4>
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-sm text-muted-foreground">Valor Total:</span>
+                  <span className="text-sm font-medium">{formatValue(pedidosAbertosTotal)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-muted-foreground">Quantidade Total:</span>
+                  <span className="text-sm font-medium">{formatValue(metricas.totalQuantidadePedidos)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-muted-foreground">% do Estoque:</span>
+                  <span className="text-sm font-medium">{percentualPedidos.toFixed(1)}%</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <TrendingUp className="h-4 w-4 text-primary" />
+                <h4 className="font-semibold text-foreground">Projeção Total</h4>
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-sm text-muted-foreground">Valor Projetado:</span>
+                  <span className="text-sm font-medium">{formatValue(totalEstoqueMaisPedidos)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-muted-foreground">Cobertura Projetada:</span>
+                  <span className="text-sm font-medium">{metricas.mediaCoberturaProjetada.toFixed(1)} meses</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-muted-foreground">Performance Alta:</span>
+                  <span className="text-sm font-medium">{metricas.performanceAlta.toFixed(0)}%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Status dos Compradores */}
       <Card className="glass-card">
