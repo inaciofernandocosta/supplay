@@ -1,15 +1,15 @@
 import { PurchaseOrder } from './types';
 
-// Pedidos de compra realistas que correspondem aos produtos em estoque
+// Pedidos de compra realistas compatíveis com estoque de ~35M
 export const mockPurchaseOrders: PurchaseOrder[] = [
   {
     id: 'PO001',
     familia: 'Arroz Branco 5kg',
     fornecedor: 'Tio João',
     cd: 'CD Vila Nova',
-    quantidade: 3000, // 3 mil unidades
+    quantidade: 30000, // 30 mil unidades
     valorUnitario: 30.00,
-    valorTotal: 90000, // R$ 90 mil
+    valorTotal: 900000, // R$ 900 mil
     dataEntregaPrevista: new Date('2024-08-25'),
     status: 'aberto'
   },
@@ -18,9 +18,9 @@ export const mockPurchaseOrders: PurchaseOrder[] = [
     familia: 'Açúcar Cristal 1kg',
     fornecedor: 'União',
     cd: 'CD Vila Nova',
-    quantidade: 5000, // 5 mil unidades
+    quantidade: 50000, // 50 mil unidades
     valorUnitario: 5.00,
-    valorTotal: 25000, // R$ 25 mil
+    valorTotal: 250000, // R$ 250 mil
     dataEntregaPrevista: new Date('2024-08-24'),
     status: 'em_transito'
   },
@@ -29,9 +29,9 @@ export const mockPurchaseOrders: PurchaseOrder[] = [
     familia: 'Óleo de Soja 900ml',
     fornecedor: 'Liza',
     cd: 'CD Focomix SP',
-    quantidade: 2000, // 2 mil unidades
+    quantidade: 25000, // 25 mil unidades
     valorUnitario: 7.00,
-    valorTotal: 14000, // R$ 14 mil
+    valorTotal: 175000, // R$ 175 mil
     dataEntregaPrevista: new Date('2024-08-26'),
     status: 'aberto'
   },
@@ -40,9 +40,9 @@ export const mockPurchaseOrders: PurchaseOrder[] = [
     familia: 'Feijão Carioca 1kg',
     fornecedor: 'Camil',
     cd: 'CD Vila Nova',
-    quantidade: 3500, // 3,5 mil unidades
+    quantidade: 40000, // 40 mil unidades
     valorUnitario: 8.00,
-    valorTotal: 28000, // R$ 28 mil
+    valorTotal: 320000, // R$ 320 mil
     dataEntregaPrevista: new Date('2024-08-27'),
     status: 'aberto'
   },
@@ -51,9 +51,9 @@ export const mockPurchaseOrders: PurchaseOrder[] = [
     familia: 'Macarrão Espaguete 500g',
     fornecedor: 'Barilla',
     cd: 'CD Focomix MG',
-    quantidade: 6000, // 6 mil unidades
+    quantidade: 80000, // 80 mil unidades
     valorUnitario: 5.00,
-    valorTotal: 30000, // R$ 30 mil
+    valorTotal: 400000, // R$ 400 mil
     dataEntregaPrevista: new Date('2024-08-28'),
     status: 'aberto'
   },
@@ -62,9 +62,9 @@ export const mockPurchaseOrders: PurchaseOrder[] = [
     familia: 'Refrigerante Cola 2L',
     fornecedor: 'Coca-Cola',
     cd: 'CD Vila Nova',
-    quantidade: 1500, // 1,5 mil unidades
+    quantidade: 20000, // 20 mil unidades
     valorUnitario: 7.00,
-    valorTotal: 10500, // R$ 10,5 mil
+    valorTotal: 140000, // R$ 140 mil
     dataEntregaPrevista: new Date('2024-08-25'),
     status: 'em_transito'
   },
@@ -73,9 +73,9 @@ export const mockPurchaseOrders: PurchaseOrder[] = [
     familia: 'Biscoito Recheado 140g',
     fornecedor: 'Mondelez',
     cd: 'CD Focomix SP',
-    quantidade: 4000, // 4 mil unidades
+    quantidade: 60000, // 60 mil unidades
     valorUnitario: 4.00,
-    valorTotal: 16000, // R$ 16 mil
+    valorTotal: 240000, // R$ 240 mil
     dataEntregaPrevista: new Date('2024-08-29'),
     status: 'aberto'
   },
@@ -84,9 +84,9 @@ export const mockPurchaseOrders: PurchaseOrder[] = [
     familia: 'Café Torrado 500g',
     fornecedor: 'Pilão',
     cd: 'CD V2 Farma',
-    quantidade: 1000, // 1 mil unidades
+    quantidade: 15000, // 15 mil unidades
     valorUnitario: 15.00,
-    valorTotal: 15000, // R$ 15 mil
+    valorTotal: 225000, // R$ 225 mil
     dataEntregaPrevista: new Date('2024-08-30'),
     status: 'aberto'
   },
@@ -95,9 +95,9 @@ export const mockPurchaseOrders: PurchaseOrder[] = [
     familia: 'Detergente 500ml',
     fornecedor: 'Ypê',
     cd: 'CD Vila Nova',
-    quantidade: 8000, // 8 mil unidades
+    quantidade: 100000, // 100 mil unidades
     valorUnitario: 2.00,
-    valorTotal: 16000, // R$ 16 mil
+    valorTotal: 200000, // R$ 200 mil
     dataEntregaPrevista: new Date('2024-08-26'),
     status: 'em_transito'
   },
@@ -106,10 +106,65 @@ export const mockPurchaseOrders: PurchaseOrder[] = [
     familia: 'Sabão em Pó 1kg',
     fornecedor: 'Omo',
     cd: 'CD Focomix MG',
-    quantidade: 2500, // 2,5 mil unidades
+    quantidade: 35000, // 35 mil unidades
     valorUnitario: 15.00,
-    valorTotal: 37500, // R$ 37,5 mil
+    valorTotal: 525000, // R$ 525 mil
     dataEntregaPrevista: new Date('2024-08-31'),
     status: 'aberto'
+  },
+  {
+    id: 'PO011',
+    familia: 'Leite Longa Vida 1L',
+    fornecedor: 'Nestlé',
+    cd: 'CD Vila Nova',
+    quantidade: 70000, // 70 mil unidades
+    valorUnitario: 4.00,
+    valorTotal: 280000, // R$ 280 mil
+    dataEntregaPrevista: new Date('2024-09-01'),
+    status: 'aberto'
+  },
+  {
+    id: 'PO012',
+    familia: 'Frango Congelado 1kg',
+    fornecedor: 'Sadia',
+    cd: 'CD Focomix SP',
+    quantidade: 12000, // 12 mil unidades
+    valorUnitario: 15.00,
+    valorTotal: 180000, // R$ 180 mil
+    dataEntregaPrevista: new Date('2024-09-02'),
+    status: 'em_transito'
+  },
+  {
+    id: 'PO013',
+    familia: 'Carne Bovina 1kg',
+    fornecedor: 'JBS',
+    cd: 'CD Vila Nova',
+    quantidade: 8000, // 8 mil unidades
+    valorUnitario: 40.00,
+    valorTotal: 320000, // R$ 320 mil
+    dataEntregaPrevista: new Date('2024-09-03'),
+    status: 'aberto'
+  },
+  {
+    id: 'PO014',
+    familia: 'Papel Higiênico 4 rolos',
+    fornecedor: 'Neve',
+    cd: 'CD Vila Nova',
+    quantidade: 20000, // 20 mil unidades
+    valorUnitario: 10.00,
+    valorTotal: 200000, // R$ 200 mil
+    dataEntregaPrevista: new Date('2024-09-04'),
+    status: 'aberto'
+  },
+  {
+    id: 'PO015',
+    familia: 'Cerveja Lata 350ml',
+    fornecedor: 'Ambev',
+    cd: 'CD Vila Nova',
+    quantidade: 150000, // 150 mil unidades
+    valorUnitario: 3.00,
+    valorTotal: 450000, // R$ 450 mil
+    dataEntregaPrevista: new Date('2024-09-05'),
+    status: 'em_transito'
   }
 ];

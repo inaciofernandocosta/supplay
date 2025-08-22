@@ -19,87 +19,167 @@ import {
 } from "lucide-react";
 
 export const DashboardGeral = () => {
-  // Mock estoque atual para cálculos - dados realistas para analista de compras
+  // Mock estoque atual para cálculos - dados realistas compatíveis com orçamento de 205M
   const mockEstoque = [
     {
       familia: 'Arroz Branco 5kg',
       fornecedor: 'Tio João',
       cd: 'CD Vila Nova',
-      estoqueAtual: 15000, // 15 mil unidades
-      valorEstoqueAtual: 450000, // R$ 450 mil (R$ 30 por unidade)
-      giroMedio: 5000 // 5 mil unidades por mês
+      estoqueAtual: 150000, // 150 mil unidades
+      valorEstoqueAtual: 4500000, // R$ 4,5 milhões (R$ 30 por unidade)
+      giroMedio: 50000 // 50 mil unidades por mês
     },
     {
       familia: 'Açúcar Cristal 1kg',
       fornecedor: 'União',
       cd: 'CD Vila Nova', 
-      estoqueAtual: 25000, // 25 mil unidades
-      valorEstoqueAtual: 125000, // R$ 125 mil (R$ 5 por unidade)
-      giroMedio: 8000 // 8 mil unidades por mês
+      estoqueAtual: 250000, // 250 mil unidades
+      valorEstoqueAtual: 1250000, // R$ 1,25 milhões (R$ 5 por unidade)
+      giroMedio: 80000 // 80 mil unidades por mês
     },
     {
       familia: 'Óleo de Soja 900ml',
       fornecedor: 'Liza',
       cd: 'CD Focomix SP',
-      estoqueAtual: 12000, // 12 mil unidades
-      valorEstoqueAtual: 84000, // R$ 84 mil (R$ 7 por unidade)
-      giroMedio: 4000 // 4 mil unidades por mês
+      estoqueAtual: 180000, // 180 mil unidades
+      valorEstoqueAtual: 1260000, // R$ 1,26 milhões (R$ 7 por unidade)
+      giroMedio: 60000 // 60 mil unidades por mês
     },
     {
       familia: 'Feijão Carioca 1kg',
       fornecedor: 'Camil',
       cd: 'CD Vila Nova',
-      estoqueAtual: 18000, // 18 mil unidades
-      valorEstoqueAtual: 144000, // R$ 144 mil (R$ 8 por unidade)
-      giroMedio: 6000 // 6 mil unidades por mês
+      estoqueAtual: 220000, // 220 mil unidades
+      valorEstoqueAtual: 1760000, // R$ 1,76 milhões (R$ 8 por unidade)
+      giroMedio: 70000 // 70 mil unidades por mês
     },
     {
       familia: 'Macarrão Espaguete 500g',
       fornecedor: 'Barilla',
       cd: 'CD Focomix MG',
-      estoqueAtual: 30000, // 30 mil unidades
-      valorEstoqueAtual: 150000, // R$ 150 mil (R$ 5 por unidade)
-      giroMedio: 10000 // 10 mil unidades por mês
+      estoqueAtual: 400000, // 400 mil unidades
+      valorEstoqueAtual: 2000000, // R$ 2 milhões (R$ 5 por unidade)
+      giroMedio: 130000 // 130 mil unidades por mês
     },
     {
       familia: 'Refrigerante Cola 2L',
       fornecedor: 'Coca-Cola',
       cd: 'CD Vila Nova',
-      estoqueAtual: 8000, // 8 mil unidades
-      valorEstoqueAtual: 56000, // R$ 56 mil (R$ 7 por unidade)
-      giroMedio: 3000 // 3 mil unidades por mês
+      estoqueAtual: 120000, // 120 mil unidades
+      valorEstoqueAtual: 840000, // R$ 840 mil (R$ 7 por unidade)
+      giroMedio: 40000 // 40 mil unidades por mês
     },
     {
       familia: 'Biscoito Recheado 140g',
       fornecedor: 'Mondelez',
       cd: 'CD Focomix SP',
-      estoqueAtual: 20000, // 20 mil unidades
-      valorEstoqueAtual: 80000, // R$ 80 mil (R$ 4 por unidade)
-      giroMedio: 7000 // 7 mil unidades por mês
+      estoqueAtual: 300000, // 300 mil unidades
+      valorEstoqueAtual: 1200000, // R$ 1,2 milhões (R$ 4 por unidade)
+      giroMedio: 100000 // 100 mil unidades por mês
     },
     {
       familia: 'Café Torrado 500g',
       fornecedor: 'Pilão',
       cd: 'CD V2 Farma',
-      estoqueAtual: 6000, // 6 mil unidades
-      valorEstoqueAtual: 90000, // R$ 90 mil (R$ 15 por unidade)
-      giroMedio: 2000 // 2 mil unidades por mês
+      estoqueAtual: 80000, // 80 mil unidades
+      valorEstoqueAtual: 1200000, // R$ 1,2 milhões (R$ 15 por unidade)
+      giroMedio: 25000 // 25 mil unidades por mês
     },
     {
       familia: 'Detergente 500ml',
       fornecedor: 'Ypê',
       cd: 'CD Vila Nova',
-      estoqueAtual: 35000, // 35 mil unidades
-      valorEstoqueAtual: 70000, // R$ 70 mil (R$ 2 por unidade)
-      giroMedio: 12000 // 12 mil unidades por mês
+      estoqueAtual: 500000, // 500 mil unidades
+      valorEstoqueAtual: 1000000, // R$ 1 milhão (R$ 2 por unidade)
+      giroMedio: 160000 // 160 mil unidades por mês
     },
     {
       familia: 'Sabão em Pó 1kg',
       fornecedor: 'Omo',
       cd: 'CD Focomix MG',
-      estoqueAtual: 15000, // 15 mil unidades
-      valorEstoqueAtual: 225000, // R$ 225 mil (R$ 15 por unidade)
-      giroMedio: 5000 // 5 mil unidades por mês
+      estoqueAtual: 200000, // 200 mil unidades
+      valorEstoqueAtual: 3000000, // R$ 3 milhões (R$ 15 por unidade)
+      giroMedio: 65000 // 65 mil unidades por mês
+    },
+    {
+      familia: 'Leite Longa Vida 1L',
+      fornecedor: 'Nestlé',
+      cd: 'CD Vila Nova',
+      estoqueAtual: 350000, // 350 mil unidades
+      valorEstoqueAtual: 1400000, // R$ 1,4 milhões (R$ 4 por unidade)
+      giroMedio: 110000 // 110 mil unidades por mês
+    },
+    {
+      familia: 'Frango Congelado 1kg',
+      fornecedor: 'Sadia',
+      cd: 'CD Focomix SP',
+      estoqueAtual: 80000, // 80 mil unidades
+      valorEstoqueAtual: 1200000, // R$ 1,2 milhões (R$ 15 por unidade)
+      giroMedio: 25000 // 25 mil unidades por mês
+    },
+    {
+      familia: 'Carne Bovina 1kg',
+      fornecedor: 'JBS',
+      cd: 'CD Vila Nova',
+      estoqueAtual: 60000, // 60 mil unidades
+      valorEstoqueAtual: 2400000, // R$ 2,4 milhões (R$ 40 por unidade)
+      giroMedio: 20000 // 20 mil unidades por mês
+    },
+    {
+      familia: 'Pão de Forma 500g',
+      fornecedor: 'Wickbold',
+      cd: 'CD V2 Farma',
+      estoqueAtual: 180000, // 180 mil unidades
+      valorEstoqueAtual: 900000, // R$ 900 mil (R$ 5 por unidade)
+      giroMedio: 60000 // 60 mil unidades por mês
+    },
+    {
+      familia: 'Iogurte Natural 170g',
+      fornecedor: 'Danone',
+      cd: 'CD Focomix MG',
+      estoqueAtual: 250000, // 250 mil unidades
+      valorEstoqueAtual: 750000, // R$ 750 mil (R$ 3 por unidade)
+      giroMedio: 80000 // 80 mil unidades por mês
+    },
+    {
+      familia: 'Papel Higiênico 4 rolos',
+      fornecedor: 'Neve',
+      cd: 'CD Vila Nova',
+      estoqueAtual: 120000, // 120 mil unidades
+      valorEstoqueAtual: 1200000, // R$ 1,2 milhões (R$ 10 por unidade)
+      giroMedio: 40000 // 40 mil unidades por mês
+    },
+    {
+      familia: 'Shampoo 350ml',
+      fornecedor: 'Seda',
+      cd: 'CD Focomix SP',
+      estoqueAtual: 80000, // 80 mil unidades
+      valorEstoqueAtual: 800000, // R$ 800 mil (R$ 10 por unidade)
+      giroMedio: 25000 // 25 mil unidades por mês
+    },
+    {
+      familia: 'Cerveja Lata 350ml',
+      fornecedor: 'Ambev',
+      cd: 'CD Vila Nova',
+      estoqueAtual: 500000, // 500 mil unidades
+      valorEstoqueAtual: 1500000, // R$ 1,5 milhões (R$ 3 por unidade)
+      giroMedio: 200000 // 200 mil unidades por mês
+    },
+    {
+      familia: 'Água Mineral 1.5L',
+      fornecedor: 'Crystal',
+      cd: 'CD V2 Farma',
+      estoqueAtual: 300000, // 300 mil unidades
+      valorEstoqueAtual: 600000, // R$ 600 mil (R$ 2 por unidade)
+      giroMedio: 100000 // 100 mil unidades por mês
+    },
+    {
+      familia: 'Margarina 500g',
+      fornecedor: 'Qualy',
+      cd: 'CD Focomix MG',
+      estoqueAtual: 150000, // 150 mil unidades
+      valorEstoqueAtual: 900000, // R$ 900 mil (R$ 6 por unidade)
+      giroMedio: 50000 // 50 mil unidades por mês
     }
   ];
 
@@ -401,7 +481,7 @@ export const DashboardGeral = () => {
         </div>
       </div>
 
-      {/* Main Metrics */}
+      {/* Main Metrics - Ordem reorganizada */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <MetricCard
           title="Orçamento Total"
@@ -409,14 +489,6 @@ export const DashboardGeral = () => {
           subtitle={`${((totalUtilizado / totalMeta) * 100).toFixed(1)}% utilizado`}
           icon={DollarSign}
           status={((totalUtilizado / totalMeta) * 100) >= 90 ? 'danger' : ((totalUtilizado / totalMeta) * 100) >= 80 ? 'warning' : 'success'}
-        />
-        
-        <MetricCard
-          title="Cobertura Média"
-          value={`${coberturaMedia > 0 ? coberturaMedia.toFixed(1) : '0.0'} meses`}
-          subtitle="Baseada no giro médio"
-          icon={TrendingUp}
-          status={coberturaMedia >= 2 && coberturaMedia <= 3 ? 'success' : coberturaMedia >= 1 ? 'warning' : 'danger'}
         />
         
         <MetricCard
@@ -428,6 +500,14 @@ export const DashboardGeral = () => {
         />
 
         <MetricCard
+          title="Cobertura Média"
+          value={`${coberturaMedia > 0 ? coberturaMedia.toFixed(1) : '0.0'} meses`}
+          subtitle="Baseada no giro médio"
+          icon={TrendingUp}
+          status={coberturaMedia >= 2 && coberturaMedia <= 3 ? 'success' : coberturaMedia >= 1 ? 'warning' : 'danger'}
+        />
+
+        <MetricCard
           title="Compradores Ativos"
           value="12"
           subtitle="9 em atenção, 1 bloqueado"
@@ -436,11 +516,11 @@ export const DashboardGeral = () => {
         />
       </div>
 
-      {/* Métricas de Estoque + Pedidos */}
+      {/* Métricas de Estoque + Pedidos - Ordem reorganizada */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <MetricCard
           title="Estoque Atual"
-          value={formatValue(estoqueAtualTotal)}
+          value={`${(estoqueAtualTotal / 1000000).toFixed(1)}M`}
           subtitle="Valor total em estoque"
           icon={Package}
           status="success"
@@ -448,7 +528,7 @@ export const DashboardGeral = () => {
         
         <MetricCard
           title="Pedidos Abertos"
-          value={formatValue(pedidosAbertosTotal)}
+          value={`${(pedidosAbertosTotal / 1000000).toFixed(1)}M`}
           subtitle="Em trânsito e aprovados"
           icon={FileText}
           status="warning"
@@ -456,7 +536,7 @@ export const DashboardGeral = () => {
         
         <MetricCard
           title="Total Projetado"
-          value={formatValue(totalEstoqueMaisPedidos)}
+          value={`${(totalEstoqueMaisPedidos / 1000000).toFixed(1)}M`}
           subtitle="Estoque + Pedidos"
           icon={TrendingUp}
           status="success"
