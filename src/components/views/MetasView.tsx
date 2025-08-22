@@ -32,6 +32,9 @@ export const MetasView = () => {
   const [metaMensal, setMetaMensal] = useState<number>(0);
   const [metaMensalInput, setMetaMensalInput] = useState<string>('');
   const [metaSalva, setMetaSalva] = useState<number>(0);
+  const [isEditingDistribution, setIsEditingDistribution] = useState(false);
+  const [distributionEdits, setDistributionEdits] = useState<Record<string, number>>({});
+  const [distributionEditInputs, setDistributionEditInputs] = useState<Record<string, string>>({});
 
   const handleSalvarMeta = () => {
     if (metaMensal > 0) {
@@ -232,7 +235,60 @@ export const MetasView = () => {
 
   const calcularDistribuicao = (comprador: Comprador) => {
     if (metaSalva === 0) return 0;
+    // Se há edição manual para este comprador, usa o valor editado
+    if (distributionEdits[comprador.id] !== undefined) {
+      return distributionEdits[comprador.id];
+    }
+    // Caso contrário, usa a distribuição automática
     return (metaSalva * comprador.percentualParticipacao) / 100;
+  };
+
+  const getMetaEditada = () => {
+    return Object.values(distributionEdits).reduce((acc, valor) => acc + valor, 0);
+  };
+
+  const hasManualEdits = () => {
+    return Object.keys(distributionEdits).length > 0;
+  };
+
+  const handleEditDistribution = () => {
+    setIsEditingDistribution(true);
+    // Inicializar os inputs com os valores atuais
+    const newInputs: Record<string, string> = {};
+    compradores.forEach((comprador) => {
+      const valorAtual = calcularDistribuicao(comprador);
+      newInputs[comprador.id] = formatValue(valorAtual).replace('R$ ', '').replace(/\./g, '').replace(',', '.');
+    });
+    setDistributionEditInputs(newInputs);
+  };
+
+  const handleSaveDistribution = () => {
+    const newEdits: Record<string, number> = {};
+    Object.entries(distributionEditInputs).forEach(([id, input]) => {
+      const valor = unmaskNumber(input.replace('.', ','));
+      if (valor > 0) {
+        newEdits[id] = valor;
+      }
+    });
+    setDistributionEdits(newEdits);
+    setIsEditingDistribution(false);
+    toast({
+      title: "Distribuição editada com sucesso!",
+      description: "As alterações na distribuição foram salvas.",
+    });
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditingDistribution(false);
+    setDistributionEditInputs({});
+  };
+
+  const handleDistributionInputChange = (compradorId: string, value: string) => {
+    const maskedValue = maskNumber(value);
+    setDistributionEditInputs(prev => ({
+      ...prev,
+      [compradorId]: maskedValue
+    }));
   };
 
   return (
@@ -377,8 +433,15 @@ export const MetasView = () => {
                 </div>
                 
                 <div className="flex items-center justify-between pt-2">
-                  <div className="text-sm text-muted-foreground">
-                    {metaSalva > 0 ? `Meta atual: ${formatValue(metaSalva)}` : 'Nenhuma meta definida'}
+                  <div className="space-y-1">
+                    <div className="text-sm text-muted-foreground">
+                      {metaSalva > 0 ? `Meta atual: ${formatValue(metaSalva)}` : 'Nenhuma meta definida'}
+                    </div>
+                    {hasManualEdits() && (
+                      <div className="text-sm text-muted-foreground">
+                        Meta editada: {formatValue(getMetaEditada())}
+                      </div>
+                    )}
                   </div>
                   <Button 
                     onClick={handleSalvarMeta}
@@ -396,10 +459,41 @@ export const MetasView = () => {
           {metaSalva > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle>Distribuição da Meta</CardTitle>
-                <CardDescription>
-                  Como a meta de {formatValue(metaSalva)} será distribuída entre os compradores
-                </CardDescription>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle>Distribuição da Meta</CardTitle>
+                    <CardDescription>
+                      Como a meta de {formatValue(metaSalva)} será distribuída entre os compradores
+                    </CardDescription>
+                  </div>
+                  <div className="flex gap-2">
+                    {!isEditingDistribution ? (
+                      <Button
+                        variant="outline"
+                        onClick={handleEditDistribution}
+                        className="flex items-center gap-2"
+                      >
+                        <Edit className="h-4 w-4" />
+                        Editar Distribuição
+                      </Button>
+                    ) : (
+                      <>
+                        <Button
+                          variant="outline"
+                          onClick={handleCancelEdit}
+                        >
+                          Cancelar
+                        </Button>
+                        <Button
+                          onClick={handleSaveDistribution}
+                          className="bg-primary hover:bg-primary/90"
+                        >
+                          Salvar
+                        </Button>
+                      </>
+                    )}
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -412,9 +506,19 @@ export const MetasView = () => {
                           <Badge variant="outline">{comprador.percentualParticipacao}%</Badge>
                         </div>
                         <div className="text-right">
-                          <div className="text-lg font-bold text-primary">
-                            {formatValue(valorDistribuido)}
-                          </div>
+                          {isEditingDistribution ? (
+                            <Input
+                              type="text"
+                              value={distributionEditInputs[comprador.id] || ''}
+                              onChange={(e) => handleDistributionInputChange(comprador.id, e.target.value)}
+                              className="text-lg font-bold text-primary text-right"
+                              placeholder="Digite o valor"
+                            />
+                          ) : (
+                            <div className="text-lg font-bold text-primary">
+                              {formatValue(valorDistribuido)}
+                            </div>
+                          )}
                         </div>
                       </div>
                     );
