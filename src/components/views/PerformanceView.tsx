@@ -43,15 +43,15 @@ export const PerformanceView = () => {
   const performanceData: PerformanceItem[] = [
     {
       id: '1',
-      familia: 'Arroz Tipo 1 5kg',
-      categoria: 'Grãos',
-      fornecedor: 'Tio João',
-      cd: 'CD Rio de Janeiro',
-      totalEstoque: 1350000,
-      giroMedio: 450000,
+      familia: 'Biscoito Oreo Original 144g',
+      categoria: 'Biscoitos',
+      fornecedor: 'Mondelez',
+      cd: 'CD São Paulo',
+      totalEstoque: 45000,
+      giroMedio: 15000,
       coberturaMeses: 3.0,
-      performance: 'media',
-      score: 75,
+      performance: 'alta',
+      score: 88,
       valorCusto: 2700000,
       valorVenda: 2700000 / (divisorMarkdown / 100),
       embalagem: 30,
@@ -60,122 +60,122 @@ export const PerformanceView = () => {
     },
     {
       id: '2',
-      familia: 'Biscoito Recheado Chocolate',
-      categoria: 'Biscoitos',
-      fornecedor: 'Mondelez',
+      familia: 'Fralda Pampers Total Confort G',
+      categoria: 'Higiene',
+      fornecedor: 'Procter & Gamble',
       cd: 'CD São Paulo',
-      totalEstoque: 1080000,
-      giroMedio: 380000,
-      coberturaMeses: 2.8,
-      performance: 'alta',
-      score: 88,
-      valorCusto: 3240000,
-      valorVenda: 3240000 / (divisorMarkdown / 100),
-      embalagem: 25,
-      quantidadeGiro: 15200,
-      quantidadeEstoque: 43200
-    },
-    {
-      id: '3',
-      familia: 'Refrigerante Cola 2L',
-      categoria: 'Bebidas',
-      fornecedor: 'Coca-Cola',
-      cd: 'CD São Paulo',
-      totalEstoque: 1550000,
-      giroMedio: 520000,
+      totalEstoque: 28500,
+      giroMedio: 9500,
       coberturaMeses: 3.0,
       performance: 'alta',
       score: 92,
+      valorCusto: 3240000,
+      valorVenda: 3240000 / (divisorMarkdown / 100),
+      embalagem: 25,
+      quantidadeGiro: 9500,
+      quantidadeEstoque: 28500
+    },
+    {
+      id: '3',
+      familia: 'Whisky Johnnie Walker Red Label',
+      categoria: 'Bebidas Alcoólicas',
+      fornecedor: 'Diageo',
+      cd: 'CD Rio de Janeiro',
+      totalEstoque: 12500,
+      giroMedio: 4200,
+      coberturaMeses: 3.0,
+      performance: 'media',
+      score: 78,
       valorCusto: 1860000,
       valorVenda: 1860000 / (divisorMarkdown / 100),
-      embalagem: 50,
-      quantidadeGiro: 10400,
-      quantidadeEstoque: 31000
+      embalagem: 12,
+      quantidadeGiro: 4200,
+      quantidadeEstoque: 12500
     },
     {
       id: '4',
-      familia: 'Óleo de Soja 900ml',
-      categoria: 'Óleos',
-      fornecedor: 'Sadia',
+      familia: 'Papel Higiênico Neve Folha Dupla',
+      categoria: 'Higiene',
+      fornecedor: 'Kimberly-Clark',
       cd: 'CD São Paulo',
-      totalEstoque: 780000,
-      giroMedio: 250000,
-      coberturaMeses: 3.1,
-      performance: 'media',
-      score: 78,
+      totalEstoque: 65000,
+      giroMedio: 22000,
+      coberturaMeses: 2.9,
+      performance: 'alta',
+      score: 85,
       valorCusto: 4680000,
       valorVenda: 4680000 / (divisorMarkdown / 100),
-      embalagem: 12,
-      quantidadeGiro: 20833,
+      embalagem: 48,
+      quantidadeGiro: 22000,
       quantidadeEstoque: 65000
     },
     {
       id: '5',
-      familia: 'Macarrão Espaguete 500g',
-      categoria: 'Massas',
-      fornecedor: 'Barilla',
+      familia: 'Shampoo Pantene Hidro-Cauterização',
+      categoria: 'Cabelos',
+      fornecedor: 'Procter & Gamble',
       cd: 'CD Belo Horizonte',
-      totalEstoque: 1240000,
-      giroMedio: 420000,
-      coberturaMeses: 2.9,
-      performance: 'alta',
-      score: 85,
-      valorCusto: 2480000,
-      valorVenda: 2480000 / (divisorMarkdown / 100),
-      embalagem: 20,
-      quantidadeGiro: 21000,
-      quantidadeEstoque: 62000
-    },
-    {
-      id: '6',
-      familia: 'Achocolatado Pó 400g',
-      categoria: 'Bebidas',
-      fornecedor: 'Nestlé',
-      cd: 'CD São Paulo',
-      totalEstoque: 630000,
-      giroMedio: 210000,
+      totalEstoque: 18700,
+      giroMedio: 6200,
       coberturaMeses: 3.0,
       performance: 'media',
       score: 82,
+      valorCusto: 2480000,
+      valorVenda: 2480000 / (divisorMarkdown / 100),
+      embalagem: 24,
+      quantidadeGiro: 6200,
+      quantidadeEstoque: 18700
+    },
+    {
+      id: '6',
+      familia: 'Vodka Smirnoff Red Label 998ml',
+      categoria: 'Bebidas Alcoólicas',
+      fornecedor: 'Diageo',
+      cd: 'CD São Paulo',
+      totalEstoque: 8900,
+      giroMedio: 2900,
+      coberturaMeses: 3.1,
+      performance: 'baixa',
+      score: 68,
       valorCusto: 5670000,
       valorVenda: 5670000 / (divisorMarkdown / 100),
-      embalagem: 18,
-      quantidadeGiro: 11667,
-      quantidadeEstoque: 35000
+      embalagem: 12,
+      quantidadeGiro: 2900,
+      quantidadeEstoque: 8900
     },
     {
       id: '7',
-      familia: 'Feijão Preto 1kg',
-      categoria: 'Grãos',
-      fornecedor: 'Kicaldo',
+      familia: 'Bolacha Club Social Original',
+      categoria: 'Biscoitos',
+      fornecedor: 'Mondelez',
       cd: 'CD Rio de Janeiro',
-      totalEstoque: 480000,
-      giroMedio: 160000,
+      totalEstoque: 33600,
+      giroMedio: 11200,
       coberturaMeses: 3.0,
       performance: 'alta',
       score: 90,
       valorCusto: 3840000,
       valorVenda: 3840000 / (divisorMarkdown / 100),
-      embalagem: 24,
-      quantidadeGiro: 6667,
-      quantidadeEstoque: 20000
+      embalagem: 36,
+      quantidadeGiro: 11200,
+      quantidadeEstoque: 33600
     },
     {
       id: '8',
-      familia: 'Sabão em Pó 1kg',
-      categoria: 'Limpeza',
-      fornecedor: 'Unilever',
+      familia: 'Lenço Kleenex Ultra Soft',
+      categoria: 'Higiene',
+      fornecedor: 'Kimberly-Clark',
       cd: 'CD Belo Horizonte',
-      totalEstoque: 2000000,
-      giroMedio: 650000,
+      totalEstoque: 24800,
+      giroMedio: 8000,
       coberturaMeses: 3.1,
-      performance: 'baixa',
-      score: 68,
+      performance: 'media',
+      score: 75,
       valorCusto: 2400000,
       valorVenda: 2400000 / (divisorMarkdown / 100),
-      embalagem: 25,
-      quantidadeGiro: 26000,
-      quantidadeEstoque: 80000
+      embalagem: 60,
+      quantidadeGiro: 8000,
+      quantidadeEstoque: 24800
     }
   ];
 
@@ -340,11 +340,10 @@ export const PerformanceView = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="todos">Todos os Fornecedores</SelectItem>
-                  {Array.from(new Set(performanceData.map(item => item.fornecedor))).map(fornecedor => (
-                    <SelectItem key={fornecedor} value={fornecedor}>
-                      {fornecedor}
-                    </SelectItem>
-                  ))}
+                  <SelectItem value="Mondelez">Mondelez</SelectItem>
+                  <SelectItem value="Procter & Gamble">Procter & Gamble</SelectItem>
+                  <SelectItem value="Diageo">Diageo</SelectItem>
+                  <SelectItem value="Kimberly-Clark">Kimberly-Clark</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -388,11 +387,11 @@ export const PerformanceView = () => {
                       <div className="text-xs text-muted-foreground truncate max-w-[180px]">{item.fornecedor}</div>
                     </TableCell>
                     <TableCell className="text-right font-medium">
-                      {Math.round(item.totalEstoque).toLocaleString('pt-BR')}
+                      {(item.totalEstoque / 1000).toFixed(1)}k
                     </TableCell>
                     <TableCell className="text-right font-medium">
                       {(item.pedidosAbertos || 0) > 0 ? (
-                        <span className="text-warning">{Math.round(item.pedidosAbertos || 0).toLocaleString('pt-BR')}</span>
+                        <span className="text-warning">{((item.pedidosAbertos || 0) / 1000).toFixed(1)}k</span>
                       ) : (
                         <span className="text-muted-foreground">-</span>
                       )}
