@@ -31,6 +31,9 @@ interface PerformanceItem {
 export const PerformanceView = () => {
   const [filtroCD, setFiltroCD] = useState<string>("todos");
   const [filtroFornecedor, setFiltroFornecedor] = useState<string>("todos");
+  
+  // Force refresh timestamp
+  const [refreshKey] = useState(Date.now());
 
   // Percentual de markdown - em produção virá das configurações
   const markdownPercentual = 16.5;
