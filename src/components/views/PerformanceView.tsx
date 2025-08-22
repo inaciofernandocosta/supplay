@@ -397,7 +397,7 @@ export const PerformanceView = () => {
                       )}
                     </TableCell>
                     <TableCell className="text-right font-medium">
-                      R$ {(item.valorCusto / 1000).toLocaleString('pt-BR')}k
+                      R$ {item.valorCusto.toLocaleString('pt-BR')}
                     </TableCell>
                     <TableCell className="text-right font-medium text-success">
                       R$ {(item.valorVenda / 1000).toLocaleString('pt-BR')}
