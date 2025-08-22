@@ -492,11 +492,11 @@ export const DashboardGeral = () => {
         />
         
         <MetricCard
-          title="Valor Utilizado"
-          value={`${(totalUtilizado / 1000000).toFixed(1)}M`}
-          subtitle={`${((totalUtilizado / totalMeta) * 100).toFixed(1)}% do orçamento`}
+          title="Itens Ativos"
+          value={mockEstoque.length.toString()}
+          subtitle="Produtos distintos em estoque"
           icon={Package}
-          status={((totalUtilizado / totalMeta) * 100) >= 90 ? 'danger' : ((totalUtilizado / totalMeta) * 100) >= 80 ? 'warning' : 'success'}
+          status="success"
         />
 
         <MetricCard
@@ -550,82 +550,6 @@ export const DashboardGeral = () => {
           status="warning"
         />
       </div>
-
-      {/* Detalhamento Estoque + Pedidos */}
-      <Card className="glass-card">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-lg">
-            <Package className="h-5 w-5 text-primary" />
-            Detalhamento: Estoque + Pedidos Abertos
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <Package className="h-4 w-4 text-success" />
-                <h4 className="font-semibold text-foreground">Estoque Atual</h4>
-              </div>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Valor Total:</span>
-                  <span className="text-sm font-medium">{formatValue(estoqueAtualTotal)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Quantidade Total:</span>
-                  <span className="text-sm font-medium">{formatValue(metricas?.totalQuantidadeEstoque || 0)} un</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Cobertura Média:</span>
-                  <span className="text-sm font-medium">{coberturaMedia > 0 ? coberturaMedia.toFixed(1) : '0.0'} meses</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <FileText className="h-4 w-4 text-warning" />
-                <h4 className="font-semibold text-foreground">Pedidos Abertos</h4>
-              </div>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Valor Total:</span>
-                  <span className="text-sm font-medium">{formatValue(pedidosAbertosTotal)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Quantidade Total:</span>
-                  <span className="text-sm font-medium">{formatValue(metricas?.totalQuantidadePedidos || 0)} un</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">% do Estoque:</span>
-                  <span className="text-sm font-medium">{percentualPedidos > 0 ? percentualPedidos.toFixed(1) : '0.0'}%</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-primary" />
-                <h4 className="font-semibold text-foreground">Projeção Total</h4>
-              </div>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Valor Projetado:</span>
-                  <span className="text-sm font-medium">{formatValue(totalEstoqueMaisPedidos)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Cobertura Projetada:</span>
-                  <span className="text-sm font-medium">{coberturaProjetada > 0 ? coberturaProjetada.toFixed(1) : '0.0'} meses</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Itens Ativos:</span>
-                  <span className="text-sm font-medium">{mockEstoque.length} produtos</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Status dos Compradores */}
       <Card className="glass-card">
