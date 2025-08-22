@@ -364,8 +364,8 @@ export const PerformanceView = () => {
             <TableHeader>
               <TableRow className="border-border/50">
                 <TableHead className="min-w-[200px]">Família</TableHead>
-                 <TableHead className="text-right min-w-[100px]">Estoque Atual</TableHead>
-                <TableHead className="text-right min-w-[120px]">Pedidos Abertos</TableHead>
+                <TableHead className="text-right min-w-[100px]">Estoque Atual CX</TableHead>
+                <TableHead className="text-right min-w-[120px]">Pedidos Abertos CX</TableHead>
                 <TableHead className="text-right min-w-[120px]">Valor Custo</TableHead>
                 <TableHead className="text-right min-w-[120px]">Valor Venda</TableHead>
                 <TableHead className="text-right min-w-[100px]">Margem</TableHead>
@@ -401,7 +401,7 @@ export const PerformanceView = () => {
                       R$ {(item.valorCusto / 1000).toLocaleString('pt-BR')}k
                     </TableCell>
                     <TableCell className="text-right font-medium text-success">
-                      R$ {(item.valorVenda / 1000).toLocaleString('pt-BR')}k
+                      R$ {(item.valorVenda / 1000).toLocaleString('pt-BR')}
                     </TableCell>
                     <TableCell className="text-right">
                       <span className={margem >= 15 ? 'text-success' : margem >= 10 ? 'text-warning' : 'text-danger'}>
