@@ -19,71 +19,87 @@ import {
 } from "lucide-react";
 
 export const DashboardGeral = () => {
-  // Mock estoque atual para cálculos
+  // Mock estoque atual para cálculos - dados realistas para analista de compras
   const mockEstoque = [
     {
-      familia: 'Biscoito Recheado Chocolate',
-      fornecedor: 'Mondelez', 
-      cd: 'CD São Paulo',
-      estoqueAtual: 8500,
-      valorEstoqueAtual: 27625,
-      giroMedio: 2400
-    },
-    {
-      familia: 'Refrigerante Cola 2L',
-      fornecedor: 'Coca-Cola',
-      cd: 'CD São Paulo', 
-      estoqueAtual: 5200,
-      valorEstoqueAtual: 23400,
-      giroMedio: 1800
-    },
-    {
-      familia: 'Arroz Tipo 1 5kg',
+      familia: 'Arroz Branco 5kg',
       fornecedor: 'Tio João',
-      cd: 'CD Rio de Janeiro',
-      estoqueAtual: 12000,
-      valorEstoqueAtual: 225000,
-      giroMedio: 3500
+      cd: 'CD Vila Nova',
+      estoqueAtual: 15000, // 15 mil unidades
+      valorEstoqueAtual: 450000, // R$ 450 mil (R$ 30 por unidade)
+      giroMedio: 5000 // 5 mil unidades por mês
+    },
+    {
+      familia: 'Açúcar Cristal 1kg',
+      fornecedor: 'União',
+      cd: 'CD Vila Nova', 
+      estoqueAtual: 25000, // 25 mil unidades
+      valorEstoqueAtual: 125000, // R$ 125 mil (R$ 5 por unidade)
+      giroMedio: 8000 // 8 mil unidades por mês
     },
     {
       familia: 'Óleo de Soja 900ml',
-      fornecedor: 'Sadia',
-      cd: 'CD São Paulo',
-      estoqueAtual: 4200,
-      valorEstoqueAtual: 28560,
-      giroMedio: 1600
+      fornecedor: 'Liza',
+      cd: 'CD Focomix SP',
+      estoqueAtual: 12000, // 12 mil unidades
+      valorEstoqueAtual: 84000, // R$ 84 mil (R$ 7 por unidade)
+      giroMedio: 4000 // 4 mil unidades por mês
+    },
+    {
+      familia: 'Feijão Carioca 1kg',
+      fornecedor: 'Camil',
+      cd: 'CD Vila Nova',
+      estoqueAtual: 18000, // 18 mil unidades
+      valorEstoqueAtual: 144000, // R$ 144 mil (R$ 8 por unidade)
+      giroMedio: 6000 // 6 mil unidades por mês
     },
     {
       familia: 'Macarrão Espaguete 500g',
       fornecedor: 'Barilla',
-      cd: 'CD Belo Horizonte',
-      estoqueAtual: 7800,
-      valorEstoqueAtual: 33150,
-      giroMedio: 2900
+      cd: 'CD Focomix MG',
+      estoqueAtual: 30000, // 30 mil unidades
+      valorEstoqueAtual: 150000, // R$ 150 mil (R$ 5 por unidade)
+      giroMedio: 10000 // 10 mil unidades por mês
     },
     {
-      familia: 'Achocolatado Pó 400g',
-      fornecedor: 'Nestlé',
-      cd: 'CD São Paulo',
-      estoqueAtual: 6500,
-      valorEstoqueAtual: 57850,
-      giroMedio: 2300
+      familia: 'Refrigerante Cola 2L',
+      fornecedor: 'Coca-Cola',
+      cd: 'CD Vila Nova',
+      estoqueAtual: 8000, // 8 mil unidades
+      valorEstoqueAtual: 56000, // R$ 56 mil (R$ 7 por unidade)
+      giroMedio: 3000 // 3 mil unidades por mês
     },
     {
-      familia: 'Feijão Preto 1kg',
-      fornecedor: 'Kicaldo',
-      cd: 'CD Rio de Janeiro',
-      estoqueAtual: 3800,
-      valorEstoqueAtual: 27740,
-      giroMedio: 1700
+      familia: 'Biscoito Recheado 140g',
+      fornecedor: 'Mondelez',
+      cd: 'CD Focomix SP',
+      estoqueAtual: 20000, // 20 mil unidades
+      valorEstoqueAtual: 80000, // R$ 80 mil (R$ 4 por unidade)
+      giroMedio: 7000 // 7 mil unidades por mês
+    },
+    {
+      familia: 'Café Torrado 500g',
+      fornecedor: 'Pilão',
+      cd: 'CD V2 Farma',
+      estoqueAtual: 6000, // 6 mil unidades
+      valorEstoqueAtual: 90000, // R$ 90 mil (R$ 15 por unidade)
+      giroMedio: 2000 // 2 mil unidades por mês
+    },
+    {
+      familia: 'Detergente 500ml',
+      fornecedor: 'Ypê',
+      cd: 'CD Vila Nova',
+      estoqueAtual: 35000, // 35 mil unidades
+      valorEstoqueAtual: 70000, // R$ 70 mil (R$ 2 por unidade)
+      giroMedio: 12000 // 12 mil unidades por mês
     },
     {
       familia: 'Sabão em Pó 1kg',
-      fornecedor: 'Unilever',
-      cd: 'CD Belo Horizonte',
-      estoqueAtual: 9200,
-      valorEstoqueAtual: 114080,
-      giroMedio: 3600
+      fornecedor: 'Omo',
+      cd: 'CD Focomix MG',
+      estoqueAtual: 15000, // 15 mil unidades
+      valorEstoqueAtual: 225000, // R$ 225 mil (R$ 15 por unidade)
+      giroMedio: 5000 // 5 mil unidades por mês
     }
   ];
 
@@ -362,14 +378,18 @@ export const DashboardGeral = () => {
   const totalUtilizado = compradores.reduce((acc, comp) => acc + comp.utilizado, 0);
   const totalMeta = 205000000; // R$ 205 milhões
 
-  // Cálculos de estoque + pedidos abertos
+  // Cálculos de estoque + pedidos abertos - com validação para evitar NaN
   const stockData = calculateStockWithOrders(mockEstoque, mockPurchaseOrders);
   const { metricas } = stockData;
   
-  const estoqueAtualTotal = metricas.totalValorEstoque;
-  const pedidosAbertosTotal = metricas.totalValorPedidos;
-  const totalEstoqueMaisPedidos = metricas.totalValorProjetado;
-  const percentualPedidos = pedidosAbertosTotal > 0 ? (pedidosAbertosTotal / estoqueAtualTotal) * 100 : 0;
+  // Validações para evitar NaN
+  const estoqueAtualTotal = metricas?.totalValorEstoque || 0;
+  const pedidosAbertosTotal = metricas?.totalValorPedidos || 0;
+  const totalEstoqueMaisPedidos = metricas?.totalValorProjetado || 0;
+  const percentualPedidos = estoqueAtualTotal > 0 ? (pedidosAbertosTotal / estoqueAtualTotal) * 100 : 0;
+  const coberturaMedia = metricas?.mediaCobertura || 0;
+  const coberturaProjetada = metricas?.mediaCoberturaProjetada || 0;
+  const performanceAlta = metricas?.performanceAlta || 0;
 
   return (
     <div className="space-y-6">
@@ -473,11 +493,11 @@ export const DashboardGeral = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Quantidade Total:</span>
-                  <span className="text-sm font-medium">{formatValue(metricas.totalQuantidadeEstoque)}</span>
+                  <span className="text-sm font-medium">{formatValue(metricas?.totalQuantidadeEstoque || 0)} un</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Cobertura Média:</span>
-                  <span className="text-sm font-medium">{metricas.mediaCobertura.toFixed(1)} meses</span>
+                  <span className="text-sm font-medium">{coberturaMedia > 0 ? coberturaMedia.toFixed(1) : '0.0'} meses</span>
                 </div>
               </div>
             </div>
@@ -494,11 +514,11 @@ export const DashboardGeral = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Quantidade Total:</span>
-                  <span className="text-sm font-medium">{formatValue(metricas.totalQuantidadePedidos)}</span>
+                  <span className="text-sm font-medium">{formatValue(metricas?.totalQuantidadePedidos || 0)} un</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">% do Estoque:</span>
-                  <span className="text-sm font-medium">{percentualPedidos.toFixed(1)}%</span>
+                  <span className="text-sm font-medium">{percentualPedidos > 0 ? percentualPedidos.toFixed(1) : '0.0'}%</span>
                 </div>
               </div>
             </div>
@@ -515,11 +535,11 @@ export const DashboardGeral = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Cobertura Projetada:</span>
-                  <span className="text-sm font-medium">{metricas.mediaCoberturaProjetada.toFixed(1)} meses</span>
+                  <span className="text-sm font-medium">{coberturaProjetada > 0 ? coberturaProjetada.toFixed(1) : '0.0'} meses</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Performance Alta:</span>
-                  <span className="text-sm font-medium">{metricas.performanceAlta.toFixed(0)}%</span>
+                  <span className="text-sm font-medium">{performanceAlta > 0 ? performanceAlta.toFixed(0) : '0'}%</span>
                 </div>
               </div>
             </div>
