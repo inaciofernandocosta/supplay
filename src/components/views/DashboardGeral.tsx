@@ -184,20 +184,20 @@ export const DashboardGeral = () => {
     }
   ];
 
-  // Compradores com valores utilizados do orçamento total (205M)
+  // Compradores com valores utilizados do orçamento total (205M) + Pedidos Abertos
   const compradores = [
-    { nome: "João Batata", utilizado: 16800000, meta: 20000000, status: 'success' as const },
-    { nome: "João Duarte", utilizado: 16200000, meta: 18000000, status: 'warning' as const },
-    { nome: "Daniel", utilizado: 17100000, meta: 19000000, status: 'warning' as const },
-    { nome: "Tatiane", utilizado: 13200000, meta: 16000000, status: 'success' as const },
-    { nome: "Paulo", utilizado: 16500000, meta: 18000000, status: 'warning' as const },
-    { nome: "Carlos", utilizado: 15300000, meta: 17000000, status: 'warning' as const },
-    { nome: "Vinicius Vila", utilizado: 12750000, meta: 15000000, status: 'success' as const },
-    { nome: "Vinicius Focomix", utilizado: 13300000, meta: 14000000, status: 'danger' as const },
-    { nome: "Danilo", utilizado: 14400000, meta: 16000000, status: 'warning' as const },
-    { nome: "Alexandre", utilizado: 15450000, meta: 17000000, status: 'warning' as const },
-    { nome: "Rômulo", utilizado: 16200000, meta: 18000000, status: 'warning' as const },
-    { nome: "Carolina", utilizado: 14850000, meta: 17000000, status: 'success' as const },
+    { nome: "João Batata", utilizado: 16800000, pedidosAbertos: 1200000, meta: 20000000, status: 'success' as const },
+    { nome: "João Duarte", utilizado: 16200000, pedidosAbertos: 900000, meta: 18000000, status: 'warning' as const },
+    { nome: "Daniel", utilizado: 17100000, pedidosAbertos: 800000, meta: 19000000, status: 'warning' as const },
+    { nome: "Tatiane", utilizado: 13200000, pedidosAbertos: 1100000, meta: 16000000, status: 'success' as const },
+    { nome: "Paulo", utilizado: 16500000, pedidosAbertos: 650000, meta: 18000000, status: 'warning' as const },
+    { nome: "Carlos", utilizado: 15300000, pedidosAbertos: 750000, meta: 17000000, status: 'warning' as const },
+    { nome: "Vinicius Vila", utilizado: 12750000, pedidosAbertos: 850000, meta: 15000000, status: 'success' as const },
+    { nome: "Vinicius Focomix", utilizado: 13300000, pedidosAbertos: 500000, meta: 14000000, status: 'danger' as const },
+    { nome: "Danilo", utilizado: 14400000, pedidosAbertos: 700000, meta: 16000000, status: 'warning' as const },
+    { nome: "Alexandre", utilizado: 15450000, pedidosAbertos: 600000, meta: 17000000, status: 'warning' as const },
+    { nome: "Rômulo", utilizado: 16200000, pedidosAbertos: 550000, meta: 18000000, status: 'warning' as const },
+    { nome: "Carolina", utilizado: 14850000, pedidosAbertos: 950000, meta: 17000000, status: 'success' as const },
   ];
 
   const performanceItems = [
@@ -561,29 +561,36 @@ export const DashboardGeral = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {compradores.map((comprador, index) => (
-              <div key={index} className="p-3 rounded-lg border border-border/50 hover:bg-muted/30 transition-corporate space-y-2">
-                <div className="space-y-1">
-                  <h4 className="font-medium text-foreground text-sm">{comprador.nome}</h4>
-                  <p className="text-xs text-muted-foreground">
-                    {(comprador.utilizado / 1000000).toFixed(1)}M de {(comprador.meta / 1000000).toFixed(1)}M
-                  </p>
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <div className="text-sm font-bold text-foreground">
-                    {((comprador.utilizado / comprador.meta) * 100).toFixed(1)}%
+            {compradores.map((comprador, index) => {
+              const totalComprometido = comprador.utilizado + comprador.pedidosAbertos;
+              const percentualComprometido = (totalComprometido / comprador.meta) * 100;
+              
+              return (
+                <div key={index} className="p-3 rounded-lg border border-border/50 hover:bg-muted/30 transition-corporate space-y-2">
+                  <div className="space-y-1">
+                    <h4 className="font-medium text-foreground text-sm">{comprador.nome}</h4>
+                    <div className="text-xs text-muted-foreground space-y-0.5">
+                      <p>Estoque: {(comprador.utilizado / 1000000).toFixed(1)}M</p>
+                      <p>Pedidos: {(comprador.pedidosAbertos / 1000000).toFixed(1)}M</p>
+                      <p className="font-medium">Total: {(totalComprometido / 1000000).toFixed(1)}M de {(comprador.meta / 1000000).toFixed(1)}M</p>
+                    </div>
                   </div>
-                  <StatusBadge 
-                    status={comprador.status}
-                    label={
-                      comprador.status === 'success' ? 'Normal' :
-                      comprador.status === 'warning' ? 'Atenção' : 'Bloqueado'
-                    }
-                  />
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm font-bold text-foreground">
+                      {percentualComprometido.toFixed(1)}%
+                    </div>
+                    <StatusBadge 
+                      status={percentualComprometido >= 95 ? 'danger' : percentualComprometido >= 85 ? 'warning' : 'success'}
+                      label={
+                        percentualComprometido >= 95 ? 'Bloqueado' :
+                        percentualComprometido >= 85 ? 'Atenção' : 'Normal'
+                      }
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </CardContent>
       </Card>
