@@ -406,17 +406,17 @@ export const DashboardGeral = () => {
         <MetricCard
           title="Orçamento Total"
           value={`${(totalMeta / 1000000).toFixed(0)}M`}
-          subtitle="Limite aprovado para agosto"
+          subtitle={`${((totalUtilizado / totalMeta) * 100).toFixed(1)}% utilizado`}
           icon={DollarSign}
-          status="success"
+          status={((totalUtilizado / totalMeta) * 100) >= 90 ? 'danger' : ((totalUtilizado / totalMeta) * 100) >= 80 ? 'warning' : 'success'}
         />
         
         <MetricCard
-          title="Valor Utilizado"
-          value={`${(totalUtilizado / 1000000).toFixed(1)}M`}
-          subtitle={`${((totalUtilizado / totalMeta) * 100).toFixed(1)}% consumido`}
-          icon={DollarSign}
-          status={((totalUtilizado / totalMeta) * 100) >= 90 ? 'danger' : ((totalUtilizado / totalMeta) * 100) >= 80 ? 'warning' : 'success'}
+          title="Cobertura Média"
+          value={`${coberturaMedia > 0 ? coberturaMedia.toFixed(1) : '0.0'} meses`}
+          subtitle="Baseada no giro médio"
+          icon={TrendingUp}
+          status={coberturaMedia >= 2 && coberturaMedia <= 3 ? 'success' : coberturaMedia >= 1 ? 'warning' : 'danger'}
         />
         
         <MetricCard
