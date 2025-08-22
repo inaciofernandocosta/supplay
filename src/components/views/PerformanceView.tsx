@@ -365,20 +365,15 @@ export const PerformanceView = () => {
                 <TableHead className="min-w-[200px]">Família</TableHead>
                 <TableHead className="text-right min-w-[100px]">Estoque Atual CX</TableHead>
                 <TableHead className="text-right min-w-[120px]">Pedidos Abertos CX</TableHead>
-                <TableHead className="text-right min-w-[120px]">Valor Custo</TableHead>
-                <TableHead className="text-right min-w-[120px]">Valor Venda</TableHead>
+                <TableHead className="text-right min-w-[120px]">Valor Estoque Custo</TableHead>
                 <TableHead className="text-right min-w-[100px]">Margem</TableHead>
                 <TableHead className="text-right min-w-[100px]">Cobertura</TableHead>
-                <TableHead className="text-center min-w-[120px]">Performance P/Custo</TableHead>
-                <TableHead className="text-center min-w-[120px]">Performance C/Markdown</TableHead>
                 <TableHead className="min-w-[100px]">Performance</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredData.map((item) => {
                 const margem = ((item.valorVenda - item.valorCusto) / item.valorVenda) * 100;
-                const performancePorCusto = item.giroMedio > 0 ? (item.valorCusto / item.giroMedio).toFixed(2) : '0.00';
-                const performanceComMarkdown = item.giroMedio > 0 ? (item.valorVenda / item.giroMedio).toFixed(2) : '0.00';
                 
                 return (
                   <TableRow key={item.id} className="border-border/50 hover:bg-muted/30">
@@ -399,9 +394,6 @@ export const PerformanceView = () => {
                     <TableCell className="text-right font-medium">
                       R$ {item.valorCusto.toLocaleString('pt-BR')}
                     </TableCell>
-                    <TableCell className="text-right font-medium text-success">
-                      R$ {(item.valorVenda / 1000).toLocaleString('pt-BR')}
-                    </TableCell>
                     <TableCell className="text-right">
                       <span className={margem >= 15 ? 'text-success' : margem >= 10 ? 'text-warning' : 'text-danger'}>
                         {margem.toFixed(1)}%
@@ -410,16 +402,6 @@ export const PerformanceView = () => {
                     <TableCell className="text-right">
                       <span className={item.coberturaMeses > 3.5 ? 'text-danger' : item.coberturaMeses > 2.5 ? 'text-warning' : 'text-success'}>
                         {item.coberturaMeses.toFixed(1)}m
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-center">
-                      <span className="text-sm font-medium text-muted-foreground">
-                        {performancePorCusto}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-center">
-                      <span className="text-sm font-medium text-primary">
-                        {performanceComMarkdown}
                       </span>
                     </TableCell>
                     <TableCell>
