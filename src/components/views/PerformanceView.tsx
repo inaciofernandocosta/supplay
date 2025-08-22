@@ -387,11 +387,11 @@ export const PerformanceView = () => {
                       <div className="text-xs text-muted-foreground truncate max-w-[180px]">{item.fornecedor}</div>
                     </TableCell>
                     <TableCell className="text-right font-medium">
-                      {(item.totalEstoque / 1000).toFixed(1)}k
+                      {item.totalEstoque.toLocaleString('pt-BR')}
                     </TableCell>
                     <TableCell className="text-right font-medium">
                       {(item.pedidosAbertos || 0) > 0 ? (
-                        <span className="text-warning">{((item.pedidosAbertos || 0) / 1000).toFixed(1)}k</span>
+                        <span className="text-warning">{(item.pedidosAbertos || 0).toLocaleString('pt-BR')}</span>
                       ) : (
                         <span className="text-muted-foreground">-</span>
                       )}
