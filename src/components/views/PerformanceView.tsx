@@ -4,15 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { RefreshCw, Download, TrendingUp, TrendingDown, Minus, Calculator } from "lucide-react";
+import { RefreshCw, Download, TrendingUp, TrendingDown, Minus, Calculator, ShoppingCart } from "lucide-react";
 import { formatValue } from "@/lib/formatters";
 import { MetricCard } from "../MetricCard";
+import { calculateStockWithOrders, getUniqueValues } from "@/lib/stockCalculations";
+import { mockPurchaseOrders } from "@/lib/mockPurchaseOrders";
 
 interface PerformanceItem {
   id: string;
   familia: string;
   categoria: string;
   fornecedor: string;
+  cd: string;
   totalEstoque: number;
   giroMedio: number;
   coberturaMeses: number;
@@ -36,9 +39,10 @@ export const PerformanceView = () => {
   const performanceData: PerformanceItem[] = [
     {
       id: '1',
-      familia: 'Arroz Branco',
+      familia: 'Arroz Tipo 1 5kg',
       categoria: 'Grãos',
-      fornecedor: 'Distribuidora Alimentos Sul',
+      fornecedor: 'Tio João',
+      cd: 'CD Rio de Janeiro',
       totalEstoque: 1350000,
       giroMedio: 450000,
       coberturaMeses: 3.0,
@@ -55,6 +59,7 @@ export const PerformanceView = () => {
       familia: 'Feijão Carioca',
       categoria: 'Grãos',
       fornecedor: 'Fornecedor ABC Ltda',
+      cd: 'CD São Paulo',
       totalEstoque: 1080000,
       giroMedio: 380000,
       coberturaMeses: 2.8,
@@ -71,6 +76,7 @@ export const PerformanceView = () => {
       familia: 'Açúcar Cristal',
       categoria: 'Açúcares',
       fornecedor: 'Central de Abastecimento Norte',
+      cd: 'CD Belo Horizonte',
       totalEstoque: 1550000,
       giroMedio: 520000,
       coberturaMeses: 3.0,
@@ -87,6 +93,7 @@ export const PerformanceView = () => {
       familia: 'Óleo de Soja',
       categoria: 'Óleos',
       fornecedor: 'Atacadão Distribuição',
+      cd: 'CD São Paulo',
       totalEstoque: 780000,
       giroMedio: 250000,
       coberturaMeses: 3.1,
@@ -103,6 +110,7 @@ export const PerformanceView = () => {
       familia: 'Macarrão Espaguete',
       categoria: 'Massas',
       fornecedor: 'Mega Fornecimentos',
+      cd: 'CD Belo Horizonte',
       totalEstoque: 1240000,
       giroMedio: 420000,
       coberturaMeses: 2.9,
@@ -119,6 +127,7 @@ export const PerformanceView = () => {
       familia: 'Leite em Pó',
       categoria: 'Laticínios',
       fornecedor: 'Comercial Vitória',
+      cd: 'CD São Paulo',
       totalEstoque: 630000,
       giroMedio: 210000,
       coberturaMeses: 3.0,
@@ -135,6 +144,7 @@ export const PerformanceView = () => {
       familia: 'Café Torrado',
       categoria: 'Bebidas',
       fornecedor: 'Distribuidora Premium',
+      cd: 'CD Rio de Janeiro',
       totalEstoque: 480000,
       giroMedio: 160000,
       coberturaMeses: 3.0,
@@ -151,6 +161,7 @@ export const PerformanceView = () => {
       familia: 'Farinha de Trigo',
       categoria: 'Farinhas',
       fornecedor: 'Fornecedor Regional Ltda',
+      cd: 'CD Belo Horizonte',
       totalEstoque: 2000000,
       giroMedio: 650000,
       coberturaMeses: 3.1,
@@ -164,14 +175,31 @@ export const PerformanceView = () => {
     }
   ];
 
-  const filteredData = performanceData.filter(item => {
-    const matchCD = filtroCD === "todos" || true; // Implementar lógica de CD quando necessário
+  // Calcula dados com pedidos de compra para performance
+  const performanceComPedidos = performanceData.map(item => {
+    const key = `${item.familia}-${item.fornecedor}`;
+    const pedidos = mockPurchaseOrders
+      .filter(po => po.familia === item.familia && po.fornecedor === item.fornecedor && (po.status === 'aberto' || po.status === 'em_transito'))
+      .reduce((acc, po) => ({ quantidade: acc.quantidade + po.quantidade, valor: acc.valor + po.valorTotal }), { quantidade: 0, valor: 0 });
+    
+    return {
+      ...item,
+      pedidosAbertos: pedidos.quantidade,
+      valorPedidosAbertos: pedidos.valor,
+      estoqueProjetado: item.totalEstoque + pedidos.quantidade,
+      valorEstoqueProjetado: item.valorCusto + pedidos.valor
+    };
+  });
+
+  const filteredData = performanceComPedidos.filter(item => {
+    const matchCD = filtroCD === "todos" || item.cd === filtroCD;
     const matchFornecedor = filtroFornecedor === "todos" || item.fornecedor === filtroFornecedor;
     return matchCD && matchFornecedor;
   });
 
   const totalValorVenda = filteredData.reduce((acc, item) => acc + item.valorVenda, 0);
   const totalValorCusto = filteredData.reduce((acc, item) => acc + item.valorCusto, 0);
+  const totalValorPedidos = filteredData.reduce((acc, item) => acc + (item.valorPedidosAbertos || 0), 0);
   const margemMedia = ((totalValorVenda - totalValorCusto) / totalValorVenda) * 100;
   const mediaCobertura = filteredData.reduce((acc, item) => acc + item.coberturaMeses, 0) / filteredData.length;
   const performanceAlta = filteredData.filter(item => item.performance === 'alta').length;
@@ -240,7 +268,7 @@ export const PerformanceView = () => {
       </div>
 
       {/* Métricas Principais */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <MetricCard
           title="Valor de Venda"
           value={`R$ ${(totalValorVenda / 1000000).toFixed(1)}M`}
@@ -253,6 +281,13 @@ export const PerformanceView = () => {
           value={`R$ ${(totalValorCusto / 1000000).toFixed(1)}M`}
           subtitle="Investimento atual"
           icon={Calculator}
+          status="warning"
+        />
+        <MetricCard
+          title="Pedidos Abertos"
+          value={`R$ ${(totalValorPedidos / 1000000).toFixed(1)}M`}
+          subtitle="Valor em pedidos"
+          icon={ShoppingCart}
           status="warning"
         />
         <MetricCard
@@ -286,13 +321,9 @@ export const PerformanceView = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="todos">Todos os CDs</SelectItem>
-                  <SelectItem value="1">1 - Vila Nova</SelectItem>
-                  <SelectItem value="11">11 - Vila Nova</SelectItem>
-                  <SelectItem value="12">12 - Vila Nova</SelectItem>
-                  <SelectItem value="14">14 - Vila Nova</SelectItem>
-                  <SelectItem value="502">502 - Focomix MG</SelectItem>
-                  <SelectItem value="501">501 - Focomix SP</SelectItem>
-                  <SelectItem value="804">804 - V2 Farma</SelectItem>
+                  <SelectItem value="CD São Paulo">CD São Paulo</SelectItem>
+                  <SelectItem value="CD Rio de Janeiro">CD Rio de Janeiro</SelectItem>
+                  <SelectItem value="CD Belo Horizonte">CD Belo Horizonte</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -329,9 +360,8 @@ export const PerformanceView = () => {
             <TableHeader>
               <TableRow className="border-border/50">
                 <TableHead className="min-w-[200px]">Família</TableHead>
-                <TableHead className="text-right min-w-[100px]">Embalagem</TableHead>
-                <TableHead className="text-right min-w-[120px]">Quantidade Giro</TableHead>
-                <TableHead className="text-right min-w-[120px]">Quantidade Estoque</TableHead>
+                <TableHead className="text-right min-w-[100px]">Estoque Atual</TableHead>
+                <TableHead className="text-right min-w-[120px]">Pedidos Abertos</TableHead>
                 <TableHead className="text-right min-w-[120px]">Valor Custo</TableHead>
                 <TableHead className="text-right min-w-[120px]">Valor Venda</TableHead>
                 <TableHead className="text-right min-w-[100px]">Margem</TableHead>
@@ -346,21 +376,23 @@ export const PerformanceView = () => {
                   <TableRow key={item.id} className="border-border/50 hover:bg-muted/30">
                     <TableCell>
                       <div className="font-medium text-foreground truncate max-w-[180px]">{item.familia}</div>
+                      <div className="text-xs text-muted-foreground truncate max-w-[180px]">{item.fornecedor}</div>
                     </TableCell>
                     <TableCell className="text-right font-medium">
-                      {item.embalagem}
+                      {Math.round(item.totalEstoque).toLocaleString('pt-BR')}
                     </TableCell>
                     <TableCell className="text-right font-medium">
-                      {Math.round(item.quantidadeGiro).toLocaleString('pt-BR')}
+                      {(item.pedidosAbertos || 0) > 0 ? (
+                        <span className="text-warning">{Math.round(item.pedidosAbertos || 0).toLocaleString('pt-BR')}</span>
+                      ) : (
+                        <span className="text-muted-foreground">-</span>
+                      )}
                     </TableCell>
                     <TableCell className="text-right font-medium">
-                      {Math.round(item.quantidadeEstoque).toLocaleString('pt-BR')}
-                    </TableCell>
-                    <TableCell className="text-right font-medium">
-                      {Math.round(item.valorCusto).toLocaleString('pt-BR')}
+                      R$ {(item.valorCusto / 1000).toLocaleString('pt-BR')}k
                     </TableCell>
                     <TableCell className="text-right font-medium text-success">
-                      {Math.round(item.valorVenda).toLocaleString('pt-BR')}
+                      R$ {(item.valorVenda / 1000).toLocaleString('pt-BR')}k
                     </TableCell>
                     <TableCell className="text-right">
                       <span className={margem >= 15 ? 'text-success' : margem >= 10 ? 'text-warning' : 'text-danger'}>
@@ -369,7 +401,7 @@ export const PerformanceView = () => {
                     </TableCell>
                     <TableCell className="text-right">
                       <span className={item.coberturaMeses > 3.5 ? 'text-danger' : item.coberturaMeses > 2.5 ? 'text-warning' : 'text-success'}>
-                        {item.coberturaMeses.toFixed(1)} meses
+                        {item.coberturaMeses.toFixed(1)}m
                       </span>
                     </TableCell>
                     <TableCell>

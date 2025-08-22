@@ -4,15 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { RefreshCw, Download, Package, TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { RefreshCw, Download, Package, TrendingUp, TrendingDown, Minus, ShoppingCart } from "lucide-react";
 import { formatValue } from "@/lib/formatters";
 import { MetricCard } from "../MetricCard";
+import { calculateStockWithOrders, getUniqueValues } from "@/lib/stockCalculations";
+import { mockPurchaseOrders } from "@/lib/mockPurchaseOrders";
 
 interface EstoqueFamilia {
   id: string;
   familia: string;
   categoria: string;
   fornecedor: string;
+  cd: string;
   totalEstoque: number;
   giroMedio: number;
   coberturaMeses: number;
@@ -31,9 +34,10 @@ export const EstoqueView = () => {
   const estoqueData: EstoqueFamilia[] = [
     {
       id: '1',
-      familia: 'Arroz Branco',
+      familia: 'Arroz Tipo 1 5kg',
       categoria: 'Grãos',
-      fornecedor: 'Distribuidora Alimentos Sul',
+      fornecedor: 'Tio João',
+      cd: 'CD Rio de Janeiro',
       totalEstoque: 1350000,
       giroMedio: 450000,
       coberturaMeses: 3.0,
@@ -46,9 +50,10 @@ export const EstoqueView = () => {
     },
     {
       id: '2',
-      familia: 'Feijão Carioca',
-      categoria: 'Grãos',
-      fornecedor: 'Fornecedor ABC Ltda',
+      familia: 'Biscoito Recheado Chocolate',
+      categoria: 'Biscoitos',
+      fornecedor: 'Mondelez',
+      cd: 'CD São Paulo',
       totalEstoque: 1080000,
       giroMedio: 380000,
       coberturaMeses: 2.8,
@@ -61,9 +66,10 @@ export const EstoqueView = () => {
     },
     {
       id: '3',
-      familia: 'Açúcar Cristal',
-      categoria: 'Açúcares',
-      fornecedor: 'Central de Abastecimento Norte',
+      familia: 'Refrigerante Cola 2L',
+      categoria: 'Bebidas',
+      fornecedor: 'Coca-Cola',
+      cd: 'CD São Paulo',
       totalEstoque: 1550000,
       giroMedio: 520000,
       coberturaMeses: 3.0,
@@ -76,9 +82,10 @@ export const EstoqueView = () => {
     },
     {
       id: '4',
-      familia: 'Óleo de Soja',
+      familia: 'Óleo de Soja 900ml',
       categoria: 'Óleos',
-      fornecedor: 'Atacadão Distribuição',
+      fornecedor: 'Sadia',
+      cd: 'CD São Paulo',
       totalEstoque: 780000,
       giroMedio: 250000,
       coberturaMeses: 3.1,
@@ -91,9 +98,10 @@ export const EstoqueView = () => {
     },
     {
       id: '5',
-      familia: 'Macarrão Espaguete',
+      familia: 'Macarrão Espaguete 500g',
       categoria: 'Massas',
-      fornecedor: 'Mega Fornecimentos',
+      fornecedor: 'Barilla',
+      cd: 'CD Belo Horizonte',
       totalEstoque: 1240000,
       giroMedio: 420000,
       coberturaMeses: 2.9,
@@ -106,9 +114,10 @@ export const EstoqueView = () => {
     },
     {
       id: '6',
-      familia: 'Leite em Pó',
-      categoria: 'Laticínios',
-      fornecedor: 'Comercial Vitória',
+      familia: 'Achocolatado Pó 400g',
+      categoria: 'Bebidas',
+      fornecedor: 'Nestlé',
+      cd: 'CD São Paulo',
       totalEstoque: 630000,
       giroMedio: 210000,
       coberturaMeses: 3.0,
@@ -121,9 +130,10 @@ export const EstoqueView = () => {
     },
     {
       id: '7',
-      familia: 'Café Torrado',
-      categoria: 'Bebidas',
-      fornecedor: 'Distribuidora Premium',
+      familia: 'Feijão Preto 1kg',
+      categoria: 'Grãos',
+      fornecedor: 'Kicaldo',
+      cd: 'CD Rio de Janeiro',
       totalEstoque: 480000,
       giroMedio: 160000,
       coberturaMeses: 3.0,
@@ -136,9 +146,10 @@ export const EstoqueView = () => {
     },
     {
       id: '8',
-      familia: 'Farinha de Trigo',
-      categoria: 'Farinhas',
-      fornecedor: 'Fornecedor Regional Ltda',
+      familia: 'Sabão em Pó 1kg',
+      categoria: 'Limpeza',
+      fornecedor: 'Unilever',
+      cd: 'CD Belo Horizonte',
       totalEstoque: 2000000,
       giroMedio: 650000,
       coberturaMeses: 3.1,
@@ -151,16 +162,13 @@ export const EstoqueView = () => {
     }
   ];
 
-  const filteredData = estoqueData.filter(item => {
-    const matchCD = filtroCD === "todos" || true; // Implementar lógica de CD quando necessário
-    const matchFornecedor = filtroFornecedor === "todos" || item.fornecedor === filtroFornecedor;
-    return matchCD && matchFornecedor;
-  });
-
-  const totalValorEstoque = filteredData.reduce((acc, item) => acc + item.valorEstoque, 0);
-  const totalQuantidadeEstoque = filteredData.reduce((acc, item) => acc + item.totalEstoque, 0);
-  const mediaCobertura = filteredData.reduce((acc, item) => acc + item.coberturaMeses, 0) / filteredData.length;
-  const performanceAlta = filteredData.filter(item => item.performance === 'alta').length;
+  // Calcula dados com pedidos de compra
+  const { data: dadosComPedidos, metricas } = calculateStockWithOrders(
+    estoqueData,
+    mockPurchaseOrders,
+    filtroCD,
+    filtroFornecedor
+  );
 
   const getPerformanceColor = (performance: string) => {
     switch (performance) {
@@ -221,34 +229,41 @@ export const EstoqueView = () => {
       </div>
 
       {/* Métricas Principais */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <MetricCard
-          title="Valor Total do Estoque"
-          value={`R$ ${(totalValorEstoque / 1000000).toFixed(0)}M`}
+          title="Valor Estoque Atual"
+          value={`R$ ${(metricas.totalValorEstoque / 1000000).toFixed(0)}M`}
           subtitle="Valor investido"
           icon={Package}
           status="success"
         />
         <MetricCard
-          title="Quantidade Total"
-          value={`${(totalQuantidadeEstoque / 1000000).toFixed(3)}`}
-          subtitle="Unidades em estoque"
+          title="Pedidos Abertos"
+          value={`R$ ${(metricas.totalValorPedidos / 1000000).toFixed(0)}M`}
+          subtitle="Valor em pedidos"
+          icon={ShoppingCart}
+          status="warning"
+        />
+        <MetricCard
+          title="Estoque Projetado"
+          value={`R$ ${(metricas.totalValorProjetado / 1000000).toFixed(0)}M`}
+          subtitle="Estoque + Pedidos"
           icon={Package}
           status="success"
         />
         <MetricCard
-          title="Cobertura Média"
-          value={`${mediaCobertura.toFixed(1)} meses`}
+          title="Cobertura Atual"
+          value={`${metricas.mediaCobertura.toFixed(1)} meses`}
           subtitle="Tempo de cobertura"
           icon={Package}
-          status={mediaCobertura > 3.5 ? "danger" : mediaCobertura > 2.5 ? "warning" : "success"}
+          status={metricas.mediaCobertura > 3.5 ? "danger" : metricas.mediaCobertura > 2.5 ? "warning" : "success"}
         />
         <MetricCard
-          title="Performance Alta"
-          value={`${performanceAlta}/${filteredData.length}`}
-          subtitle="Famílias com alta performance"
+          title="Cobertura Projetada"
+          value={`${metricas.mediaCoberturaProjetada.toFixed(1)} meses`}
+          subtitle="Com pedidos abertos"
           icon={TrendingUp}
-          status="success"
+          status={metricas.mediaCoberturaProjetada > 3.5 ? "danger" : metricas.mediaCoberturaProjetada > 2.5 ? "warning" : "success"}
         />
       </div>
 
@@ -267,13 +282,9 @@ export const EstoqueView = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="todos">Todos os CDs</SelectItem>
-                  <SelectItem value="1">1 - Vila Nova</SelectItem>
-                  <SelectItem value="11">11 - Vila Nova</SelectItem>
-                  <SelectItem value="12">12 - Vila Nova</SelectItem>
-                  <SelectItem value="14">14 - Vila Nova</SelectItem>
-                  <SelectItem value="502">502 - Focomix MG</SelectItem>
-                  <SelectItem value="501">501 - Focomix SP</SelectItem>
-                  <SelectItem value="804">804 - V2 Farma</SelectItem>
+                  <SelectItem value="CD São Paulo">CD São Paulo</SelectItem>
+                  <SelectItem value="CD Rio de Janeiro">CD Rio de Janeiro</SelectItem>
+                  <SelectItem value="CD Belo Horizonte">CD Belo Horizonte</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -286,7 +297,7 @@ export const EstoqueView = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="todos">Todos os Fornecedores</SelectItem>
-                  {Array.from(new Set(estoqueData.map(item => item.fornecedor))).map(fornecedor => (
+                  {getUniqueValues(estoqueData, 'fornecedor').map(fornecedor => (
                     <SelectItem key={fornecedor} value={fornecedor}>
                       {fornecedor}
                     </SelectItem>
@@ -310,44 +321,55 @@ export const EstoqueView = () => {
             <TableHeader>
               <TableRow className="border-border/50">
                 <TableHead className="min-w-[200px]">Família</TableHead>
-                <TableHead className="text-right min-w-[100px]">Embalagem</TableHead>
-                <TableHead className="text-right min-w-[120px]">Quantidade Giro</TableHead>
-                <TableHead className="text-right min-w-[120px]">Quantidade Estoque</TableHead>
-                <TableHead className="text-right min-w-[120px]">Giro Médio</TableHead>
-                <TableHead className="text-right min-w-[120px]">Estoque</TableHead>
-                <TableHead className="text-right min-w-[120px]">Valor Estoque</TableHead>
-                <TableHead className="text-right min-w-[100px]">Cobertura</TableHead>
+                <TableHead className="text-right min-w-[100px]">Estoque Atual</TableHead>
+                <TableHead className="text-right min-w-[120px]">Pedidos Abertos</TableHead>
+                <TableHead className="text-right min-w-[120px]">Estoque Projetado</TableHead>
+                <TableHead className="text-right min-w-[100px]">Cobertura Atual</TableHead>
+                <TableHead className="text-right min-w-[120px]">Cobertura Projetada</TableHead>
+                <TableHead className="text-right min-w-[120px]">Valor Atual</TableHead>
+                <TableHead className="text-right min-w-[120px]">Valor Pedidos</TableHead>
                 <TableHead className="min-w-[100px]">Performance</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredData.map((item) => (
-                <TableRow key={item.id} className="border-border/50 hover:bg-muted/30">
+              {dadosComPedidos.map((item) => (
+                <TableRow key={`${item.familia}-${item.fornecedor}`} className="border-border/50 hover:bg-muted/30">
                   <TableCell>
                     <div className="font-medium text-foreground truncate max-w-[180px]">{item.familia}</div>
+                    <div className="text-xs text-muted-foreground truncate max-w-[180px]">{item.fornecedor}</div>
                   </TableCell>
                   <TableCell className="text-right font-medium">
-                    {item.embalagem}
+                    {Math.round(item.estoqueAtual).toLocaleString('pt-BR')}
                   </TableCell>
                   <TableCell className="text-right font-medium">
-                    {Math.round(item.quantidadeGiro).toLocaleString('pt-BR')}
+                    {item.pedidosAbertos > 0 ? (
+                      <span className="text-warning">{Math.round(item.pedidosAbertos).toLocaleString('pt-BR')}</span>
+                    ) : (
+                      <span className="text-muted-foreground">-</span>
+                    )}
                   </TableCell>
                   <TableCell className="text-right font-medium">
-                    {Math.round(item.quantidadeEstoque).toLocaleString('pt-BR')}
-                  </TableCell>
-                  <TableCell className="text-right font-medium">
-                    {Math.round(item.giroMedio).toLocaleString('pt-BR')}
-                  </TableCell>
-                  <TableCell className="text-right font-medium">
-                    {Math.round(item.totalEstoque).toLocaleString('pt-BR')}
-                  </TableCell>
-                  <TableCell className="text-right font-medium">
-                    {Math.round(item.valorEstoque).toLocaleString('pt-BR')}
+                    <span className="text-success">{Math.round(item.estoqueProjetado).toLocaleString('pt-BR')}</span>
                   </TableCell>
                   <TableCell className="text-right">
-                    <span className={item.coberturaMeses > 3.5 ? 'text-danger' : item.coberturaMeses > 2.5 ? 'text-warning' : 'text-success'}>
-                      {item.coberturaMeses.toFixed(1)} meses
+                    <span className={item.coberturaAtual > 3.5 ? 'text-danger' : item.coberturaAtual > 2.5 ? 'text-warning' : 'text-success'}>
+                      {item.coberturaAtual.toFixed(1)}m
                     </span>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <span className={item.coberturaProjetada > 3.5 ? 'text-danger' : item.coberturaProjetada > 2.5 ? 'text-warning' : 'text-success'}>
+                      {item.coberturaProjetada.toFixed(1)}m
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-right font-medium">
+                    R$ {(item.valorEstoqueAtual / 1000).toLocaleString('pt-BR')}k
+                  </TableCell>
+                  <TableCell className="text-right font-medium">
+                    {item.valorPedidosAbertos > 0 ? (
+                      <span className="text-warning">R$ {(item.valorPedidosAbertos / 1000).toLocaleString('pt-BR')}k</span>
+                    ) : (
+                      <span className="text-muted-foreground">-</span>
+                    )}
                   </TableCell>
                   <TableCell>
                     {getPerformanceBadge(item.performance)}
