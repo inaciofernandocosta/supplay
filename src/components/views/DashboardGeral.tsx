@@ -481,7 +481,7 @@ export const DashboardGeral = () => {
         </div>
       </div>
 
-      {/* Main Metrics - Simplificado conforme escopo */}
+      {/* Main Metrics - Primeira linha */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <MetricCard
           title="Orçamento Total"
@@ -492,9 +492,9 @@ export const DashboardGeral = () => {
         />
         
         <MetricCard
-          title="Itens Ativos"
-          value={mockEstoque.length.toString()}
-          subtitle="Produtos distintos em estoque"
+          title="Estoque Atual"
+          value={`${(estoqueAtualTotal / 1000000).toFixed(1)}M`}
+          subtitle="Mesmo valor utilizado"
           icon={Package}
           status="success"
         />
@@ -516,16 +516,8 @@ export const DashboardGeral = () => {
         />
       </div>
 
-      {/* Métricas Operacionais */}
+      {/* Métricas Operacionais - Segunda linha */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-        <MetricCard
-          title="Estoque Atual"
-          value={`${(estoqueAtualTotal / 1000000).toFixed(1)}M`}
-          subtitle="Mesmo valor utilizado"
-          icon={Package}
-          status="success"
-        />
-        
         <MetricCard
           title="Pedidos Abertos"
           value={`${(pedidosAbertosTotal / 1000000).toFixed(1)}M`}
@@ -539,6 +531,14 @@ export const DashboardGeral = () => {
           value={`${(totalEstoqueMaisPedidos / 1000000).toFixed(1)}M`}
           subtitle="Estoque + Pedidos"
           icon={TrendingUp}
+          status="success"
+        />
+
+        <MetricCard
+          title="Itens Ativos"
+          value={mockEstoque.length.toString()}
+          subtitle="Produtos distintos em estoque"
+          icon={Package}
           status="success"
         />
 
