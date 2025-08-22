@@ -535,11 +535,11 @@ export const DashboardGeral = () => {
         />
 
         <MetricCard
-          title="Itens Ativos"
-          value={mockEstoque.length.toString()}
-          subtitle="Produtos distintos em estoque"
-          icon={Package}
-          status="success"
+          title="Saldo Estoque + Pedidos Abertos"
+          value={`${((totalMeta - totalEstoqueMaisPedidos) / 1000000).toFixed(1)}M`}
+          subtitle={`${(100 - (totalEstoqueMaisPedidos / totalMeta) * 100).toFixed(1)}% do orçamento restante`}
+          icon={DollarSign}
+          status={((totalEstoqueMaisPedidos / totalMeta) * 100) >= 90 ? 'danger' : ((totalEstoqueMaisPedidos / totalMeta) * 100) >= 80 ? 'warning' : 'success'}
         />
 
         <MetricCard
