@@ -31,14 +31,11 @@ export const DashboardComprador = () => {
 
   const formatCurrency = formatValue;
 
-  // Calculate payment term performance and adjusted meta
+  // Calculate payment term performance (sem ajuste de meta)
   const performancePrazo = comprador.prazoMedio / empresa.prazoMeta;
-  const delta = performancePrazo - 1;
-  const ajustePercentual = delta * 0.5;
-  const metaAjustada = comprador.metaBase * (1 + ajustePercentual);
   
-  // Use adjusted meta for calculations
-  const meta = metaAjustada;
+  // Use base meta for calculations (sem correção)
+  const meta = comprador.metaBase;
 
   const entradasRecentes = [
     {
@@ -139,21 +136,13 @@ export const DashboardComprador = () => {
       </div>
 
       {/* Metrics Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <MetricCard
-          title="Meta Base da Empresa"
+          title="Meta Mensal"
           value={formatValue(comprador.metaBase)}
-          subtitle=""
+          subtitle="Meta definida"
           icon={Target}
           status="success"
-        />
-
-        <MetricCard
-          title="Meta Ajustada por Prazo"
-          value={formatValue(metaAjustada)}
-          subtitle={`${ajustePercentual > 0 ? '+' : ''}${(ajustePercentual * 100).toFixed(1)}%`}
-          icon={Target}
-          status={ajustePercentual >= 0 ? 'success' : 'danger'}
         />
 
         <MetricCard
@@ -175,7 +164,7 @@ export const DashboardComprador = () => {
         <MetricCard
           title="Prazo Médio"
           value={`${comprador.prazoMedio} dias`}
-          subtitle={`${performancePrazoPercentual.toFixed(0)}% da meta (${empresa.prazoMeta}d)`}
+          subtitle={`Meta: ${empresa.prazoMeta} dias`}
           icon={Clock}
           status={performancePrazoPercentual >= 100 ? 'success' : performancePrazoPercentual >= 80 ? 'warning' : 'danger'}
         />
