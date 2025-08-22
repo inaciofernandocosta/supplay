@@ -23,7 +23,7 @@ export const Navigation = ({ activeView, onViewChange }: NavigationProps) => {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard Geral', icon: BarChart3 },
     { id: 'comprador', label: 'Meu Orçamento', icon: Target },
-    { id: 'performance', label: 'Performance P/Custo', icon: Calculator },
+    { id: 'performance', label: 'Gestao de estoque', icon: Calculator },
     { id: 'liberacoes', label: 'Liberações', icon: CheckCircle2 },
     { id: 'metas', label: 'Gestão de Metas', icon: Users },
     { id: 'perfil', label: 'Meu Perfil', icon: UserCircle },
