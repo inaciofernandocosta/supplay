@@ -25,7 +25,6 @@ export const Navigation = ({ activeView, onViewChange }: NavigationProps) => {
     { id: 'comprador', label: 'Meu Orçamento', icon: Target },
     { id: 'estoque', label: 'Gestão de Estoque', icon: Package },
     { id: 'performance', label: 'Performance P/Custo', icon: Calculator },
-    { id: 'performance-markdown', label: 'Performance C/Markdown', icon: TrendingUp },
     { id: 'liberacoes', label: 'Liberações', icon: CheckCircle2 },
     { id: 'metas', label: 'Gestão de Metas', icon: Users },
     { id: 'perfil', label: 'Meu Perfil', icon: UserCircle },
