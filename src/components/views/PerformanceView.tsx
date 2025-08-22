@@ -204,8 +204,6 @@ export const PerformanceView = () => {
   const totalValorVenda = filteredData.reduce((acc, item) => acc + item.valorVenda, 0);
   const totalValorCusto = filteredData.reduce((acc, item) => acc + item.valorCusto, 0);
   const totalValorPedidos = filteredData.reduce((acc, item) => acc + (item.valorPedidosAbertos || 0), 0);
-  const margemMedia = ((totalValorVenda - totalValorCusto) / totalValorVenda) * 100;
-  const mediaCobertura = filteredData.reduce((acc, item) => acc + item.coberturaMeses, 0) / filteredData.length;
   const performanceAlta = filteredData.filter(item => item.performance === 'alta').length;
 
   const getPerformanceColor = (performance: string) => {
@@ -272,7 +270,7 @@ export const PerformanceView = () => {
       </div>
 
       {/* Métricas Principais */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <MetricCard
           title="Valor de Venda"
           value={`R$ ${(totalValorVenda / 1000000).toFixed(1)}M`}
@@ -293,13 +291,6 @@ export const PerformanceView = () => {
           subtitle="Valor em pedidos"
           icon={ShoppingCart}
           status="warning"
-        />
-        <MetricCard
-          title="Margem Média"
-          value={`${margemMedia.toFixed(1)}%`}
-          subtitle="Margem de lucro"
-          icon={TrendingUp}
-          status={margemMedia >= 15 ? "success" : margemMedia >= 10 ? "warning" : "danger"}
         />
         <MetricCard
           title="Performance Alta"
@@ -366,15 +357,12 @@ export const PerformanceView = () => {
                 <TableHead className="text-right min-w-[100px]">Estoque Atual CX</TableHead>
                 <TableHead className="text-right min-w-[120px]">Pedidos Abertos CX</TableHead>
                 <TableHead className="text-right min-w-[120px]">Valor Estoque Custo</TableHead>
-                <TableHead className="text-right min-w-[100px]">Margem</TableHead>
                 <TableHead className="text-right min-w-[100px]">Cobertura</TableHead>
                 <TableHead className="min-w-[100px]">Performance</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredData.map((item) => {
-                const margem = ((item.valorVenda - item.valorCusto) / item.valorVenda) * 100;
-                
                 return (
                   <TableRow key={item.id} className="border-border/50 hover:bg-muted/30">
                     <TableCell>
@@ -393,11 +381,6 @@ export const PerformanceView = () => {
                     </TableCell>
                     <TableCell className="text-right font-medium">
                       R$ {item.valorCusto.toLocaleString('pt-BR')}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <span className={margem >= 15 ? 'text-success' : margem >= 10 ? 'text-warning' : 'text-danger'}>
-                        {margem.toFixed(1)}%
-                      </span>
                     </TableCell>
                     <TableCell className="text-right">
                       <span className={item.coberturaMeses > 3.5 ? 'text-danger' : item.coberturaMeses > 2.5 ? 'text-warning' : 'text-success'}>
