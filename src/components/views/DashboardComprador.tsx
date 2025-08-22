@@ -42,10 +42,15 @@ export const DashboardComprador = () => {
   // Use base meta for calculations (sem correção)
   const meta = comprador.metaBase;
 
+  // Entradas recentes - apenas do dia de ontem (entrada já processada)
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toISOString().split('T')[0];
+
   const entradasRecentes = [
     {
       id: 1,
-      data: "2024-01-15",
+      data: yesterdayStr,
       fornecedor: "Fornecedor ABC Ltda",
       produto: "Arroz Branco 5kg", 
       valor: 125000,
@@ -53,15 +58,15 @@ export const DashboardComprador = () => {
     },
     {
       id: 2,
-      data: "2024-01-14", 
+      data: yesterdayStr,
       fornecedor: "Distribuidora XYZ",
       produto: "Feijão Preto 1kg",
       valor: 89000,
-      status: "Pendente"
+      status: "Faturado"
     },
     {
       id: 3,
-      data: "2024-01-12",
+      data: yesterdayStr,
       fornecedor: "Alimentos Premium",
       produto: "Óleo de Soja 900ml", 
       valor: 67000,
@@ -69,6 +74,7 @@ export const DashboardComprador = () => {
     },
   ];
 
+  // Pedidos em andamento - apenas pedidos que estão em entrada
   const pedidosAndamento = [
     {
       id: 1,
@@ -78,7 +84,7 @@ export const DashboardComprador = () => {
       quantidade: 2000,
       valorUnitario: 30,
       valorTotal: 60000,
-      status: "Aprovado",
+      status: "Em Entrada",
       previsaoEntrega: "2024-01-25"
     },
     {
@@ -89,7 +95,7 @@ export const DashboardComprador = () => {
       quantidade: 5000,
       valorUnitario: 5,
       valorTotal: 25000,
-      status: "Em Trânsito",
+      status: "Em Entrada",
       previsaoEntrega: "2024-01-22"
     },
     {
@@ -100,7 +106,7 @@ export const DashboardComprador = () => {
       quantidade: 1500,
       valorUnitario: 7,
       valorTotal: 10500,
-      status: "Pendente Aprovação",
+      status: "Em Entrada",
       previsaoEntrega: "2024-01-30"
     },
   ];
@@ -290,10 +296,7 @@ export const DashboardComprador = () => {
                     </TableCell>
                     <TableCell>
                       <StatusBadge 
-                        status={
-                          pedido.status === 'Aprovado' ? 'success' :
-                          pedido.status === 'Em Trânsito' ? 'warning' : 'danger'
-                        }
+                        status="warning"
                         label={pedido.status}
                       />
                     </TableCell>
@@ -341,7 +344,7 @@ export const DashboardComprador = () => {
                     </TableCell>
                     <TableCell>
                       <StatusBadge 
-                        status={entrada.status === 'Faturado' ? 'success' : 'warning'}
+                        status="success"
                         label={entrada.status}
                       />
                     </TableCell>
@@ -353,84 +356,6 @@ export const DashboardComprador = () => {
         </CardContent>
       </Card>
 
-      {/* Products Performance */}
-      <Card className="glass-card">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-lg">
-            <Package className="h-5 w-5 text-primary" />
-            Performance dos Meus Produtos
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto max-h-[calc(100vh-300px)] relative">
-            <Table>
-              <TableHeader style={{ position: 'sticky', top: 0, zIndex: 10, backgroundColor: 'hsl(var(--background))' }}>
-                <TableRow className="border-border/50 hover:bg-transparent">
-                  <TableHead className="min-w-[150px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Produto</TableHead>
-                  <TableHead className="text-right min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Estoque Atual</TableHead>
-                  <TableHead className="text-right min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Pedidos</TableHead>
-                  <TableHead className="text-right min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Giro Médio</TableHead>
-                  <TableHead className="text-right min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Cobertura</TableHead>
-                  <TableHead className="text-right min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Projetada</TableHead>
-                  <TableHead className="text-center min-w-[80px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Score</TableHead>
-                  <TableHead className="min-w-[100px] font-semibold" style={{ backgroundColor: 'hsl(var(--background))' }}>Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {produtosEstoque.map((produto, index) => (
-                  <TableRow key={index} className="border-border/50">
-                    <TableCell className="font-medium truncate max-w-[140px]">{produto.produto}</TableCell>
-                    <TableCell className="text-right">
-                      {formatValue(produto.estoqueAtual)}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <span className={produto.pedidosAbertos > 0 ? 'text-primary font-medium' : 'text-muted-foreground'}>
-                        {produto.pedidosAbertos > 0 ? formatValue(produto.pedidosAbertos) : '-'}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      {formatValue(produto.giroMedio)}/mês
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <span className={
-                        produto.cobertura > 6 ? 'text-danger' : 
-                        produto.cobertura > 3 ? 'text-warning' : 'text-success'
-                      }>
-                        {produto.cobertura.toFixed(1)}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <span className={`font-medium ${
-                        produto.coberturaProjetada > 6 ? 'text-danger' : 
-                        produto.coberturaProjetada > 3 ? 'text-warning' : 'text-success'
-                      }`}>
-                        {produto.coberturaProjetada.toFixed(1)}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-center">
-                      <span className={`font-bold ${
-                        produto.score >= 80 ? 'text-success' :
-                        produto.score >= 60 ? 'text-warning' : 'text-danger'
-                      }`}>
-                        {produto.score}
-                      </span>
-                    </TableCell>
-                    <TableCell>
-                      <StatusBadge 
-                        status={produto.status}
-                        label={
-                          produto.status === 'success' ? 'Saudável' :
-                          produto.status === 'warning' ? 'Atenção' : 'Detrator'
-                        }
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 };
