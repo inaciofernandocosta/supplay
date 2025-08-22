@@ -28,7 +28,6 @@ export const Navigation = ({ activeView, onViewChange }: NavigationProps) => {
     { id: 'liberacoes', label: 'Liberações', icon: CheckCircle2 },
     { id: 'metas', label: 'Gestão de Metas', icon: Users },
     { id: 'perfil', label: 'Meu Perfil', icon: UserCircle },
-    { id: 'agente', label: 'Agente IA', icon: MessageCircle },
   ];
 
   return (
