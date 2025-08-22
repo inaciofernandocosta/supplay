@@ -536,7 +536,7 @@ export const DashboardGeral = () => {
 
         <MetricCard
           title="Saldo Estoque + Pedidos Abertos"
-          value={`${(totalEstoqueMaisPedidos / 1000000).toFixed(1)}M`}
+          value={`${((totalMeta - totalEstoqueMaisPedidos) / 1000000).toFixed(1)}M`}
           subtitle={`${(((totalMeta - totalEstoqueMaisPedidos) / totalMeta) * 100).toFixed(1)}% restante`}
           icon={TrendingUp}
           status="success"
